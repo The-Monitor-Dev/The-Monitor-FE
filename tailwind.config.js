@@ -36,15 +36,13 @@ export default {
           700: "#0148D6",
           800: "#0041BF",
         },
-        secondary: {
-          error: "#EF4444",
-          attention: "#FEB241",
-          success: { 500: "#22C55E", 700: "#199145" },
-          surface: {
-            primary: "#F1F5F7",
-            disable: "#F1F1F1",
-            BG: "#E9F0FE",
-          },
+        error: "#EF4444",
+        attention: "#FEB241",
+        success: { 500: "#22C55E", 700: "#199145" },
+        surface: {
+          primary: "#F1F5F7",
+          disable: "#F1F1F1",
+          BG: "#E9F0FE",
         },
       },
       fontFamily: {
@@ -59,6 +57,15 @@ export default {
         md: ["16px", "150%"],
         sm: ["14px", "150%"],
         xs: ["12px", "150%"],
+      },
+      fontWeight: {
+        regular: "400",
+      },
+      borderWidth: {
+        1: "1px",
+      },
+      boxShadow: {
+        form: "2px 2px 20px 0px rgba(0, 49, 110, 0.15)",
       },
     },
   },

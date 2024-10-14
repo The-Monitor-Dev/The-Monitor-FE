@@ -1,5 +1,6 @@
 import { CheckboxBlankIcon } from "@assets/svg";
 import { Checkbox } from "@chakra-ui/react";
+import Button from "@components/Button";
 import { useState } from "react";
 
 const SignInPage = () => {
@@ -33,12 +34,9 @@ const SignInPage = () => {
                   className="w-[272px] rounded-[4px] bg-surface-primary px-4 placeholder:text-disable"
                   placeholder="이메일(E-mail) 주소를 입력해주세요."
                 />
-                <button
-                  type="button"
-                  className="flex-grow rounded-[4px] bg-surface-disable text-md font-semibold text-disable"
-                >
+                <Button type="button" className="flex-grow">
                   인증요청
-                </button>
+                </Button>
               </div>
               <div className="flex h-14 gap-2">
                 <input
@@ -46,12 +44,9 @@ const SignInPage = () => {
                   className="w-[272px] rounded-[4px] bg-surface-primary px-4 placeholder:text-disable"
                   placeholder="인증번호를 입력해주세요."
                 />
-                <button
-                  type="button"
-                  className="flex-grow rounded-[4px] bg-surface-disable text-md font-semibold text-disable"
-                >
+                <Button type="button" className="flex-grow">
                   확인
-                </button>
+                </Button>
               </div>
             </div>
             <div className="mt-11 flex flex-col gap-2">
@@ -82,13 +77,13 @@ const SignInPage = () => {
                 </span>
               </div>
             </div>
-            <button
+            <Button
               type="button"
               onClick={handleNext}
-              className="mt-6 w-full rounded-[4px] bg-surface-disable py-3 text-md font-semibold text-disable"
+              className="mt-7 w-full py-3"
             >
               다음
-            </button>
+            </Button>
             <div className="mt-2 flex w-full justify-center">
               <span className="text-xs font-regular">
                 도움이 필요하시면{" "}
@@ -170,12 +165,10 @@ const SignInPage = () => {
                 이용 약관 및 개인정보 수집에 동의합니다
               </span>
             </div>
-            <button
-              type="button"
-              className="mt-6 w-full rounded-[4px] bg-surface-disable py-3 text-md font-semibold text-disable"
-            >
-              제출
-            </button>
+
+            <Button type="button" className="mt-5 w-full py-3">
+              완료
+            </Button>
             <div className="mt-2 flex w-full justify-center">
               <span className="text-xs font-regular">
                 도움이 필요하시면{" "}

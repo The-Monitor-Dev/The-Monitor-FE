@@ -1,5 +1,6 @@
 import { CheckboxBlankIcon } from "@assets/svg";
 import { Checkbox } from "@chakra-ui/react";
+import Input from "@components/Input";
 import { useState } from "react";
 
 const SignInPage = () => {
@@ -27,11 +28,11 @@ const SignInPage = () => {
             </div>
             <div className="mt-9 flex flex-col gap-2">
               <label className="text-sm font-semibold text-title">이메일</label>
-              <div className="flex h-14 gap-2">
-                <input
+              <div className="flex gap-2">
+                <Input
                   type="email"
-                  className="w-[272px] rounded-[4px] bg-surface-primary px-4 placeholder:text-disable"
                   placeholder="이메일(E-mail) 주소를 입력해주세요."
+                  className="w-[272px]"
                 />
                 <button
                   type="button"
@@ -40,11 +41,11 @@ const SignInPage = () => {
                   인증요청
                 </button>
               </div>
-              <div className="flex h-14 gap-2">
-                <input
+              <div className="flex gap-2">
+                <Input
                   type="text"
-                  className="w-[272px] rounded-[4px] bg-surface-primary px-4 placeholder:text-disable"
                   placeholder="인증번호를 입력해주세요."
+                  className="w-[272px]"
                 />
                 <button
                   type="button"
@@ -58,11 +59,7 @@ const SignInPage = () => {
               <label className="text-sm font-semibold text-title">
                 비밀번호
               </label>
-              <input
-                type="password"
-                className="h-14 rounded-[4px] bg-surface-primary px-4 placeholder:text-disable"
-                placeholder="비밀번호를 입력해주세요."
-              />
+              <Input type="password" placeholder="비밀번호를 입력해주세요." />
             </div>
             <div className="mt-4 flex flex-col pl-[14px] text-xs font-semibold">
               <div className="flex items-center gap-[6px]">
@@ -122,29 +119,20 @@ const SignInPage = () => {
                 <label className="text-sm font-semibold text-title">
                   기업명
                 </label>
-                <input
-                  type="text"
-                  className="h-14 rounded-[4px] bg-surface-primary px-4 placeholder:text-disable"
-                  placeholder="기업명을 입력해주세요."
-                />
+                <Input type="text" placeholder="기업명을 입력해주세요." />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-title">
                   담당자명
                 </label>
-                <input
-                  type="text"
-                  className="h-14 rounded-[4px] bg-surface-primary px-4 placeholder:text-disable"
-                  placeholder="기업명을 입력해주세요."
-                />
+                <Input type="text" placeholder="담당자 성함을 입력해주세요." />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-semibold text-title">
                   담당자 전화번호 (선택)
                 </label>
-                <input
+                <Input
                   type="text"
-                  className="h-14 rounded-[4px] bg-surface-primary px-4 placeholder:text-disable"
                   placeholder="'-'를 제외하고 숫자만 입력해주세요."
                 />
               </div>
@@ -163,6 +151,10 @@ const SignInPage = () => {
                   "& .chakra-checkbox__control[data-checked]": {
                     bg: "#0050F0",
                     borderColor: "#0050F0",
+                    _hover: {
+                      bg: "#0050F0",
+                      borderColor: "#0050F0",
+                    },
                   },
                 }}
               />

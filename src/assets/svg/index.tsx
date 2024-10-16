@@ -6,3 +6,4 @@ export { default as CheckboxFillIcon } from "./checkboxFill.svg?react";
 export { default as CheckboxErrorIcon } from "./checkboxError.svg?react";
 export { default as ErrorIcon } from "./error.svg?react";
 export { default as SearchIcon } from "./search.svg?react";
+export { default as AddCircleFillIcon } from "./addCircleFill.svg?react";

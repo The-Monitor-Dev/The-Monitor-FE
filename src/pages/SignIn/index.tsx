@@ -25,7 +25,7 @@ const SignInPage: React.FC = () => {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="flex h-[580px] w-[500px] flex-col bg-white px-[70px] shadow-form">
-        <h2 className="mt-[62px] text-4xl font-semibold">로그인</h2>
+        <h2 className="mt-[62px] text-4xl font-semibold text-title">로그인</h2>
         <Link
           to={routes.signUp}
           className="text-base font-normal text-title underline"

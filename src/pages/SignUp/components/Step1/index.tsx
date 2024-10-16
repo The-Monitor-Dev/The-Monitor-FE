@@ -48,7 +48,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
   return (
     <div className="w-full px-[70px]">
       <div className="mt-[62px] flex items-center justify-between">
-        <h2 className="text-4xl font-semibold">계정 만들기</h2>
+        <h2 className="text-4xl font-semibold text-title">계정 만들기</h2>
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-primary-500" />
           <div className="h-3 w-3 rounded-full bg-neutral-300" />

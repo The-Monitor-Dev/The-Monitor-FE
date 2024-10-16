@@ -16,7 +16,7 @@ const Step2: React.FC<Step2Props> = ({ handleBack }) => {
   return (
     <div className="w-full px-[70px]">
       <div className="mt-[62px] flex items-center justify-between">
-        <h2 className="text-4xl font-semibold">정보 작성하기</h2>
+        <h2 className="text-4xl font-semibold text-title">정보 작성하기</h2>
         <div className="flex items-center gap-2">
           <button type="button" onClick={handleBack}>
             <div className="h-3 w-3 rounded-full bg-neutral-300" />

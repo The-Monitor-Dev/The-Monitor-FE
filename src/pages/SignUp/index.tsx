@@ -14,7 +14,7 @@ type SingUpFormData = {
 
 const SignUpPage: React.FC = () => {
   const [step, setStep] = useState(1);
-  const methods = useForm<SingUpFormData>();
+  const methods = useForm<SingUpFormData>({ mode: "onChange" });
 
   const handleNext = () => setStep(2);
   const handleBack = () => setStep(1);

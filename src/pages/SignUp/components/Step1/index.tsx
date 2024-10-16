@@ -1,6 +1,6 @@
 import Button from "@components/Button";
 import Input from "@components/Input";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import PasswordCondition from "./PasswordCondtion";
 
@@ -17,14 +17,6 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
   } = useFormContext();
 
   const [email, password] = watch(["email", "password"]);
-
-  const [isVerificationButtonEnabled, setIsVerificationButtonEnabled] =
-    useState(false);
-
-  useEffect(() => {
-    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    setIsVerificationButtonEnabled(isValidEmail);
-  }, [email]);
 
   const [passwordChecks, setPasswordChecks] = useState({
     length: false,
@@ -62,21 +54,22 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
             placeholder="이메일(E-mail) 주소를 입력해주세요."
             maxLength={24}
             className="w-[272px]"
-            {...register("email")}
+            {...register("email", {
+              required: true,
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "유효한 이메일 주소를 입력해주세요.",
+              },
+            })}
           />
           <Button
             type="button"
             className="flex-grow"
-            disabled={!isVerificationButtonEnabled}
+            disabled={!!errors.email || !email}
           >
             인증요청
           </Button>
         </div>
-        {errors.email && (
-          <span className="text-xs text-red-500">
-            {errors.email.message?.toString()}
-          </span>
-        )}
         <div className="flex gap-2">
           <Input
             type="text"

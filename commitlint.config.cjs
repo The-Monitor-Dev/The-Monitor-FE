@@ -16,6 +16,7 @@ module.exports = {
         "revert",
         "style",
         "test",
+        "asset", // Custom type
         "type", // Custom type
         "rename", // Custom type
         "remove", // Custom type

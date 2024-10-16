@@ -3,7 +3,11 @@ import { Checkbox } from "@chakra-ui/react";
 import Button from "@components/Button";
 import { useFormContext } from "react-hook-form";
 
-const Step2 = ({ handleBack }: { handleBack: () => void }) => {
+interface Step2Props {
+  handleBack: () => void;
+}
+
+const Step2: React.FC<Step2Props> = ({ handleBack }) => {
   const {
     register,
     formState: { errors, isValid },

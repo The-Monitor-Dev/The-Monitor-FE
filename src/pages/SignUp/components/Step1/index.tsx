@@ -4,7 +4,11 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import PasswordCondition from "./PasswordCondtion";
 
-const Step1 = ({ handleNext }: { handleNext: () => void }) => {
+interface Step1Props {
+  handleNext: () => void;
+}
+
+const Step1: React.FC<Step1Props> = ({ handleNext }) => {
   const {
     register,
     watch,
@@ -12,8 +16,7 @@ const Step1 = ({ handleNext }: { handleNext: () => void }) => {
     formState: { errors },
   } = useFormContext();
 
-  const email = watch("email");
-  const password = watch("password");
+  const [email, password] = watch(["email", "password"]);
 
   const [isVerificationButtonEnabled, setIsVerificationButtonEnabled] =
     useState(false);

@@ -6,7 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-function Button({ children, className, ...props }: ButtonProps) {
+const Button: React.FC<ButtonProps> = ({ children, className, ...props }) => {
   return (
     <button
       type="button"
@@ -19,6 +19,6 @@ function Button({ children, className, ...props }: ButtonProps) {
       {children}
     </button>
   );
-}
+};
 
 export default Button;

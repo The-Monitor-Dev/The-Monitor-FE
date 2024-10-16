@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
 
-type FormData = {
+type SingUpFormData = {
   email: string;
   password: string;
   companyName: string;
@@ -12,14 +12,14 @@ type FormData = {
   agreement: boolean;
 };
 
-const SignUpPage = () => {
+const SignUpPage: React.FC = () => {
   const [step, setStep] = useState(1);
-  const methods = useForm<FormData>();
+  const methods = useForm<SingUpFormData>();
 
   const handleNext = () => setStep(2);
   const handleBack = () => setStep(1);
 
-  const onSubmit = (data: FormData) => {
+  const handleSubmit: SubmitHandler<SingUpFormData> = (data) => {
     console.log(data);
   };
 
@@ -28,7 +28,7 @@ const SignUpPage = () => {
       <div className="flex h-[660px] w-[500px] flex-col overflow-hidden bg-white shadow-form">
         <FormProvider {...methods}>
           <form
-            onSubmit={methods.handleSubmit(onSubmit)}
+            onSubmit={methods.handleSubmit(handleSubmit)}
             className="relative w-full"
           >
             <div

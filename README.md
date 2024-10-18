@@ -13,11 +13,9 @@ src/
   ├── main.tsx
   ├── App.tsx
   ├── TYPES/
-  ├── APP/
-  │   └── api/
+  ├── API/
   ├── CONSTANTS/
   ├── UTILS/
-  ├── LIB/
   ├── STYLES/
   ├── COMPONENTS/
   ├── HOOKS/

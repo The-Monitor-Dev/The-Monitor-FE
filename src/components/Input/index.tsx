@@ -19,8 +19,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       isInvalid
         ? "outline outline-1 outline-red-500"
         : "focus:outline-primary-500",
-      type === "password" ? "pr-14" : "",
     );
+
+    const hideEdgePasswordIcon = `
+        input::-ms-reveal {
+          display: none;
+        }
+      `;
 
     const renderPasswordToggleIcon = () =>
       showPassword ? (
@@ -37,6 +42,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div className={twMerge("relative", className)}>
+        <style>{hideEdgePasswordIcon}</style>
         <input
           ref={ref}
           type={

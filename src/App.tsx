@@ -19,7 +19,7 @@ function App() {
       <ChakraProvider>
         <div className="flex flex-col font-pretendard">
           <Header />
-          <div className="h-[calc(100vh-68px)] min-h-[862px] bg-base-bg">
+          <div className="h-[calc(100vh-68px)] min-h-[794px] bg-base-bg">
             <Outlet />
           </div>
         </div>

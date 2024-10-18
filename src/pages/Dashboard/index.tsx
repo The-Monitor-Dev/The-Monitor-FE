@@ -1,12 +1,47 @@
 import { DefaultImage } from "@assets/images";
 import {
   AddCircleFillIcon,
+  DeleteIcon,
+  EditSquareIcon,
   MoreHorizIcon,
   PersonIcon,
   SearchIcon,
 } from "@assets/svg";
+import { useEffect, useRef, useState } from "react";
 
 const DashboardPage: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  const handleMenuToggle = () => {
+    setIsActive((prev) => !prev);
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  const handleMenuClose = () => {
+    setIsMenuOpen(false);
+    setIsActive(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        handleMenuClose();
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="mt-[63px] flex w-[1048px] justify-between">
@@ -40,7 +75,7 @@ const DashboardPage: React.FC = () => {
           </div>
         </div>
         <div
-          className="flex h-full w-[92px] cursor-default items-center border-l-[0.5px] border-neutral-200 px-7 group-hover:bg-neutral-100"
+          className="relative flex h-full w-[92px] cursor-default items-center border-l-[0.5px] border-neutral-200 px-7 group-hover:bg-neutral-100"
           onMouseEnter={(e) =>
             e.currentTarget.parentElement?.classList.remove("group")
           }
@@ -50,10 +85,38 @@ const DashboardPage: React.FC = () => {
         >
           <button
             type="button"
-            className="rounded-[2.25px] p-[6px] hover:bg-neutral-100"
+            className={`rounded-[2.25px] p-[6px] ${isActive ? "bg-neutral-100" : "hover:bg-neutral-100"}`}
+            onClick={handleMenuToggle}
           >
             <MoreHorizIcon />
           </button>
+
+          {isMenuOpen && (
+            <div
+              ref={menuRef}
+              className="absolute left-7 top-[76px] rounded border border-neutral-200 bg-white"
+            >
+              <button
+                className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
+                onClick={() => {
+                  handleMenuClose();
+                }}
+              >
+                수정하기
+                <EditSquareIcon className="ml-2" />
+              </button>
+              <div className="border-t border-neutral-200" />
+              <button
+                className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
+                onClick={() => {
+                  handleMenuClose();
+                }}
+              >
+                삭제하기
+                <DeleteIcon className="ml-2" />
+              </button>
+            </div>
+          )}
         </div>
       </button>
     </div>

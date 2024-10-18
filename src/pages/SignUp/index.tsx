@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
-import usePostSignUp from "@app/api/hooks/accounts/usePostSignUp";
+import usePostSignUp from "@api/hooks/accounts/usePostSignUp";
 
 type SingUpFormData = {
   email: string;

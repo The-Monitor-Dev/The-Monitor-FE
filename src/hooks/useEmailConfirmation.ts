@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useToast } from "@chakra-ui/react";
-import usePostSendEmailConfirm from "@app/api/hooks/accounts/usePostSendEmailConfirm";
+import usePostSendEmailConfirm from "@api/hooks/accounts/usePostSendEmailConfirm";
 
 const useEmailConfirmation = (email: string) => {
   const [isEmailSent, setIsEmailSent] = useState(false);

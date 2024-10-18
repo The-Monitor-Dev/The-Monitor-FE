@@ -1,4 +1,4 @@
-import { postVerifyCode, PostVerifyCodeData } from "@app/api/accountsAPI";
+import { postVerifyCode, PostVerifyCodeData } from "@api/accountsAPI";
 import { useMutation } from "@tanstack/react-query";
 
 const usePostVerifyCode = () => {

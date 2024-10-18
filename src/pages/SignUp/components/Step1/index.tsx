@@ -3,7 +3,7 @@ import Input from "@components/Input";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import PasswordCondition from "./PasswordCondition";
-import usePostVerifyCode from "@app/api/hooks/accounts/usePostVerifyCode";
+import usePostVerifyCode from "@api/hooks/accounts/usePostVerifyCode";
 import usePasswordValidation from "@hooks/useCheckPasswordValidation";
 import useEmailConfirmation from "@hooks/useEmailConfirmation";
 import formatTime from "@utils/formatTime";

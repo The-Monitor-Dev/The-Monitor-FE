@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
+import usePostSignUp from "@app/api/hooks/accounts/usePostSignUp";
 
 type SingUpFormData = {
   email: string;
+  verifyCode: string;
   password: string;
   companyName: string;
   managerName: string;
@@ -19,8 +21,18 @@ const SignUpPage: React.FC = () => {
   const handleNext = () => setStep(2);
   const handleBack = () => setStep(1);
 
+  const { mutate } = usePostSignUp();
+
   const handleSubmit: SubmitHandler<SingUpFormData> = (data) => {
-    console.log(data);
+    const signUpData = {
+      email: data.email,
+      password: data.password,
+      companyName: data.companyName,
+      managerName: data.managerName,
+      managerPhone: data.managerPhone,
+      agreement: data.agreement,
+    };
+    mutate(signUpData);
   };
 
   return (

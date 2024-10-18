@@ -1,3 +1,4 @@
+import usePostSignIn from "@app/api/hooks/accounts/usePostSignIn";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import routes from "@constants/routes";
@@ -16,11 +17,12 @@ const SignInPage: React.FC = () => {
     watch,
     formState: { errors },
   } = useForm<SignInFormData>();
+  const { mutate } = usePostSignIn();
 
   const [email, password] = watch(["email", "password"]);
 
   const onSubmit: SubmitHandler<SignInFormData> = (data) => {
-    console.log(data);
+    mutate(data);
   };
   return (
     <div className="flex h-full items-center justify-center">
@@ -94,7 +96,7 @@ const SignInPage: React.FC = () => {
         </form>
         <Link
           to={routes.password}
-          className="mt-3 w-full text-center text-xs font-regular text-body1"
+          className="mt-3 w-full text-center text-sm font-regular text-body1"
         >
           비밀번호 찾기
         </Link>

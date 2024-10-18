@@ -10,8 +10,7 @@
     "paths": {
       "@pages/*": ["pages/*"],
       "@types/*": ["types/*"],
-      "@app/*": ["app/*"],
-      "@api/*": ["app/api/*"],
+      "@api/*": ["api/*"],
       "@constants/*": ["constants/*"],
       "@utils/*": ["utils/*"],
       "@lib/*": ["lib/*"],

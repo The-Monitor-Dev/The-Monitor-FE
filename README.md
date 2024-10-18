@@ -13,11 +13,9 @@ src/
   ├── main.tsx
   ├── App.tsx
   ├── TYPES/
-  ├── APP/
-  │   └── api/
+  ├── API/
   ├── CONSTANTS/
   ├── UTILS/
-  ├── LIB/
   ├── STYLES/
   ├── COMPONENTS/
   ├── HOOKS/
@@ -47,6 +45,7 @@ src/
 | refactor  | 코드 리팩토링                                                             |
 | revert    | 이전 커밋 되돌리기                                                        |
 | style     | 스타일 코드 변경                                                          |
+| asset     | svg, 이미지 등 디자인 파일 추가                                           |
 | test      | 테스트 코드, 리팩토링 테스트 코드 추가                                    |
 | type      | 타입 수정                                                                 |
 | rename    | 파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우                       |
@@ -90,8 +89,8 @@ const Welcome: React.FC<WelcomeProps> = ({ name }) => {
 - 딕셔너리, 배열 등의 복수의 데이터를 담는 자료구조에 대한 변수명 s 붙이기 `ex) heights`
 - 로딩이나 모달창 등의 보여짐 여부에 대한 boolean state의 경우 is 붙이기 `ex) isModalOpen, isLoading`
 - 데이터 접근 함수의 경우 get으로 시작하기 `ex) getUserData`
-- 컴포넌트 내부에서 동작하는 함수는 handle 붙이기 `ex) handleClick, handleModalOpen`
-- prop으로 받아서 동작하는 함수는 on 붙이기 `ex) onClick, onClose`
+- 이벤트를 감지하는 함수는 on으로 시작하며, 이 함수는 주로 이벤트 발생 시점에 호출됩니다 ex) onClick, onClose
+- 이벤트 처리 로직을 담는 함수는 handle로 시작하며, 주로 on 함수 내에서 호출됩니다 ex) handleClick, handleModalOpen
 
 | 함수명 | 동사구 ex) getUserData |
 | ------ | ---------------------- |

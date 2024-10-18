@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
+import usePostSignUp from "@api/hooks/accounts/usePostSignUp";
 
-type FormData = {
+type SingUpFormData = {
   email: string;
+  verificationCode: string;
   password: string;
   companyName: string;
   managerName: string;
@@ -12,15 +14,25 @@ type FormData = {
   agreement: boolean;
 };
 
-const SignUpPage = () => {
+const SignUpPage: React.FC = () => {
   const [step, setStep] = useState(1);
-  const methods = useForm<FormData>();
+  const methods = useForm<SingUpFormData>({ mode: "onChange" });
 
   const handleNext = () => setStep(2);
   const handleBack = () => setStep(1);
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const { mutate } = usePostSignUp();
+
+  const handleSubmit: SubmitHandler<SingUpFormData> = (data) => {
+    const signUpData = {
+      email: data.email,
+      password: data.password,
+      companyName: data.companyName,
+      managerName: data.managerName,
+      managerPhone: data.managerPhone,
+      agreement: data.agreement,
+    };
+    mutate(signUpData);
   };
 
   return (
@@ -28,7 +40,7 @@ const SignUpPage = () => {
       <div className="flex h-[660px] w-[500px] flex-col overflow-hidden bg-white shadow-form">
         <FormProvider {...methods}>
           <form
-            onSubmit={methods.handleSubmit(onSubmit)}
+            onSubmit={methods.handleSubmit(handleSubmit)}
             className="relative w-full"
           >
             <div

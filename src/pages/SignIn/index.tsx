@@ -91,7 +91,7 @@ const SignInPage: React.FC = () => {
             disabled={!(email && password)}
             className="mt-[60px] w-full py-3"
           >
-            다음
+            로그인
           </Button>
         </form>
         <Link

@@ -130,7 +130,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
             placeholder="인증번호를 입력해주세요."
             className="w-[272px]"
             {...register("verificationCode")}
-          ></Input>
+          />
           <Button
             type="button"
             onClick={handleVerifyCode}

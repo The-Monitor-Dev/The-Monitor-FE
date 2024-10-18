@@ -36,7 +36,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
 
   const handleVerifyCode = () => {
     verifyCode(
-      { email, verifyCode: verificationCode },
+      { email, verificationCode },
       {
         onSuccess: () => {
           setIsVerificationSuccess(true);

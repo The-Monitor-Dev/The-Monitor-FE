@@ -10,7 +10,7 @@ export const postSendEmailConfirm = async (data: PostSendEmailConfirmData) => {
 
 export interface PostVerifyCodeData {
   email: string;
-  verifyCode: string;
+  verificationCode: string;
 }
 
 export const postVerifyCode = async (data: PostVerifyCodeData) => {

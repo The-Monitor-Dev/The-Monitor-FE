@@ -6,7 +6,7 @@ import usePostSignUp from "@app/api/hooks/accounts/usePostSignUp";
 
 type SingUpFormData = {
   email: string;
-  verifyCode: string;
+  verificationCode: string;
   password: string;
   companyName: string;
   managerName: string;

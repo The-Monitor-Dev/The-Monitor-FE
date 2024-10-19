@@ -5,3 +5,5 @@ export { default as CheckboxBlankIcon } from "./checkboxBlank.svg?react";
 export { default as CheckboxFillIcon } from "./checkboxFill.svg?react";
 export { default as CheckboxErrorIcon } from "./checkboxError.svg?react";
 export { default as ErrorIcon } from "./error.svg?react";
+export { default as LoadingIcon } from "./loading.svg?react";
+export { default as CloseIcon } from "./close.svg?react";

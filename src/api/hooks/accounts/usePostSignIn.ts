@@ -1,4 +1,5 @@
-import { postSignIn, PostSignInData } from "@api/accountsAPI";
+import { postSignIn } from "@api/accountsAPI";
+import { PostSignInData } from "@api/types/accounts";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 

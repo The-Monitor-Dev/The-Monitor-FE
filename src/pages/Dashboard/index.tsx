@@ -8,11 +8,13 @@ import {
   SearchIcon,
 } from "@assets/svg";
 import { useEffect, useRef, useState } from "react";
+import DeleteModal from "./components/DeleteModal";
 
 const DashboardPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleMenuToggle = () => {
     setIsActive((prev) => !prev);
@@ -42,6 +44,14 @@ const DashboardPage: React.FC = () => {
     };
   }, [isMenuOpen]);
 
+  const handleDeleteModalOpen = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteModalClose = () => {
+    setIsDeleteModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="mt-[63px] flex w-[1048px] justify-between">
@@ -52,7 +62,10 @@ const DashboardPage: React.FC = () => {
           />
           <SearchIcon className="mx-[10px]" />
         </div>
-        <button className="flex h-10 items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-BG p-2 pl-3 text-md font-semibold text-primary-700">
+        <button
+          type="button"
+          className="flex h-10 items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-BG p-2 pl-3 text-md font-semibold text-primary-700"
+        >
           고객사 추가하기
           <AddCircleFillIcon className="fill-primary-500" />
         </button>
@@ -97,6 +110,7 @@ const DashboardPage: React.FC = () => {
               className="absolute left-7 top-[76px] rounded border border-neutral-200 bg-white"
             >
               <button
+                type="button"
                 className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
                 onClick={() => {
                   handleMenuClose();
@@ -107,8 +121,10 @@ const DashboardPage: React.FC = () => {
               </button>
               <div className="border-t border-neutral-200" />
               <button
+                type="button"
                 className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
                 onClick={() => {
+                  handleDeleteModalOpen();
                   handleMenuClose();
                 }}
               >
@@ -119,6 +135,7 @@ const DashboardPage: React.FC = () => {
           )}
         </div>
       </button>
+      {isDeleteModalOpen && <DeleteModal onClose={handleDeleteModalClose} />}
     </div>
   );
 };

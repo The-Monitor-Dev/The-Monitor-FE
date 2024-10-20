@@ -6,9 +6,6 @@ const usePostSendPasswordChangeEmail = () => {
   return useMutation({
     mutationFn: (data: PostSendPasswordChangeEmailData) =>
       postSendPasswordChangeEmail(data),
-    onSuccess: (res) => {
-      console.log(res);
-    },
   });
 };
 

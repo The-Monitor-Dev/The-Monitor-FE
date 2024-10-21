@@ -1,7 +1,5 @@
-import {
-  postSendEmailConfirm,
-  PostSendEmailConfirmData,
-} from "@api/accountsAPI";
+import { postSendEmailConfirm } from "@api/accountsAPI";
+import { PostSendEmailConfirmData } from "@api/types/accounts";
 import { useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 

@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const style =
-  "h-14 rounded-[4px] bg-surface-primary w-full px-4 text-md font-regular placeholder:text-disable focus:outline focus:outline-1";
+  "h-14 rounded bg-surface-primary w-full px-4 text-md font-regular placeholder:text-disable focus:outline focus:outline-1";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, isInvalid, ...props }, ref) => {

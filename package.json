@@ -53,5 +53,10 @@
   "lint-staged": {
     "*.js": "eslint --fix",
     "*.{js,jsx,ts,tsx,css,md}": "prettier --write"
+  },
+  "prettier": {
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
   }
 }

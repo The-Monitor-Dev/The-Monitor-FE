@@ -52,7 +52,7 @@ const SignInPage: React.FC = () => {
                 })}
               />
               {errors.email && (
-                <p className="absolute -bottom-5 left-4 text-xs font-regular text-error">
+                <p className="absolute -bottom-5 left-4 text-xs font-regular text-error-500">
                   {errors.email?.message?.toString()}
                 </p>
               )}
@@ -80,7 +80,7 @@ const SignInPage: React.FC = () => {
                 })}
               />
               {errors.password && (
-                <p className="absolute -bottom-5 left-4 text-xs font-regular text-error">
+                <p className="absolute -bottom-5 left-4 text-xs font-regular text-error-500">
                   {errors.password?.message?.toString()}
                 </p>
               )}

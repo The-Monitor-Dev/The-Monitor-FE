@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({ children, className, ...props }) => {
     <button
       type="button"
       className={twMerge(
-        "rounded-[4px] bg-primary-500 text-md font-semibold text-white hover:bg-primary-700 disabled:bg-surface-disable disabled:text-disable",
+        "rounded bg-primary-500 text-md font-semibold text-white hover:bg-primary-700 disabled:bg-surface-disable disabled:text-disable",
         className,
       )}
       {...props}

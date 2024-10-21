@@ -8,7 +8,7 @@ const useEmailConfirmation = (email: string) => {
     useState(false);
   const [remainedSeconds, setRemainedSeconds] = useState(0);
   const toast = useToast();
-  const { mutate: sendEmailConfirm } = usePostSendEmailConfirm();
+  const { mutate: sendEmailConfirm, isPending } = usePostSendEmailConfirm();
 
   const handleSendEmailConfirm = () => {
     if (isEmailConfirmButtonDisabled) {
@@ -18,29 +18,31 @@ const useEmailConfirmation = (email: string) => {
       });
       return;
     }
+    setIsEmailSent(false);
 
     sendEmailConfirm(
       { email },
       {
-        onSuccess: () => setIsEmailSent(true),
+        onSuccess: () => {
+          setIsEmailSent(true);
+          setIsEmailConfirmButtonDisabled(true);
+          setRemainedSeconds(10);
+          const countdown = setInterval(() => {
+            setRemainedSeconds((prev) => {
+              if (prev === 1) {
+                clearInterval(countdown);
+                setIsEmailConfirmButtonDisabled(false);
+              }
+              return prev - 1;
+            });
+          }, 1000);
+        },
       },
     );
-
-    setIsEmailConfirmButtonDisabled(true);
-    setRemainedSeconds(10);
-
-    const countdown = setInterval(() => {
-      setRemainedSeconds((prev) => {
-        if (prev === 1) {
-          clearInterval(countdown);
-          setIsEmailConfirmButtonDisabled(false);
-        }
-        return prev - 1;
-      });
-    }, 1000);
   };
 
   return {
+    isPending,
     isEmailSent,
     isEmailConfirmButtonDisabled,
     handleSendEmailConfirm,

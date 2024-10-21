@@ -1,4 +1,5 @@
-import { postSignUp, PostSignUpData } from "@api/accountsAPI";
+import { postSignUp } from "@api/accountsAPI";
+import { PostSignUpData } from "@api/types/accounts";
 import { useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";

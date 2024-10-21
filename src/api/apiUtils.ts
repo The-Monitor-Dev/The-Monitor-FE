@@ -1,5 +1,5 @@
 import axiosInstance from "./axiosInstance";
-import { ApiResponse } from "./types";
+import { ApiResponse } from "./types/response";
 
 export const apiGet = async <T>(
   url: string,

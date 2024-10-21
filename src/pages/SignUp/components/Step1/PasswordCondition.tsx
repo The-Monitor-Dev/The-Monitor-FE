@@ -27,7 +27,7 @@ const PasswordCondition: React.FC<PasswordConditionProps> = ({
         <CheckboxBlankIcon />
       )}
       <span
-        className={`${password ? (conditionMet ? "text-success-700" : "text-error") : "text-body3"}`}
+        className={`${password ? (conditionMet ? "text-success-700" : "text-error-500") : "text-body3"}`}
       >
         {conditionText}
       </span>

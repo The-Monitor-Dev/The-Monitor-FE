@@ -7,6 +7,7 @@ import usePostVerifyCode from "@api/hooks/accounts/usePostVerifyCode";
 import usePasswordValidation from "@hooks/useCheckPasswordValidation";
 import useEmailConfirmation from "@hooks/useEmailConfirmation";
 import formatTime from "@utils/formatTime";
+import { LoadingIcon } from "@assets/svg";
 
 interface Step1Props {
   handleNext: () => void;
@@ -28,7 +29,12 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
     "password",
   ]);
 
-  const { isEmailSent, handleSendEmailConfirm } = useEmailConfirmation(email);
+  const {
+    isPending,
+    isEmailSent,
+    isEmailConfirmButtonDisabled,
+    handleSendEmailConfirm,
+  } = useEmailConfirmation(email);
   const [timer, setTimer] = useState(180);
   const [isTimerActive, setIsTimerActive] = useState(false);
 
@@ -79,8 +85,10 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
 
   const handleSendEmailWithTimer = () => {
     handleSendEmailConfirm();
-    setIsTimerActive(true);
-    setTimer(180);
+    if (!isEmailConfirmButtonDisabled) {
+      setIsTimerActive(true);
+      setTimer(180);
+    }
   };
   return (
     <div className="w-full px-[70px]">
@@ -115,18 +123,26 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
           />
           <Button
             type="button"
-            className="flex-grow"
+            className="flex flex-grow items-center justify-center"
             onClick={handleSendEmailWithTimer}
             disabled={
-              !!errors.email || !email || (isEmailSent && isVerificationSuccess)
+              isPending ||
+              !!errors.email ||
+              !email ||
+              (isEmailSent && isVerificationSuccess)
             }
           >
-            인증요청
+            {isPending ? (
+              <LoadingIcon className="h-6 w-6 animate-spin" />
+            ) : (
+              "인증요청"
+            )}
           </Button>
         </div>
         <div className="relative flex gap-2">
           <Input
             type="text"
+            disabled={!isEmailSent}
             placeholder="인증번호를 입력해주세요."
             className="w-[272px]"
             {...register("verificationCode")}
@@ -135,7 +151,9 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
             type="button"
             onClick={handleVerifyCode}
             disabled={
-              !verificationCode || (isEmailSent && isVerificationSuccess)
+              !isEmailSent ||
+              !verificationCode ||
+              (isEmailSent && isVerificationSuccess)
             }
             className="flex-grow"
           >
@@ -198,6 +216,15 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
       >
         다음
       </Button>
+      <div className="mt-3 flex w-full justify-center">
+        <span className="text-xs font-regular">
+          도움이 필요하시면{" "}
+          <a href="mailto:tyalejahsl@naver.com" className="text-primary-500">
+            tyalejahsl@naver.com
+          </a>
+          로 문의주세요
+        </span>
+      </div>
     </div>
   );
 };

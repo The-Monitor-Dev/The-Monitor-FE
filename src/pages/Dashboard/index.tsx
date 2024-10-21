@@ -64,7 +64,7 @@ const DashboardPage: React.FC = () => {
         </div>
         <button
           type="button"
-          className="flex h-10 items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-BG p-2 pl-3 text-md font-semibold text-primary-700"
+          className="bg-surface-secondary flex h-10 items-center gap-1 rounded border-[0.5px] border-primary-200 p-2 pl-3 text-md font-semibold text-primary-700"
         >
           고객사 추가하기
           <AddCircleFillIcon className="fill-primary-500" />

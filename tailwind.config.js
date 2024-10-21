@@ -65,6 +65,7 @@ export default {
       },
       boxShadow: {
         form: "2px 2px 20px 0px rgba(0, 49, 110, 0.15)",
+        main: "0px 0px 8px 0px rgba(0, 49, 110, 0.15)",
       },
     },
   },

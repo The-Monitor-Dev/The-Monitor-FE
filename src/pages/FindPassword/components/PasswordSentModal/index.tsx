@@ -14,7 +14,7 @@ const PasswordSentModal: React.FC<PasswordSentModalProps> = ({ onClose }) => {
       <div className="relative flex h-[318px] w-[460px] flex-col items-center rounded bg-white">
         <CloseIcon
           onClick={onClose}
-          className="absolute right-7 top-7 cursor-pointer"
+          className="absolute right-7 top-7 cursor-pointer fill-black"
         />
         <CheckboxFillIcon className="mt-10 h-[52px] w-[52px]" />
         <span className="mt-5 text-2xl font-semibold text-title">

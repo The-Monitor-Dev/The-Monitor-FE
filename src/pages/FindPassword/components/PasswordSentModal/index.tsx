@@ -13,6 +13,7 @@ const PasswordSentModal: React.FC<PasswordSentModalProps> = ({ onClose }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 text-center">
       <div className="relative flex h-[318px] w-[460px] flex-col items-center rounded bg-white">
         <CloseIcon
+          type="button"
           onClick={onClose}
           className="absolute right-7 top-7 cursor-pointer fill-black"
         />

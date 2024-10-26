@@ -12,18 +12,15 @@ import DeleteModal from "./components/DeleteModal";
 
 const DashboardPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleMenuToggle = () => {
-    setIsActive((prev) => !prev);
     setIsMenuOpen((prev) => !prev);
   };
 
   const handleMenuClose = () => {
     setIsMenuOpen(false);
-    setIsActive(false);
   };
 
   useEffect(() => {
@@ -98,7 +95,7 @@ const DashboardPage: React.FC = () => {
         >
           <button
             type="button"
-            className={`rounded-[2.25px] p-[6px] ${isActive ? "bg-neutral-100" : "hover:bg-neutral-100"}`}
+            className={`rounded-[2.25px] p-[6px] ${isMenuOpen ? "bg-neutral-100" : "hover:bg-neutral-100"}`}
             onClick={handleMenuToggle}
           >
             <MoreHorizIcon />

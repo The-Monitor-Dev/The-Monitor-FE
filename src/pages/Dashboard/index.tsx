@@ -61,17 +61,17 @@ const DashboardPage: React.FC = () => {
         </div>
         <button
           type="button"
-          className="bg-surface-secondary flex h-10 items-center gap-1 rounded border-[0.5px] border-primary-200 p-2 pl-3 text-md font-semibold text-primary-700"
+          className="flex h-10 items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"
         >
           고객사 추가하기
           <AddCircleFillIcon className="fill-primary-500" />
         </button>
       </div>
-      <button
-        type="button"
-        className="group mt-4 flex h-[108px] w-[1048px] items-center rounded bg-white shadow-main"
-      >
-        <div className="flex w-full group-hover:bg-neutral-100">
+      <div className="group mt-4 flex h-[108px] w-[1048px] items-center rounded bg-white shadow-main">
+        <button
+          type="button"
+          className="flex w-full group-hover:bg-neutral-100"
+        >
           <img src={DefaultImage} className="m-4 w-24 rounded" />
           <div className="flex w-full flex-col gap-1 py-5 pl-4 pr-5">
             <h2 className="text-left text-2xl font-semibold text-title">
@@ -83,7 +83,7 @@ const DashboardPage: React.FC = () => {
               <p className="text-md font-semibold text-body1">이현수</p>
             </div>
           </div>
-        </div>
+        </button>
         <div
           className="relative flex h-full w-[92px] cursor-default items-center border-l-[0.5px] border-neutral-200 px-7 group-hover:bg-neutral-100"
           onMouseEnter={(e) =>
@@ -131,7 +131,7 @@ const DashboardPage: React.FC = () => {
             </div>
           )}
         </div>
-      </button>
+      </div>
       {isDeleteModalOpen && <DeleteModal onClose={handleDeleteModalClose} />}
     </div>
   );

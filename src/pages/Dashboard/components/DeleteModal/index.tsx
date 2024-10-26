@@ -33,14 +33,14 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ onClose }) => {
         <div className="mt-6 flex justify-center gap-3">
           <button
             type="button"
-            className="bg-error-500 w-[111px] rounded py-2 text-white"
+            className="w-[111px] rounded bg-error-500 py-2 text-white"
             onClick={handleModalClose}
           >
             삭제하기
           </button>
           <button
             type="button"
-            className="border-error-500 text-error-500 w-[111px] rounded border py-2"
+            className="w-[111px] rounded border border-error-500 py-2 text-error-500"
             onClick={handleModalClose}
           >
             취소하기

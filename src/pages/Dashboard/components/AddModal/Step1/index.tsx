@@ -48,7 +48,7 @@ const Step1 = () => {
         </div>
 
         {uploadImg ? (
-          <div className="relative h-[76px] w-24 overflow-hidden rounded shadow-lg">
+          <div className="relative h-[76px] w-24 overflow-hidden rounded">
             <img
               src={uploadImg}
               alt="uploadImg"

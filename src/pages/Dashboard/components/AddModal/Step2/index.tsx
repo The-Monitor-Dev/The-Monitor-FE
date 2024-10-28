@@ -7,12 +7,11 @@ interface Step2Props {
 
 const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
   const [selectedButton, setSelectedButton] = useState<string>("자사");
-
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchKeywords, setSearchKeywords] = useState<string[]>([]);
-
   const [excludeKeyword, setExcludeKeyword] = useState<string>("");
   const [excludeKeywords, setExcludeKeywords] = useState<string[]>([]);
+  const [duplicationError, setDuplicationError] = useState<boolean>(false);
 
   const handleButtonClick = (buttonName: string) => {
     setSelectedButton(buttonName);
@@ -26,18 +25,35 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
   };
 
   const handleDeleteSearchKeyword = (keywordToDelete: string) => {
-    setSearchKeywords((prev) => prev.filter((kw) => kw !== keywordToDelete));
+    setSearchKeywords((prev) =>
+      prev.filter((keyword) => keyword !== keywordToDelete),
+    );
   };
 
   const handleExcludeKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && excludeKeyword.trim()) {
-      setExcludeKeywords((prev) => [...prev, excludeKeyword.trim()]);
-      setExcludeKeyword("");
+      if (searchKeywords.includes(excludeKeyword.trim())) {
+        setDuplicationError(true);
+      } else {
+        setExcludeKeywords((prev) => [...prev, excludeKeyword.trim()]);
+        setExcludeKeyword("");
+        setDuplicationError(false);
+      }
     }
   };
 
   const handleDeleteExcludeKeyword = (keywordToDelete: string) => {
-    setExcludeKeywords((prev) => prev.filter((kw) => kw !== keywordToDelete));
+    setExcludeKeywords((prev) =>
+      prev.filter((keyword) => keyword !== keywordToDelete),
+    );
+  };
+
+  const handleExcludeInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setExcludeKeyword(e.target.value);
+
+    if (e.target.value === "") {
+      setDuplicationError(false);
+    }
   };
 
   useEffect(() => {
@@ -125,11 +141,16 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
             <input
               placeholder="제외할 키워드를 입력해주세요..."
               value={excludeKeyword}
-              onChange={(e) => setExcludeKeyword(e.target.value)}
+              onChange={handleExcludeInputChange}
               onKeyPress={handleExcludeKeyPress}
               maxLength={20}
               className="border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
             />
+            {duplicationError && (
+              <p className="mt-1 text-xs font-regular text-error-500">
+                *검색 키워드와 제외 키워드는 중복 입력될 수 없습니다.
+              </p>
+            )}
             {excludeKeywords.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-2">
                 {excludeKeywords.map((excludeKeyword, index) => (

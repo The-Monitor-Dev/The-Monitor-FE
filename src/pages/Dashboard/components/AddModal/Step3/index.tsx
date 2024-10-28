@@ -8,34 +8,57 @@ interface Step3Props {
 const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
   const [recipientKeyword, setRecipientKeyword] = useState<string>("");
   const [recipientKeywords, setRecipientKeywords] = useState<string[]>([]);
+  const [isRecipientEmailValid, setIsRecipientEmailValid] =
+    useState<boolean>(true);
 
   const [referenceKeyword, setReferenceKeyword] = useState<string>("");
   const [referenceKeywords, setReferenceKeywords] = useState<string[]>([]);
+  const [isReferenceEmailValid, setIsReferenceEmailValid] =
+    useState<boolean>(true);
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+  };
 
   const handleRecipientKeyPress = (
     e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
-    if (e.key === "Enter" && recipientKeyword.trim()) {
-      setRecipientKeywords((prev) => [...prev, recipientKeyword.trim()]);
-      setRecipientKeyword("");
+    if (e.key === "Enter") {
+      if (validateEmail(recipientKeyword)) {
+        setRecipientKeywords((prev) => [...prev, recipientKeyword.trim()]);
+        setRecipientKeyword("");
+        setIsRecipientEmailValid(true);
+      } else {
+        setIsRecipientEmailValid(false);
+      }
     }
   };
 
   const handleReferenceKeyPress = (
     e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
-    if (e.key === "Enter" && referenceKeyword.trim()) {
-      setReferenceKeywords((prev) => [...prev, referenceKeyword.trim()]);
-      setReferenceKeyword("");
+    if (e.key === "Enter") {
+      if (validateEmail(referenceKeyword)) {
+        setReferenceKeywords((prev) => [...prev, referenceKeyword.trim()]);
+        setReferenceKeyword("");
+        setIsReferenceEmailValid(true);
+      } else {
+        setIsReferenceEmailValid(false);
+      }
     }
   };
 
   const handleDeleteRecipientKeyword = (keywordToDelete: string) => {
-    setRecipientKeywords((prev) => prev.filter((kw) => kw !== keywordToDelete));
+    setRecipientKeywords((prev) =>
+      prev.filter((keyword) => keyword !== keywordToDelete),
+    );
   };
 
   const handleDeleteReferenceKeyword = (keywordToDelete: string) => {
-    setReferenceKeywords((prev) => prev.filter((kw) => kw !== keywordToDelete));
+    setReferenceKeywords((prev) =>
+      prev.filter((keyword) => keyword !== keywordToDelete),
+    );
   };
 
   useEffect(() => {
@@ -45,6 +68,20 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
       onFormComplete(false);
     }
   }, [recipientKeywords, onFormComplete]);
+
+  const handleRecipientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRecipientKeyword(e.target.value);
+    if (isRecipientEmailValid === false && e.target.value === "") {
+      setIsRecipientEmailValid(true);
+    }
+  };
+
+  const handleReferenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReferenceKeyword(e.target.value);
+    if (isReferenceEmailValid === false && e.target.value === "") {
+      setIsReferenceEmailValid(true);
+    }
+  };
 
   return (
     <>
@@ -74,11 +111,16 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
             <input
               placeholder="메일을 입력해주세요."
               value={recipientKeyword}
-              onChange={(e) => setRecipientKeyword(e.target.value)}
+              onChange={handleRecipientChange}
               onKeyPress={handleRecipientKeyPress}
-              className="mb-2 mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
+              className="mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
             />
-            <div className="flex flex-wrap gap-2">
+            {!isRecipientEmailValid && (
+              <p className="mt-1 text-xs font-regular text-error-500">
+                *잘못된 이메일 형식입니다.
+              </p>
+            )}
+            <div className="mt-2 flex flex-wrap gap-2">
               {recipientKeywords.map((keyword, index) => (
                 <div
                   key={index}
@@ -105,11 +147,16 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
             <input
               placeholder="메일을 입력해주세요."
               value={referenceKeyword}
-              onChange={(e) => setReferenceKeyword(e.target.value)}
+              onChange={handleReferenceChange}
               onKeyPress={handleReferenceKeyPress}
-              className="mb-2 mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
+              className="mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
             />
-            <div className="flex flex-wrap gap-2">
+            {!isReferenceEmailValid && (
+              <p className="mt-1 text-xs font-regular text-error-500">
+                *잘못된 이메일 형식입니다.
+              </p>
+            )}
+            <div className="mt-2 flex flex-wrap gap-2">
               {referenceKeywords.map((keyword, index) => (
                 <div
                   key={index}

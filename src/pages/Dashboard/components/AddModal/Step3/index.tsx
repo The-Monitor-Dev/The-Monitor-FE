@@ -1,7 +1,11 @@
 import { AttentionIcon, CloseIcon } from "@assets/svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Step3 = () => {
+interface Step3Props {
+  onFormComplete: (isComplete: boolean) => void;
+}
+
+const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
   const [recipientKeyword, setRecipientKeyword] = useState<string>("");
   const [recipientKeywords, setRecipientKeywords] = useState<string[]>([]);
 
@@ -33,6 +37,14 @@ const Step3 = () => {
   const handleDeleteReferenceKeyword = (keywordToDelete: string) => {
     setReferenceKeywords((prev) => prev.filter((kw) => kw !== keywordToDelete));
   };
+
+  useEffect(() => {
+    if (recipientKeywords.length > 0) {
+      onFormComplete(true);
+    } else {
+      onFormComplete(false);
+    }
+  }, [recipientKeywords, onFormComplete]);
 
   return (
     <>
@@ -67,17 +79,17 @@ const Step3 = () => {
               className="mb-2 mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
             />
             <div className="flex flex-wrap gap-2">
-              {recipientKeywords.map((kw, index) => (
+              {recipientKeywords.map((keyword, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary py-1 pl-3 pr-2 text-primary-500"
                 >
                   <span className="text-sm font-semibold text-primary-700">
-                    {kw}
+                    {keyword}
                   </span>
                   <CloseIcon
                     className="h-5 w-5 fill-primary-500"
-                    onClick={() => handleDeleteRecipientKeyword(kw)}
+                    onClick={() => handleDeleteRecipientKeyword(keyword)}
                   />
                 </div>
               ))}
@@ -98,17 +110,17 @@ const Step3 = () => {
               className="mb-2 mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
             />
             <div className="flex flex-wrap gap-2">
-              {referenceKeywords.map((kw, index) => (
+              {referenceKeywords.map((keyword, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary py-1 pl-3 pr-2 text-primary-500"
                 >
                   <span className="text-sm font-semibold text-primary-700">
-                    {kw}
+                    {keyword}
                   </span>
                   <CloseIcon
                     className="h-5 w-5 fill-primary-500"
-                    onClick={() => handleDeleteReferenceKeyword(kw)}
+                    onClick={() => handleDeleteReferenceKeyword(keyword)}
                   />
                 </div>
               ))}

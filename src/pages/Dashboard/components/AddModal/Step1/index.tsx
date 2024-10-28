@@ -1,9 +1,15 @@
 import { AddCircleThinIcon, AttentionIcon, CloseIcon } from "@assets/svg";
 import Input from "@components/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Step1 = () => {
+interface Step1Props {
+  onFormComplete: (isComplete: boolean) => void;
+}
+
+const Step1: React.FC<Step1Props> = ({ onFormComplete }) => {
   const [uploadImg, setuploadImg] = useState<string | null>(null);
+  const [companyName, setCompanyName] = useState<string>("");
+  const [personInCharge, setPersonInCharge] = useState<string>("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -21,6 +27,12 @@ const Step1 = () => {
     document.getElementById("fileInput")?.click();
   };
 
+  useEffect(() => {
+    const isComplete =
+      companyName.trim() !== "" && personInCharge.trim() !== "";
+    onFormComplete(isComplete);
+  }, [companyName, personInCharge, onFormComplete]);
+
   return (
     <>
       <div>
@@ -33,11 +45,16 @@ const Step1 = () => {
       </p>
       <div className="mx-1">
         <label className="text-md font-semibold text-title">회사명</label>
-        <Input className="mb-7 mt-2" placeholder="사명을 입력해주세요." />
+        <Input
+          className="mb-7 mt-2"
+          placeholder="사명을 입력해주세요."
+          onChange={(e) => setCompanyName(e.target.value)}
+        />
         <label className="mb-2 text-md font-semibold text-title">담당자</label>
         <Input
           className="mb-7 mt-2"
           placeholder="담당자 또는 팀명을 입력해주세요."
+          onChange={(e) => setPersonInCharge(e.target.value)}
         />
         <div className="mb-4 flex items-center">
           <label className="mr-2 text-md font-semibold text-title">로고</label>

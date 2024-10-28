@@ -1,7 +1,11 @@
 import { AttentionIcon, CloseIcon } from "@assets/svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Step2 = () => {
+interface Step2Props {
+  onFormComplete: (isComplete: boolean) => void;
+}
+
+const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
   const [selectedButton, setSelectedButton] = useState<string>("자사");
 
   const [searchKeyword, setSearchKeyword] = useState<string>("");
@@ -35,6 +39,14 @@ const Step2 = () => {
   const handleDeleteExcludeKeyword = (keywordToDelete: string) => {
     setExcludeKeywords((prev) => prev.filter((kw) => kw !== keywordToDelete));
   };
+
+  useEffect(() => {
+    if (selectedButton && searchKeywords.length > 0) {
+      onFormComplete(true);
+    } else {
+      onFormComplete(false);
+    }
+  }, [selectedButton, searchKeywords, onFormComplete]);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { ArrowBeforeThick, CloseIcon } from "@assets/svg";
 import Button from "@components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -12,14 +12,16 @@ interface AddModalProps {
 
 const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
   const [step, setStep] = useState(1);
+  const [isComplete, setIsComplete] = useState(false);
 
   const handleModalClose = () => {
     onClose();
   };
 
   const handleNextStep = () => {
-    if (step < 4) {
+    if (step < 3) {
       setStep(step + 1);
+      setIsComplete(false);
     }
   };
 
@@ -28,6 +30,14 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
       setStep(step - 1);
     }
   };
+
+  const handleCompletion = (isComplete: boolean) => {
+    setIsComplete(isComplete);
+  };
+
+  useEffect(() => {
+    setIsComplete(false);
+  }, [step]);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
@@ -60,24 +70,24 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
           />
         </div>
 
-        {step === 1 && <Step1 />}
-        {step === 2 && <Step2 />}
-        {step === 3 && <Step3 />}
-        {step === 4 && <Step4 />}
+        {step === 1 && <Step1 onFormComplete={handleCompletion} />}
+        {step === 2 && <Step2 onFormComplete={handleCompletion} />}
+        {step === 3 && <Step3 onFormComplete={handleCompletion} />}
 
         <div className="absolute bottom-[38px] flex-col justify-end">
           <Button
             type="button"
             className="mx-[60px] w-[360px] py-3"
+            disabled={!isComplete}
             onClick={() => {
-              if (step === 4) {
+              if (step === 3) {
                 handleModalClose();
               } else {
                 handleNextStep();
               }
             }}
           >
-            {step === 4 ? "완료" : "다음"}
+            {step === 3 ? "완료" : "다음"}
           </Button>
 
           <span className="mx-[86px] text-xs font-regular">

@@ -42,6 +42,24 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
           className="absolute right-[22px] top-[22px] cursor-pointer fill-black"
           onClick={handleModalClose}
         />
+        <div className="absolute right-[50px] top-[95px] flex items-center gap-2">
+          <div
+            className={`h-3 w-3 rounded-full ${
+              step === 1 ? "bg-primary-500" : "bg-neutral-300"
+            }`}
+          />
+          <div
+            className={`h-3 w-3 rounded-full ${
+              step === 2 ? "bg-primary-500" : "bg-neutral-300"
+            }`}
+          />
+          <div
+            className={`h-3 w-3 rounded-full ${
+              step === 3 ? "bg-primary-500" : "bg-neutral-300"
+            }`}
+          />
+        </div>
+
         {step === 1 && <Step1 />}
         {step === 2 && <Step2 />}
         {step === 3 && <Step3 />}

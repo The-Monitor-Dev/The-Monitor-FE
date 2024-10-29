@@ -3,11 +3,7 @@ import { Checkbox } from "@chakra-ui/react";
 import Button from "@components/Button";
 import { useFormContext } from "react-hook-form";
 
-interface Step2Props {
-  handleBack: () => void;
-}
-
-const Step2: React.FC<Step2Props> = ({ handleBack }) => {
+const Step2: React.FC = () => {
   const {
     register,
     formState: { errors, isValid },
@@ -18,9 +14,7 @@ const Step2: React.FC<Step2Props> = ({ handleBack }) => {
       <div className="mt-[62px] flex items-center justify-between">
         <h2 className="text-4xl font-semibold text-title">정보 작성하기</h2>
         <div className="flex items-center gap-2">
-          <button type="button" onClick={handleBack}>
-            <div className="h-3 w-3 rounded-full bg-neutral-300" />
-          </button>
+          <div className="h-3 w-3 rounded-full bg-neutral-300" />
           <div className="h-3 w-3 rounded-full bg-primary-500" />
         </div>
       </div>
@@ -85,7 +79,12 @@ const Step2: React.FC<Step2Props> = ({ handleBack }) => {
           이용 약관 및 개인정보 수집에 동의합니다
         </span>
       </div>
-      <Button type="submit" disabled={!isValid} className="mt-5 w-full py-3">
+      <Button
+        type="submit"
+        style="filled"
+        disabled={!isValid}
+        className="mt-5 w-full py-3"
+      >
         완료
       </Button>
       <div className="mt-3 flex w-full justify-center">

@@ -1,5 +1,6 @@
 import { CheckboxFillIcon, CloseIcon } from "@assets/svg";
 import Button from "@components/Button";
+import routes from "@constants/routes";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +28,8 @@ const PasswordSentModal: React.FC<PasswordSentModalProps> = ({ onClose }) => {
           로그인 페이지로 바로 이동됩니다.
         </p>
         <Button
-          onClick={() => navigate("/sign-in")}
+          style="filled"
+          onClick={() => navigate(routes.signIn)}
           className="mt-[29px] h-11 w-[111px]"
         >
           확인

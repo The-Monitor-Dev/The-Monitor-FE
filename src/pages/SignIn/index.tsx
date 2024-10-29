@@ -88,6 +88,7 @@ const SignInPage: React.FC = () => {
           </div>
           <Button
             type="submit"
+            style="filled"
             disabled={!(email && password)}
             className="mt-[60px] w-full py-3"
           >

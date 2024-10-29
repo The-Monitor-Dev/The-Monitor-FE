@@ -78,6 +78,7 @@ const FindPasswordPage: React.FC = () => {
             </div>
             <Button
               type="submit"
+              style="filled"
               disabled={!email || isPending}
               className="mt-11 flex w-full justify-center py-3 text-md font-semibold text-white"
             >

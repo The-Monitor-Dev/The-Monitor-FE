@@ -96,13 +96,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
         <h2 className="text-4xl font-semibold text-title">계정 만들기</h2>
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 rounded-full bg-primary-500" />
-          <button
-            type="button"
-            disabled={isNextStepButtonDisabled}
-            onClick={handleNext}
-          >
-            <div className="h-3 w-3 rounded-full bg-neutral-300" />
-          </button>
+          <div className="h-3 w-3 rounded-full bg-neutral-300" />
         </div>
       </div>
       <div className="mt-9 flex flex-col gap-2">
@@ -123,6 +117,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
           />
           <Button
             type="button"
+            style="filled"
             className="flex flex-grow items-center justify-center"
             onClick={handleSendEmailWithTimer}
             disabled={
@@ -149,6 +144,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
           />
           <Button
             type="button"
+            style="filled"
             onClick={handleVerifyCode}
             disabled={
               !isEmailSent ||
@@ -210,6 +206,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
       </div>
       <Button
         type="button"
+        style="filled"
         disabled={isNextStepButtonDisabled}
         onClick={handleNext}
         className="mt-7 w-full py-3"

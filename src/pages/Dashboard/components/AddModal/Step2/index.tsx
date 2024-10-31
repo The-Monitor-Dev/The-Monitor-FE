@@ -11,7 +11,12 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
   const [searchKeywords, setSearchKeywords] = useState<string[]>([]);
   const [excludeKeyword, setExcludeKeyword] = useState<string>("");
   const [excludeKeywords, setExcludeKeywords] = useState<string[]>([]);
-  const [duplicationError, setDuplicationError] = useState<boolean>(false);
+  const [searchDuplicationError, setSearchDuplicationError] =
+    useState<boolean>(false);
+  const [excludeDuplicationError, setExcludeDuplicationError] =
+    useState<boolean>(false);
+  const [duplicationErrorMessage, setDuplicationErrorMessage] =
+    useState<string>("");
 
   const handleButtonClick = (buttonName: string) => {
     setSelectedButton(buttonName);
@@ -19,8 +24,22 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
 
   const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchKeyword.trim()) {
-      setSearchKeywords((prev) => [...prev, searchKeyword.trim()]);
-      setSearchKeyword("");
+      const keyword = searchKeyword.trim();
+
+      if (searchKeywords.includes(keyword)) {
+        setSearchDuplicationError(true);
+        setDuplicationErrorMessage("*이미 추가된 키워드입니다.");
+      } else if (excludeKeywords.includes(keyword)) {
+        setSearchDuplicationError(true);
+        setDuplicationErrorMessage(
+          "*검색 키워드와 제외 키워드는 중복 입력될 수 없습니다.",
+        );
+      } else {
+        setSearchKeywords((prev) => [...prev, keyword]);
+        setSearchKeyword("");
+        setSearchDuplicationError(false);
+        setDuplicationErrorMessage("");
+      }
     }
   };
 
@@ -32,12 +51,21 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
 
   const handleExcludeKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && excludeKeyword.trim()) {
-      if (searchKeywords.includes(excludeKeyword.trim())) {
-        setDuplicationError(true);
+      const keyword = excludeKeyword.trim();
+
+      if (excludeKeywords.includes(keyword)) {
+        setExcludeDuplicationError(true);
+        setDuplicationErrorMessage("*이미 추가된 키워드입니다.");
+      } else if (searchKeywords.includes(keyword)) {
+        setExcludeDuplicationError(true);
+        setDuplicationErrorMessage(
+          "*검색 키워드와 제외 키워드는 중복 입력될 수 없습니다.",
+        );
       } else {
-        setExcludeKeywords((prev) => [...prev, excludeKeyword.trim()]);
+        setExcludeKeywords((prev) => [...prev, keyword]);
         setExcludeKeyword("");
-        setDuplicationError(false);
+        setExcludeDuplicationError(false);
+        setDuplicationErrorMessage("");
       }
     }
   };
@@ -52,7 +80,17 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
     setExcludeKeyword(e.target.value);
 
     if (e.target.value === "") {
-      setDuplicationError(false);
+      setExcludeDuplicationError(false);
+      setDuplicationErrorMessage("");
+    }
+  };
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchKeyword(e.target.value);
+
+    if (e.target.value === "") {
+      setSearchDuplicationError(false);
+      setDuplicationErrorMessage("");
     }
   };
 
@@ -107,11 +145,16 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
             <input
               placeholder="검색할 키워드를 입력해주세요..."
               value={searchKeyword}
-              onChange={(e) => setSearchKeyword(e.target.value)}
+              onChange={handleSearchInputChange}
               onKeyPress={handleSearchKeyPress}
               maxLength={20}
               className="border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
             />
+            {searchDuplicationError && (
+              <p className="mt-1 text-xs font-regular text-error-500">
+                {duplicationErrorMessage}
+              </p>
+            )}
             {searchKeywords.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-2">
                 {searchKeywords.map((keyword, index) => (
@@ -146,9 +189,9 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
               maxLength={20}
               className="border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
             />
-            {duplicationError && (
+            {excludeDuplicationError && (
               <p className="mt-1 text-xs font-regular text-error-500">
-                *검색 키워드와 제외 키워드는 중복 입력될 수 없습니다.
+                {duplicationErrorMessage}
               </p>
             )}
             {excludeKeywords.length > 0 && (

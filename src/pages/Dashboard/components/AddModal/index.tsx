@@ -76,6 +76,7 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
         <div className="absolute bottom-[38px] flex-col justify-end">
           <Button
             type="button"
+            style="filled"
             className="mx-[60px] w-[360px] py-3"
             disabled={!isComplete}
             onClick={() => {

@@ -4,6 +4,9 @@ const routes = Object.freeze({
   signUp: "/sign-up",
   password: "/password",
   dashboard: "/dashboard",
+  monitoring: "/monitoring",
+  report: "/report",
+  setting: "/setting",
 });
 
 export default routes;

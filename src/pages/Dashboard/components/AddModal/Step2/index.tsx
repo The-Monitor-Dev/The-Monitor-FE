@@ -156,7 +156,7 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
               </p>
             )}
             {searchKeywords.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-2">
+              <div className="mt-3 flex flex-wrap gap-2">
                 {searchKeywords.map((keyword, index) => (
                   <div
                     key={index}
@@ -195,7 +195,7 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
               </p>
             )}
             {excludeKeywords.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-2">
+              <div className="mt-3 flex flex-wrap gap-2">
                 {excludeKeywords.map((excludeKeyword, index) => (
                   <div
                     key={index}

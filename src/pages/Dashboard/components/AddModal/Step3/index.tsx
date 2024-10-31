@@ -120,7 +120,7 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
                 *잘못된 이메일 형식입니다.
               </p>
             )}
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-wrap gap-2">
               {recipientKeywords.map((keyword, index) => (
                 <div
                   key={index}
@@ -156,7 +156,7 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
                 *잘못된 이메일 형식입니다.
               </p>
             )}
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-wrap gap-2">
               {referenceKeywords.map((keyword, index) => (
                 <div
                   key={index}

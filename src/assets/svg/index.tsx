@@ -13,3 +13,5 @@ export { default as PersonIcon } from "./person.svg?react";
 export { default as MoreHorizIcon } from "./moreHoriz.svg?react";
 export { default as EditSquareIcon } from "./editSquare.svg?react";
 export { default as DeleteIcon } from "./delete.svg?react";
+export { default as NewsIcon } from "./news.svg?react";
+export { default as AnalyzeIcon } from "./analyze.svg?react";

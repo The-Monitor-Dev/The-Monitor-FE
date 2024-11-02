@@ -11,7 +11,7 @@ interface PasswordSentModalProps {
 const PasswordSentModal: React.FC<PasswordSentModalProps> = ({ onClose }) => {
   const navigate = useNavigate();
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 text-center">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65 text-center">
       <div className="relative flex h-[318px] w-[460px] flex-col items-center rounded bg-white">
         <CloseIcon
           type="button"

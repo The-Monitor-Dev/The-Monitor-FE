@@ -1,11 +1,12 @@
 import { AttentionIcon, CloseIcon } from "@assets/svg";
+import Button from "@components/Button";
 import { useEffect, useState } from "react";
 
 interface Step3Props {
-  onFormComplete: (isComplete: boolean) => void;
+  onClose: () => void;
 }
 
-const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
+const Step3: React.FC<Step3Props> = ({ onClose }) => {
   const [recipientKeyword, setRecipientKeyword] = useState<string>("");
   const [recipientKeywords, setRecipientKeywords] = useState<string[]>([]);
   const [isRecipientEmailValid, setIsRecipientEmailValid] =
@@ -15,6 +16,7 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
   const [referenceKeywords, setReferenceKeywords] = useState<string[]>([]);
   const [isReferenceEmailValid, setIsReferenceEmailValid] =
     useState<boolean>(true);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,11 +65,11 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
 
   useEffect(() => {
     if (recipientKeywords.length > 0) {
-      onFormComplete(true);
+      setIsComplete(true);
     } else {
-      onFormComplete(false);
+      setIsComplete(false);
     }
-  }, [recipientKeywords, onFormComplete]);
+  }, [recipientKeywords]);
 
   const handleRecipientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRecipientKeyword(e.target.value);
@@ -84,11 +86,16 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
   };
 
   return (
-    <>
-      <div>
+    <div className="px-[50px]">
+      <div className="flex justify-between">
         <h2 className="mb-2 text-4xl font-semibold text-title">
           메일 설정하기
         </h2>
+        <div className="flex items-center gap-2">
+          <div className="h-3 w-3 rounded-full bg-neutral-300" />
+          <div className="h-3 w-3 rounded-full bg-neutral-300" />
+          <div className="h-3 w-3 rounded-full bg-primary-500" />
+        </div>
       </div>
       <p className="mb-9 text-md font-regular text-title">
         데일리모니터링을 위한 키워드를 설정해주세요
@@ -175,7 +182,16 @@ const Step3: React.FC<Step3Props> = ({ onFormComplete }) => {
           </div>
         </div>
       </div>
-    </>
+      <Button
+        type="button"
+        style="filled"
+        className="absolute bottom-16 mx-[60px] w-[360px] py-3"
+        onClick={onClose}
+        disabled={!isComplete}
+      >
+        완료
+      </Button>
+    </div>
   );
 };
 

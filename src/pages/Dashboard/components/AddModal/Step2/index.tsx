@@ -1,11 +1,12 @@
 import { AttentionIcon, CloseIcon } from "@assets/svg";
+import Button from "@components/Button";
 import { useEffect, useState } from "react";
 
 interface Step2Props {
-  onFormComplete: (isComplete: boolean) => void;
+  handleNext: () => void;
 }
 
-const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
+const Step2: React.FC<Step2Props> = ({ handleNext }) => {
   const [selectedButton, setSelectedButton] = useState<string>("자사");
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchKeywords, setSearchKeywords] = useState<string[]>([]);
@@ -17,6 +18,7 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
     useState<boolean>(false);
   const [duplicationErrorMessage, setDuplicationErrorMessage] =
     useState<string>("");
+  const [isComplete, setIsComplete] = useState<boolean>(false);
 
   const handleButtonClick = (buttonName: string) => {
     setSelectedButton(buttonName);
@@ -96,18 +98,23 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
 
   useEffect(() => {
     if (selectedButton && searchKeywords.length > 0) {
-      onFormComplete(true);
+      setIsComplete(true);
     } else {
-      onFormComplete(false);
+      setIsComplete(false);
     }
-  }, [selectedButton, searchKeywords, onFormComplete]);
+  }, [selectedButton, searchKeywords]);
 
   return (
-    <>
-      <div>
+    <div className="px-[50px]">
+      <div className="flex justify-between">
         <h2 className="mb-2 text-4xl font-semibold text-title">
           키워드 설정하기
         </h2>
+        <div className="flex items-center gap-2">
+          <div className="h-3 w-3 rounded-full bg-neutral-300" />
+          <div className="h-3 w-3 rounded-full bg-primary-500" />
+          <div className="h-3 w-3 rounded-full bg-neutral-300" />
+        </div>
       </div>
       <p className="mb-9 text-md font-regular text-title">
         데일리모니터링을 위한 키워드를 설정해주세요
@@ -215,7 +222,16 @@ const Step2: React.FC<Step2Props> = ({ onFormComplete }) => {
           </div>
         </div>
       </div>
-    </>
+      <Button
+        type="button"
+        style="filled"
+        className="absolute bottom-16 mx-[60px] w-[360px] py-3"
+        onClick={handleNext}
+        disabled={!isComplete}
+      >
+        다음
+      </Button>
+    </div>
   );
 };
 

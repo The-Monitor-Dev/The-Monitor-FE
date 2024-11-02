@@ -1,15 +1,17 @@
 import { AddCircleThinIcon, AttentionIcon, CloseIcon } from "@assets/svg";
+import Button from "@components/Button";
 import Input from "@components/Input";
 import { useEffect, useState } from "react";
 
 interface Step1Props {
-  onFormComplete: (isComplete: boolean) => void;
+  handleNext: () => void;
 }
 
-const Step1: React.FC<Step1Props> = ({ onFormComplete }) => {
+const Step1: React.FC<Step1Props> = ({ handleNext }) => {
   const [uploadImg, setuploadImg] = useState<string | null>(null);
   const [companyName, setCompanyName] = useState<string>("");
   const [personInCharge, setPersonInCharge] = useState<string>("");
+  const [isComplete, setIsComplete] = useState<boolean>(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -28,17 +30,20 @@ const Step1: React.FC<Step1Props> = ({ onFormComplete }) => {
   };
 
   useEffect(() => {
-    const isComplete =
-      companyName.trim() !== "" && personInCharge.trim() !== "";
-    onFormComplete(isComplete);
-  }, [companyName, personInCharge, onFormComplete]);
+    setIsComplete(companyName.trim() !== "" && personInCharge.trim() !== "");
+  }, [companyName, personInCharge]);
 
   return (
-    <>
-      <div>
+    <div className="h-full px-[50px]">
+      <div className="flex justify-between">
         <h2 className="mb-2 text-4xl font-semibold text-title">
           고객사 정보 추가하기
         </h2>
+        <div className="flex items-center gap-2">
+          <div className="h-3 w-3 rounded-full bg-primary-500" />
+          <div className="h-3 w-3 rounded-full bg-neutral-300" />
+          <div className="h-3 w-3 rounded-full bg-neutral-300" />
+        </div>
       </div>
       <p className="mb-12 text-md font-regular text-title">
         새로운 고객사의 정보를 입력해주세요.
@@ -97,7 +102,16 @@ const Step1: React.FC<Step1Props> = ({ onFormComplete }) => {
           onChange={handleImageChange}
         />
       </div>
-    </>
+      <Button
+        type="button"
+        style="filled"
+        className="absolute bottom-16 mx-[60px] w-[360px] py-3"
+        onClick={handleNext}
+        disabled={!isComplete}
+      >
+        다음
+      </Button>
+    </div>
   );
 };
 

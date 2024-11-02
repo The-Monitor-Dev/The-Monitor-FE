@@ -43,14 +43,14 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
 
         <div className="relative h-[627px] w-full overflow-hidden">
           <div
-            className={`absolute h-full w-full transition-transform duration-500 ${
+            className={`absolute h-full w-full transition-transform duration-300 ${
               step === 1 ? "translate-x-0" : "-translate-x-full"
             }`}
           >
             <Step1 handleNext={handleNextStep} />
           </div>
           <div
-            className={`absolute h-full w-full transition-transform duration-500 ${
+            className={`absolute h-full w-full transition-transform duration-300 ${
               step === 2
                 ? "translate-x-0"
                 : step < 2
@@ -61,7 +61,7 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
             <Step2 handleNext={handleNextStep} />
           </div>
           <div
-            className={`absolute h-full w-full transition-transform duration-500 ${
+            className={`absolute h-full w-full transition-transform duration-300 ${
               step === 3
                 ? "translate-x-0"
                 : step < 3

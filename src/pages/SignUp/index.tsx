@@ -44,14 +44,14 @@ const SignUpPage: React.FC = () => {
             className="relative w-full"
           >
             <div
-              className={`absolute w-full transition-transform duration-500 ${
+              className={`absolute w-full transition-transform duration-300 ${
                 step === 1 ? "translate-x-0" : "-translate-x-full"
               }`}
             >
               <Step1 handleNext={handleNext} />
             </div>
             <div
-              className={`absolute w-full transition-transform duration-500 ${
+              className={`absolute w-full transition-transform duration-300 ${
                 step === 2 ? "translate-x-0" : "translate-x-full"
               }`}
             >

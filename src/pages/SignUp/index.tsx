@@ -19,7 +19,6 @@ const SignUpPage: React.FC = () => {
   const methods = useForm<SingUpFormData>({ mode: "onChange" });
 
   const handleNext = () => setStep(2);
-  const handleBack = () => setStep(1);
 
   const { mutate } = usePostSignUp();
 
@@ -55,7 +54,7 @@ const SignUpPage: React.FC = () => {
                 step === 2 ? "translate-x-0" : "translate-x-full"
               }`}
             >
-              <Step2 handleBack={handleBack} />
+              <Step2 />
             </div>
           </form>
         </FormProvider>

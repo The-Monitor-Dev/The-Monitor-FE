@@ -1,7 +1,7 @@
 import { AddCircleThinIcon, AttentionIcon, CloseIcon } from "@assets/svg";
 import { useState } from "react";
 
-const Step4 = () => {
+const EditModal = () => {
   const [uploadImg, setuploadImg] = useState<string | null>(null);
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -83,4 +83,4 @@ const Step4 = () => {
   );
 };
 
-export default Step4;
+export default EditModal;

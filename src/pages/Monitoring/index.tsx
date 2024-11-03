@@ -208,5 +208,4 @@ const MonitoringPage: React.FC = () => {
     </div>
   );
 };
-
 export default MonitoringPage;

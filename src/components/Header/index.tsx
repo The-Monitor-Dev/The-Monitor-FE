@@ -1,4 +1,4 @@
-import { LogoIcon } from "@assets/svg";
+import { ArrowDownIcon, LogoIcon, ProfileIcon } from "@assets/svg";
 import Button from "@components/Button";
 import routes from "@constants/routes";
 import React from "react";
@@ -41,6 +41,13 @@ const Header: React.FC = () => {
           >
             회원가입
           </Button>
+        </div>
+      )}
+      {!isPathInPaths && (
+        <div className="flex items-center rounded bg-surface-primary p-1">
+          <ProfileIcon className="mr-2" />
+          <div className="font-semibold text-body1">name</div>
+          <ArrowDownIcon className="fill-neutral-700" />
         </div>
       )}
     </header>

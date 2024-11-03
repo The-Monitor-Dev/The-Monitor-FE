@@ -30,7 +30,7 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
       <div className="relative h-[707px] w-[580px] bg-white pt-20">
-        {step !== 1 && step !== 4 && (
+        {step !== 1 && (
           <ArrowBeforeThick
             className="absolute left-[24px] top-[20px] m-1 cursor-pointer"
             onClick={handlePreviousStep}

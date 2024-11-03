@@ -98,7 +98,7 @@ const Step3: React.FC<Step3Props> = ({ onClose }) => {
         </div>
       </div>
       <p className="mb-9 text-md font-regular text-title">
-        데일리모니터링을 위한 키워드를 설정해주세요
+        모니터링 보고서를 받는사람의 메일을 저장해보세요.
       </p>
       <div className="h-[369px] bg-neutral-50 px-4 pb-6 pt-5">
         <div className="mb-7 flex w-full items-center gap-1 bg-surface-primary px-5 py-4">

@@ -8,7 +8,7 @@ interface Step1Props {
 }
 
 const Step1: React.FC<Step1Props> = ({ handleNext }) => {
-  const [uploadImg, setuploadImg] = useState<string | null>(null);
+  const [uploadingImg, setUploadingImg] = useState<string | null>(null);
   const [companyName, setCompanyName] = useState<string>("");
   const [personInCharge, setPersonInCharge] = useState<string>("");
   const [isComplete, setIsComplete] = useState<boolean>(false);
@@ -17,12 +17,12 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
     const file = e.target.files?.[0];
     if (file) {
       const uploadImg = URL.createObjectURL(file);
-      setuploadImg(uploadImg);
+      setUploadingImg(uploadingImg);
     }
   };
 
   const handleDeleteImage = () => {
-    setuploadImg(null);
+    setUploadingImg(null);
   };
 
   const handleAddImage = () => {
@@ -69,10 +69,10 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
           </p>
         </div>
 
-        {uploadImg ? (
+        {uploadingImg ? (
           <div className="relative h-[76px] w-24 overflow-hidden rounded">
             <img
-              src={uploadImg}
+              src={uploadingImg}
               alt="uploadImg"
               className="h-full w-full object-contain"
             />

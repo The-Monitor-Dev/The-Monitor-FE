@@ -9,11 +9,13 @@ import {
 } from "@assets/svg";
 import { useEffect, useRef, useState } from "react";
 import DeleteModal from "./components/DeleteModal";
+import AddModal from "./components/AddModal";
 
 const DashboardPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
 
   const handleMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
@@ -49,6 +51,14 @@ const DashboardPage: React.FC = () => {
     setIsDeleteModalOpen(false);
   };
 
+  const handleAddModalOpen = () => {
+    setAddModalOpen(true);
+  };
+
+  const handleAddModalClose = () => {
+    setAddModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="mt-[63px] flex w-[1048px] justify-between">
@@ -62,6 +72,7 @@ const DashboardPage: React.FC = () => {
         <button
           type="button"
           className="flex h-10 items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"
+          onClick={handleAddModalOpen}
         >
           고객사 추가하기
           <AddCircleFillIcon className="fill-primary-500" />
@@ -133,6 +144,7 @@ const DashboardPage: React.FC = () => {
         </div>
       </div>
       {isDeleteModalOpen && <DeleteModal onClose={handleDeleteModalClose} />}
+      {addModalOpen && <AddModal onClose={handleAddModalClose} />}
     </div>
   );
 };

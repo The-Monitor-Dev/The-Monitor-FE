@@ -13,5 +13,8 @@ export { default as PersonIcon } from "./person.svg?react";
 export { default as MoreHorizIcon } from "./moreHoriz.svg?react";
 export { default as EditSquareIcon } from "./editSquare.svg?react";
 export { default as DeleteIcon } from "./delete.svg?react";
+export { default as AttentionIcon } from "./attention.svg?react";
+export { default as AddCircleThinIcon } from "./addCircleThin.svg?react";
+export { default as ArrowBeforeThick } from "./arrowBeforeThick.svg?react";
 export { default as NewsIcon } from "./news.svg?react";
 export { default as AnalyzeIcon } from "./analyze.svg?react";

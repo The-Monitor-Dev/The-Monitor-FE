@@ -37,7 +37,6 @@ function App() {
           <div className="flex h-[calc(100vh-68px)] min-h-[794px] bg-base-bg">
             {!isPathInPaths && <SideMenu />}
             <div className="flex-grow">
-              <SideMenu />
               <Outlet />
             </div>
           </div>

@@ -16,7 +16,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const uploadImg = URL.createObjectURL(file);
+      const uploadingImg = URL.createObjectURL(file);
       setUploadingImg(uploadingImg);
     }
   };

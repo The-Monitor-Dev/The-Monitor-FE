@@ -90,8 +90,11 @@ const Step2: React.FC = () => {
       <div className="mt-3 flex w-full justify-center">
         <span className="text-xs font-regular">
           도움이 필요하시면{" "}
-          <a href="mailto:tyalejahsl@naver.com" className="text-primary-500">
-            tyalejahsl@naver.com
+          <a
+            href="mailto:themonitor2024@gmail.com"
+            className="text-primary-500"
+          >
+            themonitor2024@gmail.com
           </a>
           로 문의주세요
         </span>

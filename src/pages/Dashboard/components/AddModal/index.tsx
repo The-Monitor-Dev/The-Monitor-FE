@@ -72,8 +72,6 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
             <Step3 onClose={onClose} />
           </div>
         </div>
-
-        <div className="absolute bottom-[38px] flex-col justify-end"></div>
       </div>
     </div>
   );

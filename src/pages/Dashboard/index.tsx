@@ -10,12 +10,14 @@ import {
 import { useEffect, useRef, useState } from "react";
 import DeleteModal from "./components/DeleteModal";
 import AddModal from "./components/AddModal";
+import EditModal from "./components/EditModal";
 
 const DashboardPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
@@ -58,6 +60,14 @@ const DashboardPage: React.FC = () => {
   const handleAddModalClose = () => {
     setAddModalOpen(false);
   };
+
+  const handleEidtModalOpen = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const handleEidtModalClose = () => {
+    setIsEditModalOpen(false);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -121,6 +131,7 @@ const DashboardPage: React.FC = () => {
                 type="button"
                 className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
                 onClick={() => {
+                  handleEidtModalOpen();
                   handleMenuClose();
                 }}
               >
@@ -145,6 +156,7 @@ const DashboardPage: React.FC = () => {
       </div>
       {isDeleteModalOpen && <DeleteModal onClose={handleDeleteModalClose} />}
       {addModalOpen && <AddModal onClose={handleAddModalClose} />}
+      {isEditModalOpen && <EditModal onClose={handleEidtModalClose} />}
     </div>
   );
 };

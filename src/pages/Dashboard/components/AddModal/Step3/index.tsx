@@ -137,6 +137,7 @@ const Step3: React.FC<Step3Props> = ({ onClose }) => {
                     {keyword}
                   </span>
                   <CloseIcon
+                    type="button"
                     className="h-5 w-5 fill-primary-500"
                     onClick={() => handleDeleteRecipientKeyword(keyword)}
                   />
@@ -173,6 +174,7 @@ const Step3: React.FC<Step3Props> = ({ onClose }) => {
                     {keyword}
                   </span>
                   <CloseIcon
+                    type="button"
                     className="h-5 w-5 fill-primary-500"
                     onClick={() => handleDeleteReferenceKeyword(keyword)}
                   />

@@ -63,8 +63,9 @@ const DateSelector: React.FC<DateSelectorProps> = ({
           <button
             type="button"
             className="ml-4 flex h-10 w-10 transform items-center justify-center rounded-full bg-white transition-transform hover:scale-125"
+            onClick={toggleDatePicker}
           >
-            <CloseIcon type="button" onClick={toggleDatePicker} />
+            <CloseIcon className="fill-neutral-700" />
           </button>
         </div>
       </div>

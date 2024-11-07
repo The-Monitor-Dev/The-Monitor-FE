@@ -32,7 +32,8 @@ const EditModal: React.FC<EditModalProps> = ({ onClose }) => {
           고객사 정보 수정하기
         </h2>
         <CloseIcon
-          className="absolute right-[22px] top-[22px] cursor-pointer fill-black"
+          type="button"
+          className="absolute right-[22px] top-[22px] cursor-pointer fill-neutral-700"
           onClick={onClose}
         />
         <p className="mb-12 text-md font-regular text-title">
@@ -49,7 +50,7 @@ const EditModal: React.FC<EditModalProps> = ({ onClose }) => {
             <label className="mr-2 text-md font-semibold text-title">
               로고
             </label>
-            <AttentionIcon className="mr-[2px] fill-neutral-400" />
+            <AttentionIcon className="mr-[2px] h-4 w-4 fill-neutral-400" />
             <p className="text-xs font-regular text-disable">
               파일 형식: PNG, JPG | 최소 크기: 96 X 72(px)
             </p>
@@ -67,7 +68,7 @@ const EditModal: React.FC<EditModalProps> = ({ onClose }) => {
                 className="absolute right-1 top-1 flex h-5 w-7 cursor-pointer items-center justify-center rounded bg-black bg-opacity-30"
                 onClick={handleDeleteImage}
               >
-                <CloseIcon className="h-4 w-4 fill-white" />
+                <CloseIcon type="button" className="h-4 w-4 fill-white" />
               </button>
             </div>
           ) : (

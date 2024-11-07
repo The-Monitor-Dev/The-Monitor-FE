@@ -21,8 +21,8 @@ const Modal: React.FC<ModalProps> = ({
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
       <div className="relative flex h-[340px] w-[460px] flex-col items-center rounded bg-white pt-10">
         <CloseIcon
-          fill="neutral-700"
-          className="absolute right-5 top-5 cursor-pointer"
+          type="button"
+          className="absolute right-5 top-5 cursor-pointer fill-neutral-700"
           onClick={onClose}
         />
         <ErrorIcon className="h-[53px] w-[53px]" />

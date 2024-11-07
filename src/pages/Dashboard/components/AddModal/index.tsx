@@ -34,7 +34,8 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, handleClose }) => {
           />
         )}
         <CloseIcon
-          className="absolute right-[22px] top-[22px] cursor-pointer fill-neutral-700"
+          fill="neutral-700"
+          className="absolute right-[22px] top-[22px] cursor-pointer"
           onClick={handleClose}
         />
 

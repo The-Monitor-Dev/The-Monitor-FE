@@ -176,7 +176,20 @@ const DashboardPage: React.FC = () => {
       )}
       {isEditModalOpen && <EditModal onClose={handleEidtModalClose} />}
       {isModalOpen && (
-        <Modal onClose={handleModalClose} handleCancel={handleCancel} />
+        <Modal
+          onClose={handleModalClose}
+          handleCancel={handleCancel}
+          headingText="정말 중단하시겠어요?"
+          bodyText={
+            <>
+              작성하던 모든 기록은 지워지며 <br />
+              이후 복구가 불가능해요. <br />
+              창을 정말 닫으시겠어요?
+            </>
+          }
+          closeButtonText="창 닫기"
+          cancelButtonText="취소"
+        />
       )}
     </div>
   );

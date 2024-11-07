@@ -11,13 +11,15 @@ import { useEffect, useRef, useState } from "react";
 import DeleteModal from "./components/DeleteModal";
 import AddModal from "./components/AddModal";
 import EditModal from "./components/EditModal";
+import Modal from "@components/Modal";
 
 const DashboardPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
@@ -54,11 +56,11 @@ const DashboardPage: React.FC = () => {
   };
 
   const handleAddModalOpen = () => {
-    setAddModalOpen(true);
+    setIsAddModalOpen(true);
   };
 
   const handleAddModalClose = () => {
-    setAddModalOpen(false);
+    setIsAddModalOpen(false);
   };
 
   const handleEidtModalOpen = () => {
@@ -67,7 +69,21 @@ const DashboardPage: React.FC = () => {
 
   const handleEidtModalClose = () => {
     setIsEditModalOpen(false);
-  }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleClose = () => {
+    setIsAddModalOpen(false);
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsAddModalOpen(true);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -155,8 +171,13 @@ const DashboardPage: React.FC = () => {
         </div>
       </div>
       {isDeleteModalOpen && <DeleteModal onClose={handleDeleteModalClose} />}
-      {addModalOpen && <AddModal onClose={handleAddModalClose} />}
+      {isAddModalOpen && (
+        <AddModal onClose={handleAddModalClose} handleClose={handleClose} />
+      )}
       {isEditModalOpen && <EditModal onClose={handleEidtModalClose} />}
+      {isModalOpen && (
+        <Modal onClose={handleModalClose} handleCancel={handleCancel} />
+      )}
     </div>
   );
 };

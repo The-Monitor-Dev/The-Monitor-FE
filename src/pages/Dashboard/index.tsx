@@ -59,10 +59,6 @@ const DashboardPage: React.FC = () => {
     setIsAddModalOpen(true);
   };
 
-  const handleAddModalClose = () => {
-    setIsAddModalOpen(false);
-  };
-
   const handleEidtModalOpen = () => {
     setIsEditModalOpen(true);
   };
@@ -86,7 +82,7 @@ const DashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center">
       <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
         <div className="flex h-11 w-[480px] items-center rounded border bg-white focus-within:border-primary-500">
           <input
@@ -97,16 +93,16 @@ const DashboardPage: React.FC = () => {
         </div>
         <button
           type="button"
-          className="flex h-10 items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"
+          className="flex h-10 gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"
           onClick={handleAddModalOpen}
         >
           고객사 추가하기
           <AddCircleFillIcon className="fill-primary-500" />
         </button>
       </div>
-      <div className="flex w-[253px] flex-col items-center rounded bg-white">
+      <div className="flex w-[253px] rounded bg-white">
         <div className="flex w-full flex-col">
-          <div className="relative flex items-center justify-end px-3 py-2">
+          <div className="relative flex justify-end px-3 py-2">
             <button
               type="button"
               className={`rounded-sm p-[6px] ${isMenuOpen ? "bg-neutral-100" : "hover:bg-neutral-100"}`}

@@ -100,56 +100,60 @@ const DashboardPage: React.FC = () => {
           <AddCircleFillIcon className="fill-primary-500" />
         </button>
       </div>
-      <div className="flex w-[253px] rounded bg-white">
-        <div className="flex w-full flex-col">
-          <div className="relative flex justify-end px-3 py-2">
-            <button
-              type="button"
-              className={`rounded-sm p-[6px] ${isMenuOpen ? "bg-neutral-100" : "hover:bg-neutral-100"}`}
-              onClick={handleMenuToggle}
-            >
-              <MoreHorizIcon />
-            </button>
-
-            {isMenuOpen && (
-              <div
-                ref={menuRef}
-                className="absolute left-[204px] top-[52px] rounded border border-neutral-200 bg-white"
+      <div className="grid w-[1048px] grid-cols-4 gap-3">
+        <div className="flex w-[253px] rounded bg-white">
+          <div className="flex w-full flex-col">
+            <div className="relative flex justify-end px-3 py-2">
+              <button
+                type="button"
+                className={`rounded-sm p-[6px] ${isMenuOpen ? "bg-neutral-100" : "hover:bg-neutral-100"}`}
+                onClick={handleMenuToggle}
               >
-                <button
-                  type="button"
-                  className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
-                  onClick={() => {
-                    handleEidtModalOpen();
-                    handleMenuClose();
-                  }}
+                <MoreHorizIcon />
+              </button>
+
+              {isMenuOpen && (
+                <div
+                  ref={menuRef}
+                  className="absolute left-[204px] top-[52px] rounded border border-neutral-200 bg-white"
                 >
-                  수정하기
-                  <EditSquareIcon className="ml-2" />
-                </button>
-                <div className="border-neutral-200" />
-                <button
-                  type="button"
-                  className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
-                  onClick={() => {
-                    handleDeleteModalOpen();
-                    handleMenuClose();
-                  }}
-                >
-                  삭제하기
-                  <DeleteIcon className="ml-2" />
-                </button>
+                  <button
+                    type="button"
+                    className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
+                    onClick={() => {
+                      handleEidtModalOpen();
+                      handleMenuClose();
+                    }}
+                  >
+                    수정하기
+                    <EditSquareIcon className="ml-2" />
+                  </button>
+                  <div className="border-neutral-200" />
+                  <button
+                    type="button"
+                    className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
+                    onClick={() => {
+                      handleDeleteModalOpen();
+                      handleMenuClose();
+                    }}
+                  >
+                    삭제하기
+                    <DeleteIcon className="ml-2" />
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className="flex justify-center border-b-1 border-neutral-200">
+              <img src={DefaultImage} className="mb-10 mt-5 w-24 rounded" />
+            </div>
+            <div className="flex w-full flex-col gap-1 py-4 pl-4 pr-5">
+              <h2 className="text-left text-xl font-semibold text-title">
+                한솥
+              </h2>
+              <div className="flex items-center">
+                <PersonIcon className="mr-[6px]" />
+                <p className="text-md font-semibold text-disable">이현수</p>
               </div>
-            )}
-          </div>
-          <div className="flex justify-center border-b-1 border-neutral-200">
-            <img src={DefaultImage} className="mb-10 mt-5 w-24 rounded" />
-          </div>
-          <div className="flex w-full flex-col gap-1 py-4 pl-4 pr-5">
-            <h2 className="text-left text-xl font-semibold text-title">한솥</h2>
-            <div className="flex items-center">
-              <PersonIcon className="mr-[6px]" />
-              <p className="text-md font-semibold text-disable">이현수</p>
             </div>
           </div>
         </div>

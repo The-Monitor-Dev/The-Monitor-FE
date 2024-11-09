@@ -1,4 +1,4 @@
-import { AddCircleThinIcon, AttentionIcon, CloseIcon } from "@assets/svg";
+import { AddCircleThinIcon, AttentionIcon, CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import { useState } from "react";

@@ -4,7 +4,7 @@ import {
   ClockIcon,
   PersonIcon,
   ReportCheckIcon,
-} from "@assets/svg";
+} from "@assets/svgs";
 import { subDays } from "date-fns";
 import React, { useState } from "react";
 import "react-date-range/dist/styles.css";

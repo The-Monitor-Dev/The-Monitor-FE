@@ -2,7 +2,7 @@ import {
   CheckboxBlankIcon,
   CheckboxErrorIcon,
   CheckboxFillIcon,
-} from "@assets/svg";
+} from "@assets/svgs";
 
 interface PasswordConditionProps {
   conditionMet: boolean;

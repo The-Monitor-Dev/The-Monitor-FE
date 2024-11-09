@@ -1,4 +1,4 @@
-import { ErrorIcon, VisibilityOffIcon, VisibilityOnIcon } from "@assets/svg";
+import { ErrorIcon, VisibilityOffIcon, VisibilityOnIcon } from "@assets/svgs";
 import { forwardRef, InputHTMLAttributes, useState } from "react";
 import { twMerge } from "tailwind-merge";
 

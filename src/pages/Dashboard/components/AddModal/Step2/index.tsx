@@ -1,4 +1,4 @@
-import { AttentionIcon, CloseIcon } from "@assets/svg";
+import { AttentionIcon, CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import { useEffect, useState } from "react";
 

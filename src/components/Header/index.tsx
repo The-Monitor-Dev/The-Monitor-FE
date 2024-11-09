@@ -1,4 +1,4 @@
-import { ArrowDownIcon, LogoIcon, ProfileIcon } from "@assets/svg";
+import { ArrowDownIcon, LogoIcon, ProfileIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import routes from "@constants/routes";
 import React from "react";

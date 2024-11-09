@@ -1,4 +1,4 @@
-import { CloseIcon, ErrorIcon } from "@assets/svg";
+import { CloseIcon, ErrorIcon } from "@assets/svgs";
 import Input from "@components/Input";
 
 interface DeleteModalProps {

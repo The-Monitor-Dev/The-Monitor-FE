@@ -6,7 +6,7 @@ import {
   MoreHorizIcon,
   PersonIcon,
   SearchIcon,
-} from "@assets/svg";
+} from "@assets/svgs";
 import { useEffect, useRef, useState } from "react";
 import DeleteModal from "./components/DeleteModal";
 import AddModal from "./components/AddModal";

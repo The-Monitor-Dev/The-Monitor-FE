@@ -7,7 +7,7 @@ import usePostVerifyCode from "@api/hooks/accounts/usePostVerifyCode";
 import usePasswordValidation from "@hooks/useCheckPasswordValidation";
 import useEmailConfirmation from "@hooks/useEmailConfirmation";
 import formatTime from "@utils/formatTime";
-import { LoadingIcon } from "@assets/svg";
+import { LoadingIcon } from "@assets/svgs";
 
 interface Step1Props {
   handleNext: () => void;

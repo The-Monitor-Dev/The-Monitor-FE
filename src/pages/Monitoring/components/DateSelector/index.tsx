@@ -3,7 +3,7 @@ import { DateRangePicker } from "react-date-range";
 import { subDays } from "date-fns";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { ArrowDownIcon, CloseIcon } from "@assets/svg";
+import { ArrowDownIcon, CloseIcon } from "@assets/svgs";
 
 interface DateSelectorProps {
   dateRange: any;

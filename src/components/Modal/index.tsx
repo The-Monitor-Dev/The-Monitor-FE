@@ -1,4 +1,4 @@
-import { CloseIcon, ErrorIcon } from "@assets/svg";
+import { CloseIcon, ErrorIcon } from "@assets/svgs";
 
 interface ModalProps {
   onClose: () => void;

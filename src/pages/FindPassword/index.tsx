@@ -1,5 +1,5 @@
 import usePostSendPasswordChangeEmail from "@api/hooks/accounts/usePostSendPasswordChangeEmail";
-import { LoadingIcon } from "@assets/svg";
+import { LoadingIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import React, { useState } from "react";

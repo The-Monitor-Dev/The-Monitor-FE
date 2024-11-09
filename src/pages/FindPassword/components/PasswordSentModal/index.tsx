@@ -1,4 +1,4 @@
-import { CheckboxFillIcon, CloseIcon } from "@assets/svg";
+import { CheckboxFillIcon, CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import routes from "@constants/routes";
 import React from "react";

@@ -1,4 +1,4 @@
-import { ArrowBeforeThick, CloseIcon } from "@assets/svg";
+import { ArrowBeforeThick, CloseIcon } from "@assets/svgs";
 import { useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";

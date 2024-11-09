@@ -2,11 +2,7 @@ import { AttentionIcon, CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import { useEffect, useState } from "react";
 
-interface Step3Props {
-  onClose: () => void;
-}
-
-const Step3: React.FC<Step3Props> = ({ onClose }) => {
+const Step3: React.FC = () => {
   const [recipientKeyword, setRecipientKeyword] = useState<string>("");
   const [recipientKeywords, setRecipientKeywords] = useState<string[]>([]);
   const [isRecipientEmailValid, setIsRecipientEmailValid] =
@@ -185,10 +181,9 @@ const Step3: React.FC<Step3Props> = ({ onClose }) => {
         </div>
       </div>
       <Button
-        type="button"
+        type="submit"
         style="filled"
         className="absolute bottom-16 mx-[60px] w-[360px] py-3"
-        onClick={onClose}
         disabled={!isComplete}
       >
         완료

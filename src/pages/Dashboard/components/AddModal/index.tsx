@@ -6,10 +6,9 @@ import Step3 from "./Step3";
 
 interface AddModalProps {
   onClose: () => void;
-  handleClose: () => void;
 }
 
-const AddModal: React.FC<AddModalProps> = ({ onClose, handleClose }) => {
+const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
   const [step, setStep] = useState(1);
 
   const handleNextStep = () => {
@@ -36,7 +35,7 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, handleClose }) => {
         <CloseIcon
           type="button"
           className="absolute right-[22px] top-[22px] cursor-pointer fill-neutral-700"
-          onClick={handleClose}
+          onClick={onClose}
         />
 
         <div className="relative h-[627px] w-full overflow-hidden">
@@ -67,7 +66,7 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, handleClose }) => {
                   : "-translate-x-full"
             }`}
           >
-            <Step3 onClose={onClose} />
+            <Step3 />
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import DeleteModal from "./components/DeleteModal";
 import AddModal from "./components/AddModal";
 import EditModal from "./components/EditModal";
-import Modal from "@components/Modal";
+import CancelModal from "@components/CancelModal";
 
 const DashboardPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -171,22 +171,16 @@ const DashboardPage: React.FC = () => {
         </div>
       </div>
       {isDeleteModalOpen && <DeleteModal onClose={handleDeleteModalClose} />}
-      {isAddModalOpen && (
-        <AddModal onClose={handleAddModalClose} handleClose={handleClose} />
-      )}
+      {isAddModalOpen && <AddModal onClose={handleClose} />}
       {isEditModalOpen && <EditModal onClose={handleEidtModalClose} />}
       {isModalOpen && (
-        <Modal
+        <CancelModal
           onClose={handleModalClose}
           handleCancel={handleCancel}
           headingText="정말 중단하시겠어요?"
-          bodyText={
-            <>
-              작성하던 모든 기록은 지워지며 <br />
-              이후 복구가 불가능해요. <br />
-              창을 정말 닫으시겠어요?
-            </>
-          }
+          bodyText={`작성하던 모든 기록은 지워지며 
+              이후 복구가 불가능해요.
+              창을 정말 닫으시겠어요?`}
           closeButtonText="창 닫기"
           cancelButtonText="취소"
         />

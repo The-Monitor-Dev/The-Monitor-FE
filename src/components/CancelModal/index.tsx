@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({
         <h2 className="mt-5 text-2xl font-semibold text-title">
           {headingText}
         </h2>
-        <p className="mt-2 text-center text-md font-regular text-body3">
+        <p className="mt-2 whitespace-pre-line text-center text-md font-regular text-body3">
           {bodyText}
         </p>
         <div className="mt-[29px] flex justify-center gap-3">

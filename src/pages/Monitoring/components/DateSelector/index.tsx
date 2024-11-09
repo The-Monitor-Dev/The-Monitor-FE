@@ -3,7 +3,7 @@ import { DateRangePicker } from "react-date-range";
 import { subDays } from "date-fns";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { ArrowDownIcon, CloseIcon } from "@assets/svg";
+import { ArrowDownIcon, CloseIcon } from "@assets/svgs";
 
 interface DateSelectorProps {
   dateRange: any;
@@ -63,8 +63,9 @@ const DateSelector: React.FC<DateSelectorProps> = ({
           <button
             type="button"
             className="ml-4 flex h-10 w-10 transform items-center justify-center rounded-full bg-white transition-transform hover:scale-125"
+            onClick={toggleDatePicker}
           >
-            <CloseIcon type="button" onClick={toggleDatePicker} />
+            <CloseIcon className="fill-neutral-700" />
           </button>
         </div>
       </div>

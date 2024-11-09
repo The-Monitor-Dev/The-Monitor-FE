@@ -1,4 +1,4 @@
-import { CloseIcon, ErrorIcon } from "@assets/svg";
+import { CloseIcon, ErrorIcon } from "@assets/svgs";
 import Input from "@components/Input";
 
 interface DeleteModalProps {
@@ -14,7 +14,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ onClose }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
       <div className="w-120 relative flex flex-col rounded bg-white px-[70px] pb-11 pt-10">
         <CloseIcon
-          className="absolute right-5 top-5 cursor-pointer"
+          type="button"
+          className="absolute right-5 top-5 cursor-pointer fill-neutral-700"
           onClick={handleModalClose}
         />
         <div className="flex w-full justify-center">
@@ -33,14 +34,14 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ onClose }) => {
         <div className="mt-6 flex justify-center gap-3">
           <button
             type="button"
-            className="w-[111px] rounded bg-error-500 py-2 text-white"
+            className="w-[111px] rounded bg-error-500 py-2 text-lg font-semibold text-white"
             onClick={handleModalClose}
           >
             삭제하기
           </button>
           <button
             type="button"
-            className="w-[111px] rounded border border-error-500 py-2 text-error-500"
+            className="w-[111px] rounded border border-error-500 py-2 text-lg font-semibold text-error-500"
             onClick={handleModalClose}
           >
             취소하기

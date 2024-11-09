@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Tmp } from "@assets/images";
-import { AnalyzeIcon, HamburgerIcon, NewsIcon } from "@assets/svg";
+import { AnalyzeIcon, HamburgerIcon, NewsIcon } from "@assets/svgs";
 import { useLocation, useNavigate } from "react-router-dom";
 import routes from "@constants/routes";
 

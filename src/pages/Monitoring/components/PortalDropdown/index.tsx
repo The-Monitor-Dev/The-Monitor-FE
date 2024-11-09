@@ -1,6 +1,6 @@
 import React from "react";
 import { Checkbox } from "@chakra-ui/react";
-import { InternetIcon, ArrowDownIcon } from "@assets/svg";
+import { InternetIcon, ArrowDownIcon } from "@assets/svgs";
 
 interface PortalDropdownProps {
   showDropdown: boolean;

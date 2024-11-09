@@ -1,4 +1,4 @@
-import { AttentionIcon, CloseIcon } from "@assets/svg";
+import { AttentionIcon, CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import { useEffect, useState } from "react";
 
@@ -173,6 +173,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
                       {keyword}
                     </span>
                     <CloseIcon
+                      type="button"
                       className="h-5 w-5 fill-primary-500"
                       onClick={() => handleDeleteSearchKeyword(keyword)}
                     />
@@ -212,6 +213,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
                       {excludeKeyword}
                     </span>
                     <CloseIcon
+                      type="button"
                       className="h-5 w-5 fill-primary-500"
                       onClick={() => handleDeleteExcludeKeyword(excludeKeyword)}
                     />

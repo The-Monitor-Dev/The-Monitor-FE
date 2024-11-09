@@ -1,4 +1,4 @@
-import { AddCircleThinIcon, AttentionIcon, CloseIcon } from "@assets/svg";
+import { AddCircleThinIcon, AttentionIcon, CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const uploadImg = URL.createObjectURL(file);
+      const uploadingImg = URL.createObjectURL(file);
       setUploadingImg(uploadingImg);
     }
   };
@@ -63,7 +63,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
         />
         <div className="mb-4 flex items-center">
           <label className="mr-2 text-md font-semibold text-title">로고</label>
-          <AttentionIcon className="mr-[2px] fill-neutral-400" />
+          <AttentionIcon className="mr-[2px] h-4 w-4 fill-neutral-400" />
           <p className="text-xs font-regular text-disable">
             파일 형식: PNG, JPG | 최소 크기: 96 X 72(px)
           </p>

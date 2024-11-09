@@ -1,4 +1,4 @@
-import { ArrowBeforeThick, CloseIcon } from "@assets/svg";
+import { ArrowBeforeThick, CloseIcon } from "@assets/svgs";
 import { useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
@@ -10,10 +10,6 @@ interface AddModalProps {
 
 const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
   const [step, setStep] = useState(1);
-
-  const handleModalClose = () => {
-    onClose();
-  };
 
   const handleNextStep = () => {
     if (step < 3) {
@@ -37,8 +33,9 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
           />
         )}
         <CloseIcon
-          className="absolute right-[22px] top-[22px] cursor-pointer fill-black"
-          onClick={handleModalClose}
+          type="button"
+          className="absolute right-[22px] top-[22px] cursor-pointer fill-neutral-700"
+          onClick={onClose}
         />
 
         <div className="relative h-[627px] w-full overflow-hidden">
@@ -69,11 +66,9 @@ const AddModal: React.FC<AddModalProps> = ({ onClose }) => {
                   : "-translate-x-full"
             }`}
           >
-            <Step3 onClose={onClose} />
+            <Step3 />
           </div>
         </div>
-
-        <div className="absolute bottom-[38px] flex-col justify-end"></div>
       </div>
     </div>
   );

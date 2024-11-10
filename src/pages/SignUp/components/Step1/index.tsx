@@ -214,16 +214,12 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
         다음
       </Button>
       <div className="mt-3 flex w-full justify-center">
-        <span className="text-xs font-regular">
-          도움이 필요하시면{" "}
-          <a
-            href="mailto:themonitor2024@gmail.com"
-            className="text-primary-500"
-          >
-            themonitor2024@gmail.com
-          </a>
-          로 문의주세요
-        </span>
+        <a
+          href="mailto:themonitor2024@gmail.com"
+          className="text-sm font-medium text-body1 underline"
+        >
+          문의하기
+        </a>
       </div>
     </div>
   );

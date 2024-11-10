@@ -22,7 +22,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
     <button
       type="button"
       onClick={toggleDatePicker}
-      className="flex h-[29px] items-center gap-1 rounded-[2px] border-1 border-neutral-200 bg-white py-1 pl-3 pr-1"
+      className="flex h-[29px] items-center gap-1 rounded-[2px] border-1 border-neutral-200 bg-white py-1 pl-3 pr-1 hover:bg-neutral-100"
     >
       <div className="text-sm font-medium text-body3">
         {dateRange[0].startDate

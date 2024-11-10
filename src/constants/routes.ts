@@ -1,4 +1,4 @@
-const routes = Object.freeze({
+const routes = {
   main: "/",
   signIn: "/sign-in",
   signUp: "/sign-up",
@@ -7,6 +7,6 @@ const routes = Object.freeze({
   monitoring: "/monitoring",
   report: "/report",
   setting: "/setting",
-});
+} as const;
 
 export default routes;

@@ -15,14 +15,11 @@ const Header: React.FC = () => {
 
   return (
     <header className="flex h-[68px] items-center justify-between border-b-1 border-neutral-200 px-7">
-      <button
+      <LogoIcon
         type="button"
-        className="flex items-center gap-2"
+        className="flex cursor-pointer items-center gap-2"
         onClick={() => navigate(isPathInPaths ? routes.main : routes.dashboard)}
-      >
-        <LogoIcon />
-        <h1 className="text-xl font-semibold">The Monitor</h1>
-      </button>
+      />
       {isPathInPaths && (
         <div className="flex items-center gap-2">
           <Button

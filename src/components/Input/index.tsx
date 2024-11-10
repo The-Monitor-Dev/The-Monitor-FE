@@ -4,7 +4,6 @@ import { twMerge } from "tailwind-merge";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isInvalid?: boolean;
-  className?: string;
 }
 
 const style =
@@ -27,19 +26,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         }
       `;
 
-    const renderPasswordToggleIcon = () =>
-      showPassword ? (
-        <VisibilityOnIcon
-          onClick={() => setShowPassword((prev) => !prev)}
-          className="absolute right-6 top-1/2 -translate-y-1/2 transform cursor-pointer"
-        />
-      ) : (
-        <VisibilityOffIcon
-          onClick={() => setShowPassword((prev) => !prev)}
-          className="absolute right-6 top-1/2 -translate-y-1/2 transform cursor-pointer"
-        />
-      );
-
     return (
       <div className={twMerge("relative", className)}>
         <style>{hideEdgePasswordIcon}</style>
@@ -51,7 +37,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={inputStyle}
           {...props}
         />
-        {type === "password" && renderPasswordToggleIcon()}
+        {type === "password" &&
+          (showPassword ? (
+            <VisibilityOnIcon
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-6 top-1/2 -translate-y-1/2 transform cursor-pointer"
+            />
+          ) : (
+            <VisibilityOffIcon
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-6 top-1/2 -translate-y-1/2 transform cursor-pointer"
+            />
+          ))}
         {isInvalid && (
           <ErrorIcon
             className={`absolute ${type === "password" ? "right-14" : "right-6"} top-1/2 -translate-y-1/2 transform`}

@@ -14,6 +14,8 @@ const ButtonVariants = cva(
           "bg-white text-primary-700 border-[0.5px] border-primary-200 hover:bg-surface-secondary",
         "outline-s":
           "rounded-[2px] border-[0.5px] border-primary-500 bg-white text-primary-700 hover:bg-surface-secondary",
+        "outline-l":
+          "border-1 border-primary-500 bg-white text-primary-700 hover:bg-surface-secondary",
         tertiary:
           "rounded-[2px] bg-white text-primary-700 hover:bg-surface-primary",
       },

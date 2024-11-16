@@ -9,6 +9,7 @@ import MonitoringPage from "@pages/Monitoring";
 import ReportPage from "@pages/Report";
 import SettingPage from "@pages/Setting";
 import ReportEditPage from "@pages/ReportEdit";
+import NotFound from "@pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: routes.setting,
         element: <SettingPage />,
+      },
+      {
+        path: "/*",
+        element: <NotFound />,
       },
     ],
   },

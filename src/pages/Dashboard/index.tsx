@@ -1,70 +1,15 @@
-import { DefaultImage } from "@assets/images";
-import {
-  AddCircleFillIcon,
-  DeleteIcon,
-  EditSquareIcon,
-  MoreHorizIcon,
-  PersonIcon,
-  SearchIcon,
-} from "@assets/svgs";
-import { useEffect, useRef, useState } from "react";
-import DeleteModal from "./components/DeleteModal";
+import { AddCircleFillIcon, SearchIcon } from "@assets/svgs";
+import { useState } from "react";
 import AddModal from "./components/AddModal";
-import EditModal from "./components/EditModal";
 import CancelModal from "@components/CancelModal";
+import MonitoringCard from "./components/MonitoringCard";
 
 const DashboardPage: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement | null>(null);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleMenuToggle = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
-
-  const handleMenuClose = () => {
-    setIsMenuOpen(false);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        handleMenuClose();
-      }
-    };
-
-    if (isMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
-
-  const handleDeleteModalOpen = () => {
-    setIsDeleteModalOpen(true);
-  };
-
-  const handleDeleteModalClose = () => {
-    setIsDeleteModalOpen(false);
-  };
 
   const handleAddModalOpen = () => {
     setIsAddModalOpen(true);
-  };
-
-  const handleEidtModalOpen = () => {
-    setIsEditModalOpen(true);
-  };
-
-  const handleEidtModalClose = () => {
-    setIsEditModalOpen(false);
   };
 
   const handleModalClose = () => {
@@ -101,66 +46,9 @@ const DashboardPage: React.FC = () => {
         </button>
       </div>
       <div className="grid w-[1048px] grid-cols-4 gap-3">
-        <div className="flex w-[253px] rounded bg-white">
-          <div className="flex w-full flex-col">
-            <div className="relative flex justify-end px-3 py-2">
-              <button
-                type="button"
-                className={`rounded-sm p-[6px] ${isMenuOpen ? "bg-neutral-100" : "hover:bg-neutral-100"}`}
-                onClick={handleMenuToggle}
-              >
-                <MoreHorizIcon />
-              </button>
-
-              {isMenuOpen && (
-                <div
-                  ref={menuRef}
-                  className="absolute left-[204px] top-[52px] rounded border border-neutral-200 bg-white"
-                >
-                  <button
-                    type="button"
-                    className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
-                    onClick={() => {
-                      handleEidtModalOpen();
-                      handleMenuClose();
-                    }}
-                  >
-                    수정하기
-                    <EditSquareIcon className="ml-2" />
-                  </button>
-                  <div className="border-neutral-200" />
-                  <button
-                    type="button"
-                    className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
-                    onClick={() => {
-                      handleDeleteModalOpen();
-                      handleMenuClose();
-                    }}
-                  >
-                    삭제하기
-                    <DeleteIcon className="ml-2" />
-                  </button>
-                </div>
-              )}
-            </div>
-            <div className="flex justify-center border-b-1 border-neutral-200">
-              <img src={DefaultImage} className="mb-10 mt-5 w-24 rounded" />
-            </div>
-            <div className="flex w-full flex-col gap-1 py-4 pl-4 pr-5">
-              <h2 className="text-left text-xl font-semibold text-title">
-                한솥
-              </h2>
-              <div className="flex items-center">
-                <PersonIcon className="mr-[6px]" />
-                <p className="text-md font-semibold text-disable">이현수</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <MonitoringCard name="한솥" manager="이현수" />
       </div>
-      {isDeleteModalOpen && <DeleteModal onClose={handleDeleteModalClose} />}
       {isAddModalOpen && <AddModal onClose={handleClose} />}
-      {isEditModalOpen && <EditModal onClose={handleEidtModalClose} />}
       {isModalOpen && (
         <CancelModal
           onClose={handleModalClose}

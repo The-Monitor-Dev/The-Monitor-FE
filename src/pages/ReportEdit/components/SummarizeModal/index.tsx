@@ -21,7 +21,7 @@ const SummarizeModal: React.FC<SummarizeModalProps> = ({ onClose }) => {
               maxLength={100}
               onChange={handleTextChange}
               placeholder="기사 한 줄 요약을 입력해주세요."
-              className="h-[72px] resize-none bg-surface-primary text-md font-regular outline-none outline placeholder:text-disable"
+              className="h-[72px] resize-none bg-surface-primary text-md font-regular outline-none placeholder:text-disable"
             />
             <div className="self-end text-body3">{text.length}/100</div>
           </div>

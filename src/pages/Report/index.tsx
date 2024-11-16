@@ -46,7 +46,7 @@ const ReportPage = () => {
           <div className="flex flex-grow items-center gap-1">
             <button
               type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-[2px] hover:bg-neutral-100"
+              className="flex h-9 w-9 items-center justify-center rounded-[2px] hover:bg-neutral-200"
             >
               <EditNoteIcon />
             </button>
@@ -87,51 +87,5 @@ const ReportPage = () => {
     </div>
   );
 };
-
-{
-  /* <div
-  className="relative flex h-full w-[92px] cursor-default items-center border-l-[0.5px] border-neutral-200 px-7 group-hover:bg-neutral-100"
-  onMouseEnter={(e) => e.currentTarget.parentElement?.classList.remove("group")}
-  onMouseLeave={(e) => e.currentTarget.parentElement?.classList.add("group")}
->
-  <button
-    type="button"
-    className={`rounded-[2.25px] p-[6px] ${isMenuOpen ? "bg-neutral-100" : "hover:bg-neutral-100"}`}
-    onClick={handleMenuToggle}
-  >
-    <MoreHorizIcon />
-  </button>
-
-  {isMenuOpen && (
-    <div
-      ref={menuRef}
-      className="absolute left-7 top-[76px] rounded border border-neutral-200 bg-white"
-    >
-      <button
-        type="button"
-        className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
-        onClick={() => {
-          handleMenuClose();
-        }}
-      >
-        수정하기
-        <EditSquareIcon className="ml-2" />
-      </button>
-      <div className="border-t border-neutral-200" />
-      <button
-        type="button"
-        className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
-        onClick={() => {
-          handleDeleteModalOpen();
-          handleMenuClose();
-        }}
-      >
-        삭제하기
-        <DeleteIcon className="ml-2" />
-      </button>
-    </div>
-  )}
-</div>; */
-}
 
 export default ReportPage;

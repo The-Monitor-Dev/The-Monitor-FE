@@ -1,5 +1,6 @@
-import { AttentionIcon, CloseIcon } from "@assets/svgs";
+import { AttentionIcon } from "@assets/svgs";
 import Button from "@components/Button";
+import KeywordInput from "@components/KeywordInput";
 import { useEffect, useState } from "react";
 
 interface Step2Props {
@@ -8,47 +9,21 @@ interface Step2Props {
 
 const Step2: React.FC<Step2Props> = ({ handleNext }) => {
   const [selectedButton, setSelectedButton] = useState<string>("자사");
-  const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchKeywords, setSearchKeywords] = useState<string[]>([]);
-  const [searchDuplicationError, setSearchDuplicationError] =
-    useState<boolean>(false);
-  const [duplicationErrorMessage, setDuplicationErrorMessage] =
-    useState<string>("");
   const [isComplete, setIsComplete] = useState<boolean>(false);
 
   const handleButtonClick = (buttonName: string) => {
     setSelectedButton(buttonName);
   };
 
-  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchKeyword.trim()) {
-      const keyword = searchKeyword.trim();
-
-      if (searchKeywords.includes(keyword)) {
-        setSearchDuplicationError(true);
-        setDuplicationErrorMessage("*이미 추가된 키워드입니다.");
-      } else {
-        setSearchKeywords((prev) => [...prev, keyword]);
-        setSearchKeyword("");
-        setSearchDuplicationError(false);
-        setDuplicationErrorMessage("");
-      }
-    }
+  const handleAddKeyword = (keyword: string) => {
+    setSearchKeywords((prev) => [...prev, keyword]);
   };
 
-  const handleDeleteSearchKeyword = (keywordToDelete: string) => {
+  const handleDeleteKeyword = (keywordToDelete: string) => {
     setSearchKeywords((prev) =>
       prev.filter((keyword) => keyword !== keywordToDelete),
     );
-  };
-
-  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value);
-
-    if (e.target.value === "") {
-      setSearchDuplicationError(false);
-      setDuplicationErrorMessage("");
-    }
   };
 
   useEffect(() => {
@@ -97,46 +72,15 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
           </p>
         </div>
         <div className="h-[221px] overflow-y-auto pb-[17px]">
-          <div className="flex flex-col">
-            <label className="mb-4 flex items-center">
-              <p className="mr-[6px] text-md font-semibold text-title">
-                검색 키워드
-              </p>
-              <p className="text-sm font-regular text-body3">[필수]</p>
-            </label>
-            <input
-              placeholder="검색할 키워드를 입력해주세요..."
-              value={searchKeyword}
-              onChange={handleSearchInputChange}
-              onKeyPress={handleSearchKeyPress}
-              maxLength={20}
-              className="border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
-            />
-            {searchDuplicationError && (
-              <p className="mt-1 text-xs font-regular text-error-500">
-                {duplicationErrorMessage}
-              </p>
-            )}
-            {searchKeywords.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {searchKeywords.map((keyword, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary py-1 pl-3 pr-2 text-primary-500"
-                  >
-                    <span className="text-sm font-semibold text-primary-700">
-                      {keyword}
-                    </span>
-                    <CloseIcon
-                      type="button"
-                      className="h-5 w-5 fill-primary-500"
-                      onClick={() => handleDeleteSearchKeyword(keyword)}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          <KeywordInput
+            label="검색 키워드"
+            placeholder="검색할 키워드를 입력해주세요..."
+            keywords={searchKeywords}
+            onAddKeyword={handleAddKeyword}
+            onDeleteKeyword={handleDeleteKeyword}
+            errorMessage="*이미 추가된 키워드입니다."
+            isRequired
+          />
         </div>
       </div>
       <Button

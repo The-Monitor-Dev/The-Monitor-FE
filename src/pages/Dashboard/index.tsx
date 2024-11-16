@@ -138,7 +138,7 @@ const DashboardPage: React.FC = () => {
                     }}
                   >
                     삭제하기
-                    <DeleteIcon className="ml-2" />
+                    <DeleteIcon className="ml-2 fill-neutral-400" />
                   </button>
                 </div>
               )}

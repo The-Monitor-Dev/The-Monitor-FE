@@ -10,11 +10,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
   const [selectedButton, setSelectedButton] = useState<string>("자사");
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchKeywords, setSearchKeywords] = useState<string[]>([]);
-  const [excludeKeyword, setExcludeKeyword] = useState<string>("");
-  const [excludeKeywords, setExcludeKeywords] = useState<string[]>([]);
   const [searchDuplicationError, setSearchDuplicationError] =
-    useState<boolean>(false);
-  const [excludeDuplicationError, setExcludeDuplicationError] =
     useState<boolean>(false);
   const [duplicationErrorMessage, setDuplicationErrorMessage] =
     useState<string>("");
@@ -31,11 +27,6 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
       if (searchKeywords.includes(keyword)) {
         setSearchDuplicationError(true);
         setDuplicationErrorMessage("*이미 추가된 키워드입니다.");
-      } else if (excludeKeywords.includes(keyword)) {
-        setSearchDuplicationError(true);
-        setDuplicationErrorMessage(
-          "*검색 키워드와 제외 키워드는 중복 입력될 수 없습니다.",
-        );
       } else {
         setSearchKeywords((prev) => [...prev, keyword]);
         setSearchKeyword("");
@@ -49,42 +40,6 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
     setSearchKeywords((prev) =>
       prev.filter((keyword) => keyword !== keywordToDelete),
     );
-  };
-
-  const handleExcludeKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && excludeKeyword.trim()) {
-      const keyword = excludeKeyword.trim();
-
-      if (excludeKeywords.includes(keyword)) {
-        setExcludeDuplicationError(true);
-        setDuplicationErrorMessage("*이미 추가된 키워드입니다.");
-      } else if (searchKeywords.includes(keyword)) {
-        setExcludeDuplicationError(true);
-        setDuplicationErrorMessage(
-          "*검색 키워드와 제외 키워드는 중복 입력될 수 없습니다.",
-        );
-      } else {
-        setExcludeKeywords((prev) => [...prev, keyword]);
-        setExcludeKeyword("");
-        setExcludeDuplicationError(false);
-        setDuplicationErrorMessage("");
-      }
-    }
-  };
-
-  const handleDeleteExcludeKeyword = (keywordToDelete: string) => {
-    setExcludeKeywords((prev) =>
-      prev.filter((keyword) => keyword !== keywordToDelete),
-    );
-  };
-
-  const handleExcludeInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setExcludeKeyword(e.target.value);
-
-    if (e.target.value === "") {
-      setExcludeDuplicationError(false);
-      setDuplicationErrorMessage("");
-    }
   };
 
   const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,46 +131,6 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
                       type="button"
                       className="h-5 w-5 fill-primary-500"
                       onClick={() => handleDeleteSearchKeyword(keyword)}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="mt-7 flex flex-col">
-            <label className="mb-4 flex items-center">
-              <p className="mr-[6px] text-md font-semibold text-title">
-                제외 키워드
-              </p>
-              <p className="text-sm font-regular text-body3">[선택]</p>
-            </label>
-            <input
-              placeholder="제외할 키워드를 입력해주세요..."
-              value={excludeKeyword}
-              onChange={handleExcludeInputChange}
-              onKeyPress={handleExcludeKeyPress}
-              maxLength={20}
-              className="border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
-            />
-            {excludeDuplicationError && (
-              <p className="mt-1 text-xs font-regular text-error-500">
-                {duplicationErrorMessage}
-              </p>
-            )}
-            {excludeKeywords.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {excludeKeywords.map((excludeKeyword, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary py-1 pl-3 pr-2 text-primary-500"
-                  >
-                    <span className="text-sm font-semibold text-primary-700">
-                      {excludeKeyword}
-                    </span>
-                    <CloseIcon
-                      type="button"
-                      className="h-5 w-5 fill-primary-500"
-                      onClick={() => handleDeleteExcludeKeyword(excludeKeyword)}
                     />
                   </div>
                 ))}

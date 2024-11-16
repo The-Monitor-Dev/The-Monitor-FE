@@ -18,13 +18,7 @@ const queryClient = new QueryClient({
 function App() {
   const location = useLocation();
 
-  const paths = [
-    routes.main,
-    routes.signIn,
-    routes.signUp,
-    routes.password,
-    routes.dashboard,
-  ];
+  const paths = [routes.monitoring, routes.report, routes.setting];
   const isPathInPaths = paths.includes(
     location.pathname as (typeof paths)[number],
   );
@@ -35,7 +29,7 @@ function App() {
         <div className="flex min-w-[1440px] flex-col font-pretendard">
           <Header />
           <div className="flex h-[calc(100vh-68px)] min-h-[794px] bg-base-bg">
-            {!isPathInPaths && <SideMenu />}
+            {isPathInPaths && <SideMenu />}
             <div className="flex-grow">
               <Outlet />
             </div>

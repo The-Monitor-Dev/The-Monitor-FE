@@ -3,7 +3,7 @@ import Button from "@components/Button";
 import routes from "@constants/routes";
 import { useNavigate } from "react-router-dom";
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   const navigate = useNavigate();
 
   return (

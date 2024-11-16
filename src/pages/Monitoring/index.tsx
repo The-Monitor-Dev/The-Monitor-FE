@@ -14,8 +14,11 @@ import PortalDropdown from "./components/PortalDropdown";
 import { DefaultImage } from "@assets/images";
 import Button from "@components/Button";
 import { useOutsideClick } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import routes from "@constants/routes";
 
 const MonitoringPage: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("Company");
   const [dateRange, setDateRange] = useState([
     {
@@ -64,7 +67,7 @@ const MonitoringPage: React.FC = () => {
       (key) => tempSelectedPortals[key as keyof typeof tempSelectedPortals],
     );
     setPortalDisplay(
-      selectedKeys.length === 4 ? "전체 포털" : selectedKeys.join(", "),
+      selectedKeys.length === 4 ? "전체 포털" : selectedKeys.join(" / "),
     );
     setShowDropdown(false);
   };
@@ -163,6 +166,7 @@ const MonitoringPage: React.FC = () => {
           <Button
             type="button"
             style="filled"
+            onClick={() => navigate(routes.reportEdit)}
             className="flex items-center gap-1 p-2"
           >
             <ReportCheckIcon />

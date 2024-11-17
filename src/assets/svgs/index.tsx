@@ -37,3 +37,4 @@ export { default as AddIcon } from "./add.svg?react";
 export { default as SummarizeIcon } from "./summarize.svg?react";
 export { default as HandleIcon } from "./handle.svg?react";
 export { default as NotFoundIcon } from "./notFound.svg?react";
+export { default as EditNoteIcon } from "./editNote.svg?react";

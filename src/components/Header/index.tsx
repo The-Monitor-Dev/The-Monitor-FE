@@ -41,7 +41,7 @@ const Header: React.FC = () => {
         </div>
       )}
       {!isPathInPaths && (
-        <div className="flex items-center rounded bg-surface-primary p-1">
+        <div className="flex items-center rounded bg-surface-primary py-1 pl-2 pr-1">
           <ProfileIcon className="mr-2" />
           <div className="font-semibold text-body1">name</div>
           <ArrowDownIcon className="fill-neutral-700" />

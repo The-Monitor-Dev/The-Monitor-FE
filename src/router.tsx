@@ -8,6 +8,8 @@ import DashboardPage from "@pages/Dashboard";
 import MonitoringPage from "@pages/Monitoring";
 import ReportPage from "@pages/Report";
 import SettingPage from "@pages/Setting";
+import ReportEditPage from "@pages/ReportEdit";
+import NotFound from "@pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -39,8 +41,16 @@ const router = createBrowserRouter([
         element: <ReportPage />,
       },
       {
+        path: routes.reportEdit,
+        element: <ReportEditPage />,
+      },
+      {
         path: routes.setting,
         element: <SettingPage />,
+      },
+      {
+        path: "/*",
+        element: <NotFound />,
       },
     ],
   },

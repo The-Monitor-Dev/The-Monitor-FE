@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import Table from "./components/Table";
 import AddNews from "./components/AddNews";
 import DonerMenu from "./components/DonerMenu";
+import SendEmailModal from "./components/SendEmailModal";
 
 const ReportEditPage: React.FC = () => {
   const navigate = useNavigate();
@@ -66,6 +67,11 @@ const ReportEditPage: React.FC = () => {
     handler: () => setIsDonerOpen(false),
   });
 
+  const [isSendEmailModalOpen, setIsSendEmailModalOpen] = useState(false);
+  const handleSendEmailModalClose = () => {
+    setIsSendEmailModalOpen(false);
+  };
+
   return (
     <div className="flex h-full justify-center">
       <div className="flex w-[1280px] flex-col">
@@ -91,11 +97,15 @@ const ReportEditPage: React.FC = () => {
             <Button
               type="button"
               style="outline-m"
+              onClick={() => setIsSendEmailModalOpen(true)}
               className="flex items-center gap-1 py-2 pl-2 pr-3"
             >
               <MailIcon />
               <span>메일 전송하기</span>
             </Button>
+            {isSendEmailModalOpen && (
+              <SendEmailModal onClose={handleSendEmailModalClose} />
+            )}
             <Button type="button" style="filled" className="px-3 py-2">
               저장하기
             </Button>

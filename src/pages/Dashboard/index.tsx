@@ -3,6 +3,7 @@ import { useState } from "react";
 import AddModal from "./components/AddModal";
 import CancelModal from "@components/CancelModal";
 import MonitoringCard from "./components/MonitoringCard";
+import SearchBar from "@components/SearchBar";
 
 const DashboardPage: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -10,6 +11,14 @@ const DashboardPage: React.FC = () => {
 
   const handleAddModalOpen = () => {
     setIsAddModalOpen(true);
+  };
+
+  const handleEidtModalOpen = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const handleEidtModalClose = () => {
+    setIsEditModalOpen(false);
   };
 
   const handleModalClose = () => {
@@ -29,13 +38,7 @@ const DashboardPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
-        <div className="flex h-11 w-[480px] items-center rounded border bg-white focus-within:border-primary-500">
-          <input
-            className="w-[436px] px-4 text-md font-regular placeholder:text-md placeholder:font-regular focus:outline-none"
-            placeholder="고객사명을 입력하세요."
-          />
-          <SearchIcon className="mx-[10px]" />
-        </div>
+        <SearchBar placeholder="고객사명을 입력해주세요." bgColor="white" />
         <button
           type="button"
           className="flex h-10 gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"

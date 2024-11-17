@@ -5,13 +5,13 @@ import {
   EditSquareIcon,
   MoreHorizIcon,
   PersonIcon,
-  SearchIcon,
 } from "@assets/svgs";
 import { useEffect, useRef, useState } from "react";
 import DeleteModal from "./components/DeleteModal";
 import AddModal from "./components/AddModal";
 import EditModal from "./components/EditModal";
 import CancelModal from "@components/CancelModal";
+import SearchBar from "@components/SearchBar";
 
 const DashboardPage: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -59,11 +59,11 @@ const DashboardPage: React.FC = () => {
     setIsAddModalOpen(true);
   };
 
-  const handleEidtModalOpen = () => {
+  const handleEditModalOpen = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleEidtModalClose = () => {
+  const handleEditModalClose = () => {
     setIsEditModalOpen(false);
   };
 
@@ -84,13 +84,7 @@ const DashboardPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
-        <div className="flex h-11 w-[480px] items-center rounded border bg-white focus-within:border-primary-500">
-          <input
-            className="w-[436px] px-4 text-md font-regular placeholder:text-md placeholder:font-regular focus:outline-none"
-            placeholder="고객사명을 입력하세요."
-          />
-          <SearchIcon className="mx-[10px]" />
-        </div>
+        <SearchBar placeholder="고객사명을 입력해주세요." bgColor="white" />
         <button
           type="button"
           className="flex h-10 gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"
@@ -121,7 +115,7 @@ const DashboardPage: React.FC = () => {
                     type="button"
                     className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"
                     onClick={() => {
-                      handleEidtModalOpen();
+                      handleEditModalOpen();
                       handleMenuClose();
                     }}
                   >
@@ -160,7 +154,7 @@ const DashboardPage: React.FC = () => {
       </div>
       {isDeleteModalOpen && <DeleteModal onClose={handleDeleteModalClose} />}
       {isAddModalOpen && <AddModal onClose={handleClose} />}
-      {isEditModalOpen && <EditModal onClose={handleEidtModalClose} />}
+      {isEditModalOpen && <EditModal onClose={handleEditModalClose} />}
       {isModalOpen && (
         <CancelModal
           onClose={handleModalClose}

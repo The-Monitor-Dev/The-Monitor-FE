@@ -1,4 +1,4 @@
-import { AddCircleFillIcon, SearchIcon } from "@assets/svgs";
+import { AddCircleFillIcon } from "@assets/svgs";
 import { useState } from "react";
 import AddModal from "./components/AddModal";
 import CancelModal from "@components/CancelModal";
@@ -11,14 +11,6 @@ const DashboardPage: React.FC = () => {
 
   const handleAddModalOpen = () => {
     setIsAddModalOpen(true);
-  };
-
-  const handleEidtModalOpen = () => {
-    setIsEditModalOpen(true);
-  };
-
-  const handleEidtModalClose = () => {
-    setIsEditModalOpen(false);
   };
 
   const handleModalClose = () => {

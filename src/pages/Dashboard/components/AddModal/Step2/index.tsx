@@ -1,38 +1,48 @@
 import { AttentionIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface Step2Props {
   handleNext: () => void;
 }
 
 const Step2: React.FC<Step2Props> = ({ handleNext }) => {
-  const [selectedButton, setSelectedButton] = useState<string>("자사");
-  const [searchKeywords, setSearchKeywords] = useState<string[]>([]);
-  const [isComplete, setIsComplete] = useState<boolean>(false);
+  const { watch, setValue } = useFormContext();
 
-  const handleButtonClick = (buttonName: string) => {
+  const keywordsByCategory: { [key: string]: string[] } = watch(
+    "keywordsByCategory",
+  ) || {
+    자사: [],
+    경쟁사: [],
+    업계: [],
+  };
+
+  const [selectedButton, setSelectedButton] =
+    useState<keyof typeof keywordsByCategory>("자사");
+
+  const handleButtonClick = (buttonName: keyof typeof keywordsByCategory) => {
     setSelectedButton(buttonName);
   };
 
   const handleAddKeyword = (keyword: string) => {
-    setSearchKeywords((prev) => [...prev, keyword]);
+    const updatedKeywords = {
+      ...keywordsByCategory,
+      [selectedButton]: [...keywordsByCategory[selectedButton], keyword],
+    };
+    setValue("keywordsByCategory", updatedKeywords);
   };
 
   const handleDeleteKeyword = (keywordToDelete: string) => {
-    setSearchKeywords((prev) =>
-      prev.filter((keyword) => keyword !== keywordToDelete),
-    );
+    const updatedKeywords = {
+      ...keywordsByCategory,
+      [selectedButton]: keywordsByCategory[selectedButton].filter(
+        (keyword: string) => keyword !== keywordToDelete,
+      ),
+    };
+    setValue("keywordsByCategory", updatedKeywords);
   };
-
-  useEffect(() => {
-    if (selectedButton && searchKeywords.length > 0) {
-      setIsComplete(true);
-    } else {
-      setIsComplete(false);
-    }
-  }, [selectedButton, searchKeywords]);
 
   return (
     <div className="px-[50px]">
@@ -51,15 +61,18 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
       </p>
       <div className="h-[377px] bg-neutral-50 px-4 pb-6 pt-5">
         <div className="flex gap-4">
-          {["자사", "경쟁사", "업계"].map((buttonName) => (
+          {Object.keys(keywordsByCategory).map((buttonName) => (
             <button
+              type="button"
               key={buttonName}
               className={`h-10 w-[138px] rounded border-[0.5px] border-primary-500 px-5 py-2 text-md font-semibold ${
                 selectedButton === buttonName
                   ? "bg-primary-500 text-white"
                   : "bg-white text-primary-500"
               }`}
-              onClick={() => handleButtonClick(buttonName)}
+              onClick={() =>
+                handleButtonClick(buttonName as keyof typeof keywordsByCategory)
+              }
             >
               {buttonName}
             </button>
@@ -75,7 +88,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
           <KeywordInput
             label="검색 키워드"
             placeholder="검색할 키워드를 입력해주세요..."
-            keywords={searchKeywords}
+            keywords={keywordsByCategory[selectedButton]}
             onAddKeyword={handleAddKeyword}
             onDeleteKeyword={handleDeleteKeyword}
             errorMessage="*이미 추가된 키워드입니다."
@@ -84,11 +97,12 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
         </div>
       </div>
       <Button
-        type="button"
         style="filled"
         className="absolute bottom-16 mx-[60px] w-[360px] py-3"
         onClick={handleNext}
-        disabled={!isComplete}
+        disabled={Object.values(keywordsByCategory).every(
+          (keywords) => keywords.length === 0,
+        )}
       >
         다음
       </Button>

@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { AttentionIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
+import { useFormContext } from "react-hook-form";
 
 const Step3: React.FC = () => {
-  const [recipientKeywords, setRecipientKeywords] = useState<string[]>([]);
-  const [referenceKeywords, setReferenceKeywords] = useState<string[]>([]);
+  const { watch, setValue } = useFormContext();
+
+  const [recipientKeywords = [], referenceKeywords = []] = watch([
+    "recipientKeywords",
+    "referenceKeywords",
+  ]);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,19 +18,27 @@ const Step3: React.FC = () => {
   };
 
   const handleAddRecipientKeyword = (keyword: string) => {
-    setRecipientKeywords((prev) => [...prev, keyword]);
+    const updatedRecipientKeywords = [...recipientKeywords, keyword];
+    setValue("recipientKeywords", updatedRecipientKeywords);
   };
 
   const handleDeleteRecipientKeyword = (keyword: string) => {
-    setRecipientKeywords((prev) => prev.filter((k) => k !== keyword));
+    const updatedRecipientKeywords = recipientKeywords.filter(
+      (k: string) => k !== keyword,
+    );
+    setValue("recipientKeywords", updatedRecipientKeywords);
   };
 
   const handleAddReferenceKeyword = (keyword: string) => {
-    setReferenceKeywords((prev) => [...prev, keyword]);
+    const updatedReferenceKeywords = [...referenceKeywords, keyword];
+    setValue("referenceKeywords", updatedReferenceKeywords);
   };
 
   const handleDeleteReferenceKeyword = (keyword: string) => {
-    setReferenceKeywords((prev) => prev.filter((k) => k !== keyword));
+    const updatedReferenceKeywords = referenceKeywords.filter(
+      (k: string) => k !== keyword,
+    );
+    setValue("referenceKeywords", updatedReferenceKeywords);
   };
 
   return (
@@ -50,26 +63,28 @@ const Step3: React.FC = () => {
             메일 주소 입력 후 엔터(Enter)를 누르면 메일이 자동 추가됩니다.
           </p>
         </div>
-        <KeywordInput
-          label="받는 사람"
-          placeholder="메일을 입력해주세요."
-          keywords={recipientKeywords}
-          onAddKeyword={handleAddRecipientKeyword}
-          onDeleteKeyword={handleDeleteRecipientKeyword}
-          validateKeyword={validateEmail}
-          errorMessage="*잘못된 이메일 형식입니다."
-          isRequired
-        />
-        <div className="mt-7">
+        <div className="h-[265px] overflow-y-auto pb-[17px]">
           <KeywordInput
-            label="참조인"
+            label="받는 사람"
             placeholder="메일을 입력해주세요."
-            keywords={referenceKeywords}
-            onAddKeyword={handleAddReferenceKeyword}
-            onDeleteKeyword={handleDeleteReferenceKeyword}
+            keywords={recipientKeywords}
+            onAddKeyword={handleAddRecipientKeyword}
+            onDeleteKeyword={handleDeleteRecipientKeyword}
             validateKeyword={validateEmail}
             errorMessage="*잘못된 이메일 형식입니다."
+            isRequired
           />
+          <div className="mt-7">
+            <KeywordInput
+              label="참조인"
+              placeholder="메일을 입력해주세요."
+              keywords={referenceKeywords}
+              onAddKeyword={handleAddReferenceKeyword}
+              onDeleteKeyword={handleDeleteReferenceKeyword}
+              validateKeyword={validateEmail}
+              errorMessage="*잘못된 이메일 형식입니다."
+            />
+          </div>
         </div>
       </div>
       <Button

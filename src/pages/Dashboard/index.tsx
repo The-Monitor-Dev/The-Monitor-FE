@@ -27,6 +27,10 @@ const DashboardPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const handleSubmit = () => {
+    setIsAddModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col items-center">
       <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
@@ -43,7 +47,9 @@ const DashboardPage: React.FC = () => {
       <div className="grid w-[1048px] grid-cols-4 gap-3">
         <MonitoringCard name="한솥" manager="이현수" />
       </div>
-      {isAddModalOpen && <AddModal onClose={handleClose} />}
+      {isAddModalOpen && (
+        <AddModal onClose={handleClose} onSubmit={handleSubmit} />
+      )}
       {isModalOpen && (
         <CancelModal
           onClose={handleModalClose}

@@ -36,6 +36,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputValue.trim()) {
+      e.preventDefault();
       const keyword = inputValue.trim();
 
       if (validateKeyword && !validateKeyword(keyword)) {

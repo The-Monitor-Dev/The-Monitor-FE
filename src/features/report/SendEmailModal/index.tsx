@@ -24,7 +24,7 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
     <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-65">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="h-[665px] w-[580px] bg-white"
+        className="h-[663px] w-[580px] bg-white"
       >
         <div className="mr-5 mt-5 flex justify-end">
           <button
@@ -38,8 +38,7 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
           <span className="text-4xl font-semibold text-title">
             메일 전송하기
           </span>
-          <div className="mt-2 text-title underline">메일 예시 보기</div>
-          <div className="mt-4 flex flex-col bg-surface-disable px-3 py-4 text-body3">
+          <div className="mt-8 flex flex-col bg-surface-disable px-3 py-4 text-body3">
             <span>
               &nbsp;&bull;&nbsp; 미리 설정된 수신인에게 메일이 발송됩니다.
             </span>
@@ -48,7 +47,7 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
               전송됩니다.
             </span>
           </div>
-          <div className="mt-4 flex flex-col gap-6 px-1">
+          <div className="mt-6 flex flex-col gap-6 px-1">
             <div className="flex flex-col gap-2">
               <label className="flex items-end gap-1">
                 <span className="text-md font-semibold text-title">
@@ -77,7 +76,7 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
                   className="h-[96px] resize-none bg-surface-primary text-md font-regular outline-none placeholder:text-disable"
                 />
                 <div className="self-end text-xs font-medium text-body3">
-                  {body?.length}/500
+                  {body?.length || 0}/500
                 </div>
               </div>
             </div>

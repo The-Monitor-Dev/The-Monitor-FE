@@ -13,7 +13,7 @@ const AddNews: React.FC = () => {
   const [isBoxChecked, setIsBoxChecked] = useState(false);
   const [isCompanyOpen, setIsCompanyOpen] = useState(true);
   return (
-    <div className="flex flex-grow flex-col bg-white">
+    <div className="flex flex-grow flex-col rounded bg-white">
       <div className="flex items-center justify-between border-b-1 border-b-neutral-200 px-6 py-5">
         <span className="text-xl font-semibold text-title">추가한 뉴스</span>
         <Button type="button" style="outline-s" className="px-3 py-1">

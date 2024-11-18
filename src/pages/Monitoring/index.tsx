@@ -166,7 +166,7 @@ const MonitoringPage: React.FC = () => {
           <Button
             type="button"
             style="filled"
-            onClick={() => navigate(routes.reportEdit)}
+            onClick={() => navigate(routes.reportNew)}
             className="flex items-center gap-1 p-2"
           >
             <ReportCheckIcon />

@@ -1,10 +1,13 @@
 import { ClockIcon, DeleteIcon, DonerIcon, EditNoteIcon } from "@assets/svgs";
 import SearchBar from "@components/SearchBar";
+import routes from "@constants/routes";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type SortOption = "updatedDate" | "newest";
 
 const ReportPage = () => {
+  const navigate = useNavigate();
   const [selectedSort, setSelectedSort] = useState<SortOption>("updatedDate");
   return (
     <div className="flex h-full flex-col bg-white pl-8 pt-5">
@@ -46,6 +49,7 @@ const ReportPage = () => {
           <div className="flex flex-grow items-center gap-1">
             <button
               type="button"
+              onClick={() => navigate(routes.reportEdit)}
               className="flex h-9 w-9 items-center justify-center rounded-[2px] hover:bg-neutral-200"
             >
               <EditNoteIcon />

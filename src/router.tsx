@@ -8,8 +8,9 @@ import DashboardPage from "@pages/Dashboard";
 import MonitoringPage from "@pages/Monitoring";
 import ReportPage from "@pages/Report";
 import SettingPage from "@pages/Setting";
-import ReportEditPage from "@pages/ReportEdit";
 import NotFound from "@pages/NotFound";
+import ReportNewPage from "@pages/ReportNew";
+import ReportEditPage from "@pages/ReportEdit";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: routes.report,
         element: <ReportPage />,
+      },
+      {
+        path: routes.reportNew,
+        element: <ReportNewPage />,
       },
       {
         path: routes.reportEdit,

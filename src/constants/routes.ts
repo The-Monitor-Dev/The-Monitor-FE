@@ -6,6 +6,7 @@ const routes = {
   dashboard: "/dashboard",
   monitoring: "/monitoring",
   report: "/report",
+  reportNew: "/report/new",
   reportEdit: "/report/edit",
   setting: "/setting",
 } as const;

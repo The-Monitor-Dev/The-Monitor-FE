@@ -26,20 +26,15 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
     setSelectedButton(buttonName);
   };
 
-  const handleAddKeyword = (keyword: string) => {
+  const updateKeywords = (action: "add" | "delete", keyword: string) => {
     const updatedKeywords = {
       ...keywordsByCategory,
-      [selectedButton]: [...keywordsByCategory[selectedButton], keyword],
-    };
-    setValue("keywordsByCategory", updatedKeywords);
-  };
-
-  const handleDeleteKeyword = (keywordToDelete: string) => {
-    const updatedKeywords = {
-      ...keywordsByCategory,
-      [selectedButton]: keywordsByCategory[selectedButton].filter(
-        (keyword: string) => keyword !== keywordToDelete,
-      ),
+      [selectedButton]:
+        action === "add"
+          ? [...keywordsByCategory[selectedButton], keyword]
+          : keywordsByCategory[selectedButton].filter(
+              (existingKeyword) => existingKeyword !== keyword,
+            ),
     };
     setValue("keywordsByCategory", updatedKeywords);
   };
@@ -89,8 +84,8 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
             label="검색 키워드"
             placeholder="검색할 키워드를 입력해주세요..."
             keywords={keywordsByCategory[selectedButton]}
-            onAddKeyword={handleAddKeyword}
-            onDeleteKeyword={handleDeleteKeyword}
+            onAddKeyword={(keyword) => updateKeywords("add", keyword)}
+            onDeleteKeyword={(keyword) => updateKeywords("delete", keyword)}
             errorMessage="*이미 추가된 키워드입니다."
             isRequired
           />

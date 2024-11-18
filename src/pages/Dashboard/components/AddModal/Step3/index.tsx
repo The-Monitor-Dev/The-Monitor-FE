@@ -17,28 +17,18 @@ const Step3: React.FC = () => {
     return emailRegex.test(email.trim());
   };
 
-  const handleAddRecipientKeyword = (keyword: string) => {
-    const updatedRecipientKeywords = [...recipientKeywords, keyword];
-    setValue("recipientKeywords", updatedRecipientKeywords);
-  };
+  const handleKeywordChange = (
+    category: "recipientKeywords" | "referenceKeywords",
+    keyword: string,
+    action: "add" | "delete",
+  ) => {
+    const currentKeywords = watch(category) || [];
+    const updatedKeywords =
+      action === "add"
+        ? [...currentKeywords, keyword]
+        : currentKeywords.filter((k: string) => k !== keyword);
 
-  const handleDeleteRecipientKeyword = (keyword: string) => {
-    const updatedRecipientKeywords = recipientKeywords.filter(
-      (k: string) => k !== keyword,
-    );
-    setValue("recipientKeywords", updatedRecipientKeywords);
-  };
-
-  const handleAddReferenceKeyword = (keyword: string) => {
-    const updatedReferenceKeywords = [...referenceKeywords, keyword];
-    setValue("referenceKeywords", updatedReferenceKeywords);
-  };
-
-  const handleDeleteReferenceKeyword = (keyword: string) => {
-    const updatedReferenceKeywords = referenceKeywords.filter(
-      (k: string) => k !== keyword,
-    );
-    setValue("referenceKeywords", updatedReferenceKeywords);
+    setValue(category, updatedKeywords);
   };
 
   return (
@@ -68,8 +58,12 @@ const Step3: React.FC = () => {
             label="받는 사람"
             placeholder="메일을 입력해주세요."
             keywords={recipientKeywords}
-            onAddKeyword={handleAddRecipientKeyword}
-            onDeleteKeyword={handleDeleteRecipientKeyword}
+            onAddKeyword={(keyword) =>
+              handleKeywordChange("recipientKeywords", keyword, "add")
+            }
+            onDeleteKeyword={(keyword) =>
+              handleKeywordChange("recipientKeywords", keyword, "delete")
+            }
             validateKeyword={validateEmail}
             errorMessage="*잘못된 이메일 형식입니다."
             isRequired
@@ -79,8 +73,12 @@ const Step3: React.FC = () => {
               label="참조인"
               placeholder="메일을 입력해주세요."
               keywords={referenceKeywords}
-              onAddKeyword={handleAddReferenceKeyword}
-              onDeleteKeyword={handleDeleteReferenceKeyword}
+              onAddKeyword={(keyword) =>
+                handleKeywordChange("referenceKeywords", keyword, "add")
+              }
+              onDeleteKeyword={(keyword) =>
+                handleKeywordChange("referenceKeywords", keyword, "delete")
+              }
               validateKeyword={validateEmail}
               errorMessage="*잘못된 이메일 형식입니다."
             />

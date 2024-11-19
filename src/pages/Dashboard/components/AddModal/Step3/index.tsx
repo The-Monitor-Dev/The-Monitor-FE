@@ -66,6 +66,7 @@ const Step3: React.FC = () => {
             }
             validateKeyword={validateEmail}
             errorMessage="*잘못된 이메일 형식입니다."
+            duplicateErrorMessage="*이미 추가된 이메일입니다."
             isRequired
           />
           <div className="mt-7">
@@ -81,6 +82,7 @@ const Step3: React.FC = () => {
               }
               validateKeyword={validateEmail}
               errorMessage="*잘못된 이메일 형식입니다."
+              duplicateErrorMessage="*이미 추가된 이메일입니다."
             />
           </div>
         </div>

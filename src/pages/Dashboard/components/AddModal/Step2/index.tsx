@@ -86,7 +86,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
             keywords={keywordsByCategory[selectedButton]}
             onAddKeyword={(keyword) => updateKeywords("add", keyword)}
             onDeleteKeyword={(keyword) => updateKeywords("delete", keyword)}
-            errorMessage="*이미 추가된 키워드입니다."
+            duplicateErrorMessage="*이미 추가된 키워드입니다."
             isRequired
           />
         </div>

@@ -9,6 +9,7 @@ interface KeywordInputProps {
   onDeleteKeyword: (keyword: string) => void;
   validateKeyword?: (keyword: string) => boolean;
   errorMessage?: string;
+  duplicateErrorMessage?: string;
   isRequired?: boolean;
 }
 
@@ -20,17 +21,20 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
   onDeleteKeyword,
   validateKeyword,
   errorMessage,
+  duplicateErrorMessage,
   isRequired = false,
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
-  const [isValid, setIsValid] = useState<boolean>(true);
+  const [errorType, setErrorType] = useState<"invalid" | "duplicate" | null>(
+    null,
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
 
     if (value.trim() === "") {
-      setIsValid(true);
+      setErrorType(null);
     }
   };
 
@@ -40,20 +44,32 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
       const keyword = inputValue.trim();
 
       if (validateKeyword && !validateKeyword(keyword)) {
-        setIsValid(false);
+        setErrorType("invalid");
         return;
       }
 
-      if (keywords.includes(keyword)) {
-        setIsValid(false);
+      if (keywords.some((existingKeyword) => existingKeyword === keyword)) {
+        setErrorType("duplicate");
         return;
       }
 
       onAddKeyword(keyword);
       setInputValue("");
-      setIsValid(true);
+      setErrorType(null);
     }
   };
+
+  {
+    inputValue.trim() !== "" && errorType && (
+      <p className="mt-1 text-xs font-regular text-error-500">
+        {errorType === "duplicate"
+          ? duplicateErrorMessage
+          : errorType === "invalid"
+            ? errorMessage
+            : null}
+      </p>
+    );
+  }
 
   return (
     <div className="flex flex-col">
@@ -70,9 +86,9 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
         onKeyPress={handleKeyPress}
         className="mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
       />
-      {inputValue.trim() !== "" && !isValid && (
+      {inputValue.trim() !== "" && errorType && (
         <p className="mt-1 text-xs font-regular text-error-500">
-          {errorMessage}
+          {errorType === "invalid" ? errorMessage : duplicateErrorMessage}
         </p>
       )}
       <div className="mt-3 flex flex-wrap gap-2">

@@ -95,9 +95,11 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
         style="filled"
         className="absolute bottom-16 mx-[60px] w-[360px] py-3"
         onClick={handleNext}
-        disabled={Object.values(keywordsByCategory).every(
-          (keywords) => keywords.length === 0,
-        )}
+        disabled={
+          !Object.values(keywordsByCategory).every(
+            (keywords) => keywords.length > 0,
+          )
+        }
       >
         다음
       </Button>

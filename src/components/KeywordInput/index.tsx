@@ -30,46 +30,30 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInputValue(value);
-
-    if (value.trim() === "") {
-      setErrorType(null);
-    }
+    setInputValue(e.target.value.trim());
+    setErrorType(null);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputValue.trim()) {
-      e.preventDefault();
-      const keyword = inputValue.trim();
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.key !== "Enter" || !inputValue) return;
 
-      if (validateKeyword && !validateKeyword(keyword)) {
-        setErrorType("invalid");
-        return;
-      }
+    e.preventDefault();
+    const keyword = inputValue;
 
-      if (keywords.some((existingKeyword) => existingKeyword === keyword)) {
-        setErrorType("duplicate");
-        return;
-      }
-
-      onAddKeyword(keyword);
-      setInputValue("");
-      setErrorType(null);
+    if (validateKeyword && !validateKeyword(keyword)) {
+      setErrorType("invalid");
+      return;
     }
-  };
 
-  {
-    inputValue.trim() !== "" && errorType && (
-      <p className="mt-1 text-xs font-regular text-error-500">
-        {errorType === "duplicate"
-          ? duplicateErrorMessage
-          : errorType === "invalid"
-            ? errorMessage
-            : null}
-      </p>
-    );
-  }
+    if (keywords.includes(keyword)) {
+      setErrorType("duplicate");
+      return;
+    }
+
+    onAddKeyword(keyword);
+    setInputValue("");
+    setErrorType(null);
+  };
 
   return (
     <div className="flex flex-col">
@@ -83,10 +67,10 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
         placeholder={placeholder}
         value={inputValue}
         onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyDown}
         className="mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
       />
-      {inputValue.trim() !== "" && errorType && (
+      {errorType && (
         <p className="mt-1 text-xs font-regular text-error-500">
           {errorType === "invalid" ? errorMessage : duplicateErrorMessage}
         </p>
@@ -102,7 +86,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
             </span>
             <CloseIcon
               type="button"
-              className="h-5 w-5 fill-primary-500"
+              className="h-5 w-5 cursor-pointer fill-primary-500"
               onClick={() => onDeleteKeyword(keyword)}
             />
           </div>

@@ -14,13 +14,19 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
   const keywordsByCategory: { [key: string]: string[] } = watch(
     "keywordsByCategory",
   ) || {
-    자사: [],
-    경쟁사: [],
-    업계: [],
+    SELF: [],
+    COMPETITOR: [],
+    INDUSTRY: [],
+  };
+
+  const categoryNameMap: { [key: string]: string } = {
+    SELF: "자사",
+    COMPETITOR: "경쟁사",
+    INDUSTRY: "업계",
   };
 
   const [selectedButton, setSelectedButton] =
-    useState<keyof typeof keywordsByCategory>("자사");
+    useState<keyof typeof keywordsByCategory>("SELF");
 
   const handleButtonClick = (buttonName: keyof typeof keywordsByCategory) => {
     setSelectedButton(buttonName);
@@ -69,7 +75,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
                 handleButtonClick(buttonName as keyof typeof keywordsByCategory)
               }
             >
-              {buttonName}
+              {categoryNameMap[buttonName]}
             </button>
           ))}
         </div>

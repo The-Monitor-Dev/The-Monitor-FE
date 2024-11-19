@@ -8,14 +8,14 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 type AddModalFormData = {
   companyName: string;
   personInCharge: string;
-  uploadingImg?: string;
+  uploadingImg?: File;
   keywordsByCategory: {
-    자사: string[];
-    경쟁사: string[];
-    업계: string[];
+    SELF: string[];
+    COMPETITOR: string[];
+    INDUSTRY: string[];
   };
-  recipientKeywords: string[];
-  referenceKeywords?: string[];
+  recipientEmails: string[];
+  referenceEmails?: string[];
 };
 
 interface AddModalProps {

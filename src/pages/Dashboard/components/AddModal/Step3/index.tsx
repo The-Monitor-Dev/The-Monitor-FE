@@ -1,84 +1,34 @@
-import { AttentionIcon, CloseIcon } from "@assets/svgs";
+import React from "react";
+import { AttentionIcon } from "@assets/svgs";
 import Button from "@components/Button";
-import { useEffect, useState } from "react";
+import KeywordInput from "@components/KeywordInput";
+import { useFormContext } from "react-hook-form";
 
 const Step3: React.FC = () => {
-  const [recipientKeyword, setRecipientKeyword] = useState<string>("");
-  const [recipientKeywords, setRecipientKeywords] = useState<string[]>([]);
-  const [isRecipientEmailValid, setIsRecipientEmailValid] =
-    useState<boolean>(true);
+  const { watch, setValue } = useFormContext();
 
-  const [referenceKeyword, setReferenceKeyword] = useState<string>("");
-  const [referenceKeywords, setReferenceKeywords] = useState<string[]>([]);
-  const [isReferenceEmailValid, setIsReferenceEmailValid] =
-    useState<boolean>(true);
-  const [isComplete, setIsComplete] = useState<boolean>(false);
+  const [recipientEmails = [], referenceEmails = []] = watch([
+    "recipientEmails",
+    "referenceEmails",
+  ]);
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email.trim());
   };
 
-  const handleRecipientKeyPress = (
-    e: React.KeyboardEvent<HTMLInputElement>,
+  const handleKeywordChange = (
+    category: "recipientEmails" | "referenceEmails",
+    email: string,
+    action: "add" | "delete",
   ) => {
-    if (e.key === "Enter") {
-      if (validateEmail(recipientKeyword)) {
-        setRecipientKeywords((prev) => [...prev, recipientKeyword.trim()]);
-        setRecipientKeyword("");
-        setIsRecipientEmailValid(true);
-      } else {
-        setIsRecipientEmailValid(false);
-      }
-    }
-  };
+    const currentEmails = watch(category) || [];
+    const updatedEmails =
+      action === "add"
+        ? [...currentEmails, email]
+        : currentEmails.filter((e: string) => e !== email);
 
-  const handleReferenceKeyPress = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
-    if (e.key === "Enter") {
-      if (validateEmail(referenceKeyword)) {
-        setReferenceKeywords((prev) => [...prev, referenceKeyword.trim()]);
-        setReferenceKeyword("");
-        setIsReferenceEmailValid(true);
-      } else {
-        setIsReferenceEmailValid(false);
-      }
-    }
-  };
-
-  const handleDeleteRecipientKeyword = (keywordToDelete: string) => {
-    setRecipientKeywords((prev) =>
-      prev.filter((keyword) => keyword !== keywordToDelete),
-    );
-  };
-
-  const handleDeleteReferenceKeyword = (keywordToDelete: string) => {
-    setReferenceKeywords((prev) =>
-      prev.filter((keyword) => keyword !== keywordToDelete),
-    );
-  };
-
-  useEffect(() => {
-    if (recipientKeywords.length > 0) {
-      setIsComplete(true);
-    } else {
-      setIsComplete(false);
-    }
-  }, [recipientKeywords]);
-
-  const handleRecipientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRecipientKeyword(e.target.value);
-    if (isRecipientEmailValid === false && e.target.value === "") {
-      setIsRecipientEmailValid(true);
-    }
-  };
-
-  const handleReferenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReferenceKeyword(e.target.value);
-    if (isReferenceEmailValid === false && e.target.value === "") {
-      setIsReferenceEmailValid(true);
-    }
+    setValue(category, updatedEmails);
   };
 
   return (
@@ -104,79 +54,36 @@ const Step3: React.FC = () => {
           </p>
         </div>
         <div className="h-[265px] overflow-y-auto pb-[17px]">
-          <div className="flex flex-col">
-            <label className="flex items-center">
-              <p className="mr-[6px] text-md font-semibold text-title">
-                받는 사람
-              </p>
-              <p className="text-sm font-regular text-body3">[필수]</p>
-            </label>
-            <input
+          <KeywordInput
+            label="받는 사람"
+            placeholder="메일을 입력해주세요."
+            keywords={recipientEmails}
+            onAddKeyword={(email) =>
+              handleKeywordChange("recipientEmails", email, "add")
+            }
+            onDeleteKeyword={(email) =>
+              handleKeywordChange("recipientEmails", email, "delete")
+            }
+            validateKeyword={validateEmail}
+            errorMessage="*잘못된 이메일 형식입니다."
+            duplicateErrorMessage="*이미 추가된 이메일입니다."
+            isRequired
+          />
+          <div className="mt-7">
+            <KeywordInput
+              label="참조인"
               placeholder="메일을 입력해주세요."
-              value={recipientKeyword}
-              onChange={handleRecipientChange}
-              onKeyPress={handleRecipientKeyPress}
-              className="mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
+              keywords={referenceEmails}
+              onAddKeyword={(email) =>
+                handleKeywordChange("referenceEmails", email, "add")
+              }
+              onDeleteKeyword={(email) =>
+                handleKeywordChange("referenceEmails", email, "delete")
+              }
+              validateKeyword={validateEmail}
+              errorMessage="*잘못된 이메일 형식입니다."
+              duplicateErrorMessage="*이미 추가된 이메일입니다."
             />
-            {!isRecipientEmailValid && (
-              <p className="mt-1 text-xs font-regular text-error-500">
-                *잘못된 이메일 형식입니다.
-              </p>
-            )}
-            <div className="mt-3 flex flex-wrap gap-2">
-              {recipientKeywords.map((keyword, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary py-1 pl-3 pr-2 text-primary-500"
-                >
-                  <span className="text-sm font-semibold text-primary-700">
-                    {keyword}
-                  </span>
-                  <CloseIcon
-                    type="button"
-                    className="h-5 w-5 fill-primary-500"
-                    onClick={() => handleDeleteRecipientKeyword(keyword)}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-7 flex flex-col">
-            <label className="flex items-center">
-              <p className="mr-[6px] text-md font-semibold text-title">
-                참조인
-              </p>
-              <p className="text-sm font-regular text-body3">[선택]</p>
-            </label>
-            <input
-              placeholder="메일을 입력해주세요."
-              value={referenceKeyword}
-              onChange={handleReferenceChange}
-              onKeyPress={handleReferenceKeyPress}
-              className="mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
-            />
-            {!isReferenceEmailValid && (
-              <p className="mt-1 text-xs font-regular text-error-500">
-                *잘못된 이메일 형식입니다.
-              </p>
-            )}
-            <div className="mt-3 flex flex-wrap gap-2">
-              {referenceKeywords.map((keyword, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary py-1 pl-3 pr-2 text-primary-500"
-                >
-                  <span className="text-sm font-semibold text-primary-700">
-                    {keyword}
-                  </span>
-                  <CloseIcon
-                    type="button"
-                    className="h-5 w-5 fill-primary-500"
-                    onClick={() => handleDeleteReferenceKeyword(keyword)}
-                  />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
@@ -184,7 +91,7 @@ const Step3: React.FC = () => {
         type="submit"
         style="filled"
         className="absolute bottom-16 mx-[60px] w-[360px] py-3"
-        disabled={!isComplete}
+        disabled={recipientEmails.length === 0}
       >
         완료
       </Button>

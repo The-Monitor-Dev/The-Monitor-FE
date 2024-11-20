@@ -1,37 +1,36 @@
 import { AddCircleThinIcon, AttentionIcon, CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import Input from "@components/Input";
-import { useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface Step1Props {
   handleNext: () => void;
 }
 
 const Step1: React.FC<Step1Props> = ({ handleNext }) => {
-  const [uploadingImg, setUploadingImg] = useState<string | null>(null);
-  const [companyName, setCompanyName] = useState<string>("");
-  const [personInCharge, setPersonInCharge] = useState<string>("");
-  const [isComplete, setIsComplete] = useState<boolean>(false);
+  const { register, watch, setValue } = useFormContext();
+
+  const [companyName, personInCharge, uploadingImg] = watch([
+    "companyName",
+    "personInCharge",
+    "uploadingImg",
+  ]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const uploadingImg = URL.createObjectURL(file);
-      setUploadingImg(uploadingImg);
+      setValue("uploadingImg", uploadingImg);
     }
   };
 
   const handleDeleteImage = () => {
-    setUploadingImg(null);
+    setValue("uploadingImg", null);
   };
 
   const handleAddImage = () => {
     document.getElementById("fileInput")?.click();
   };
-
-  useEffect(() => {
-    setIsComplete(companyName.trim() !== "" && personInCharge.trim() !== "");
-  }, [companyName, personInCharge]);
 
   return (
     <div className="h-full px-[50px]">
@@ -53,13 +52,13 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
         <Input
           className="mb-7 mt-2"
           placeholder="사명을 입력해주세요."
-          onChange={(e) => setCompanyName(e.target.value)}
+          {...register("companyName")}
         />
         <label className="mb-2 text-md font-semibold text-title">담당자</label>
         <Input
           className="mb-7 mt-2"
           placeholder="담당자 또는 팀명을 입력해주세요."
-          onChange={(e) => setPersonInCharge(e.target.value)}
+          {...register("personInCharge")}
         />
         <div className="mb-4 flex items-center">
           <label className="mr-2 text-md font-semibold text-title">로고</label>
@@ -107,7 +106,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
         style="filled"
         className="absolute bottom-16 mx-[60px] w-[360px] py-3"
         onClick={handleNext}
-        disabled={!isComplete}
+        disabled={!companyName || !personInCharge}
       >
         다음
       </Button>

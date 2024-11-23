@@ -38,3 +38,8 @@ export { default as SummarizeIcon } from "./summarize.svg?react";
 export { default as HandleIcon } from "./handle.svg?react";
 export { default as NotFoundIcon } from "./notFound.svg?react";
 export { default as EditNoteIcon } from "./editNote.svg?react";
+export { default as ArrowLeftIcon } from "./arrowLeft.svg?react";
+export { default as DoubleArrowLeftIcon } from "./doubleArrowLeft.svg?react";
+export { default as ArrowRightIcon } from "./arrowRight.svg?react";
+export { default as DoubleArrowRightIcon } from "./doubleArrowRight.svg?react";
+export { default as PencilIcon } from "./pencil.svg?react";

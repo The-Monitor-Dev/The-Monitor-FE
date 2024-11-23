@@ -58,7 +58,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        className="mt-4 w-full border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
+        className="w-full border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
       />
       {errorType && (
         <p className="mt-1 text-xs font-regular text-error-500">

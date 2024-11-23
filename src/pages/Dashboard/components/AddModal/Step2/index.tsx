@@ -3,6 +3,7 @@ import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
+import KeywordLabel from "../../KeywordLabel";
 
 interface Step2Props {
   handleNext: () => void;
@@ -86,14 +87,13 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
           </p>
         </div>
         <div className="h-[221px] overflow-y-auto pb-[17px]">
+          <KeywordLabel label="검색 키워드" isRequired />
           <KeywordInput
-            label="검색 키워드"
             placeholder="검색할 키워드를 입력해주세요..."
             keywords={keywordsByCategory[selectedButton]}
             onAddKeyword={(keyword) => updateKeywords("add", keyword)}
             onDeleteKeyword={(keyword) => updateKeywords("delete", keyword)}
             duplicateErrorMessage="*이미 추가된 키워드입니다."
-            isRequired
           />
         </div>
       </div>

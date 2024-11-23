@@ -97,7 +97,7 @@ const SignInPage: React.FC = () => {
         </form>
         <Link
           to={routes.password}
-          className="mt-3 w-full text-center text-sm font-regular text-body1"
+          className="mt-4 w-full text-center text-sm font-regular text-body1 underline"
         >
           비밀번호 찾기
         </Link>

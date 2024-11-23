@@ -1,6 +1,7 @@
 import { AttentionIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
+import { categoryNameMap } from "@constants/category";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import KeywordLabel from "../../KeywordLabel";
@@ -18,12 +19,6 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
     SELF: [],
     COMPETITOR: [],
     INDUSTRY: [],
-  };
-
-  const categoryNameMap: { [key: string]: string } = {
-    SELF: "자사",
-    COMPETITOR: "경쟁사",
-    INDUSTRY: "업계",
   };
 
   const [selectedButton, setSelectedButton] =

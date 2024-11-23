@@ -1,4 +1,4 @@
-import { apiPost } from "./apiUtils";
+import { apiPost, authApiGet } from "./apiUtils";
 import {
   PostSendEmailConfirmData,
   PostSendPasswordChangeEmailData,
@@ -27,4 +27,8 @@ export const postSendPasswordChangeEmail = async (
   data: PostSendPasswordChangeEmailData,
 ) => {
   return apiPost("/accounts/sendPasswordChangeEmail", data);
+};
+
+export const checkToken = async () => {
+  return authApiGet("/accounts/tokenValidity");
 };

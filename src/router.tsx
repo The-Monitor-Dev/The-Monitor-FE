@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         element: <ReportNewPage />,
       },
       {
-        path: routes.reportEdit,
+        path: `${routes.reportEdit}/:reportId`,
         element: <ReportEditPage />,
       },
       {

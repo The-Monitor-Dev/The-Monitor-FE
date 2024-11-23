@@ -1,93 +1,107 @@
-import { ClockIcon, DeleteIcon, DonerIcon, EditNoteIcon } from "@assets/svgs";
+import useGetReports from "@api/hooks/reports/useGetReports";
+import { DonerIcon } from "@assets/svgs";
 import SearchBar from "@components/SearchBar";
-import routes from "@constants/routes";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import ReportBox from "./ReportBox";
+import debounce from "lodash/debounce";
+import usePostSearchReports from "@api/hooks/reports/usePostSearchReports";
 
-type SortOption = "updatedDate" | "newest";
+type SortOption = "updatedAt" | "createdAt";
 
 const ReportPage = () => {
-  const navigate = useNavigate();
-  const [selectedSort, setSelectedSort] = useState<SortOption>("updatedDate");
+  const [selectedSort, setSelectedSort] = useState<SortOption>("updatedAt");
+  const [searchTitle, setSearchTitle] = useState("");
+  const [debouncedSearchTitle, setDebouncedSearchTitle] = useState("");
+
+  const { data: reportsData } = useGetReports(1);
+  const { data: searchReportsData } = usePostSearchReports({
+    clientId: 1,
+    searchTitle: debouncedSearchTitle,
+  });
+
+  const activeReportsData = searchTitle.trim()
+    ? searchReportsData
+    : reportsData;
+
+  const sortedReports = activeReportsData?.slice().sort((a, b) => {
+    if (selectedSort === "updatedAt") {
+      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+    } else if (selectedSort === "createdAt") {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    }
+    return 0;
+  });
+
+  const handleDebounce = useMemo(
+    () =>
+      debounce((value: string) => {
+        setDebouncedSearchTitle(value);
+      }, 200),
+    [],
+  );
+
+  const handleChangeSearchTitle = (value: string) => {
+    setSearchTitle(value);
+    handleDebounce(value);
+  };
+
+  useEffect(() => {
+    return () => {
+      handleDebounce.cancel();
+    };
+  }, [handleDebounce]);
+
   return (
     <div className="flex h-full flex-col bg-white pl-8 pt-5">
-      <div className="flex items-end gap-[62px]">
+      <div className="flex items-end gap-[62px] pb-5">
         <SearchBar
           placeholder="보고서 제목을 입력해주세요."
           bgColor="neutral-100"
+          value={searchTitle}
+          onChange={handleChangeSearchTitle}
         />
         <div className="flex h-6 items-center gap-1">
           <DonerIcon className="h-4 w-4 scale-x-[-1]" />
           <button
             type="button"
-            onClick={() => setSelectedSort("updatedDate")}
-            className={`text-sm font-semibold ${selectedSort === "updatedDate" ? "text-primary-500" : "text-body3"}`}
+            onClick={() => setSelectedSort("updatedAt")}
+            className={`text-sm font-semibold ${selectedSort === "updatedAt" ? "text-primary-500" : "text-body3"}`}
           >
             수정일순
           </button>
           <div className="mx-1 h-full w-[1px] bg-neutral-200" />
           <button
             type="button"
-            onClick={() => setSelectedSort("newest")}
-            className={`text-sm font-semibold ${selectedSort === "newest" ? "text-primary-500" : "text-body3"}`}
+            onClick={() => setSelectedSort("createdAt")}
+            className={`text-sm font-semibold ${selectedSort === "createdAt" ? "text-primary-500" : "text-body3"}`}
           >
             최신순
           </button>
         </div>
       </div>
-      <div className="mt-5 flex flex-col">
-        <div className="flex h-[108px] w-[700px] items-center border-b-1 border-b-neutral-200 pl-4 pr-7 hover:bg-neutral-50">
-          <div className="flex w-[568px] flex-col gap-2">
-            <span className="text-lg font-semibold text-title">
-              한솥 20213 데일리 모니터링
-            </span>
-            <div className="flex items-center gap-[2px]">
-              <ClockIcon />
-              <div className="text-md font-regular text-body3">24.10.10</div>
-            </div>
-          </div>
-          <div className="flex flex-grow items-center gap-1">
-            <button
-              type="button"
-              onClick={() => navigate(routes.reportEdit)}
-              className="flex h-9 w-9 items-center justify-center rounded-[2px] hover:bg-neutral-200"
-            >
-              <EditNoteIcon />
-            </button>
-            <button
-              type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-[2px] hover:bg-neutral-100"
-            >
-              <DeleteIcon className="fill-neutral-400" />
-            </button>
-          </div>
+      {!sortedReports || sortedReports?.length === 0 ? (
+        <div className="ml-4 mt-[55px] flex flex-col gap-2">
+          <span className="text-4xl font-semibold text-body1">
+            아직 저장된 보고서가 없어요!
+          </span>
+          <p className="text-lg font-regular text-body3">
+            데일리 모니터링 보고서를 작성하고, <br />
+            이곳에서 보고서를 조회 및 관리해보세요
+          </p>
         </div>
-        <div className="flex h-[108px] w-[700px] items-center border-b-1 border-b-neutral-200 pl-4 pr-7 hover:bg-neutral-50">
-          <div className="flex w-[568px] flex-col gap-2">
-            <span className="text-lg font-semibold text-title">
-              한솥 20213 데일리 모니터링
-            </span>
-            <div className="flex items-center gap-[2px]">
-              <ClockIcon />
-              <div className="text-md font-regular text-body3">24.10.10</div>
-            </div>
-          </div>
-          <div className="flex flex-grow items-center gap-1">
-            <button
-              type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-[2px] hover:bg-neutral-100"
-            >
-              <EditNoteIcon />
-            </button>
-            <button
-              type="button"
-              className="flex h-9 w-9 items-center justify-center rounded-[2px] hover:bg-neutral-100"
-            >
-              <DeleteIcon className="fill-neutral-400" />
-            </button>
-          </div>
+      ) : (
+        <div className="flex flex-col overflow-y-auto">
+          {sortedReports.map((report) => (
+            <ReportBox
+              key={report.reportId}
+              reportId={report.reportId}
+              title={report.title}
+              createdAt={report.createdAt}
+              updatedAt={report.updatedAt}
+            />
+          ))}
         </div>
-      </div>
+      )}
     </div>
   );
 };

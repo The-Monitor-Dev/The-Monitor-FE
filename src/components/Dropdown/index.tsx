@@ -1,24 +1,19 @@
 import { ArrowDownIcon } from "@assets/svgs";
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
 
 interface DropdownProps {
   width: number;
   options: string[];
   selectedOption: string;
-  setSelectedOption: Dispatch<SetStateAction<string>>;
+  onSelectOption: (option: string) => void;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   width,
   options,
   selectedOption,
-  setSelectedOption,
+  onSelectOption,
 }) => {
-  const selectOption = (option: string) => {
-    setSelectedOption(option);
-  };
-
   return (
     <Menu>
       <MenuButton
@@ -45,7 +40,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           <MenuItem
             key={option}
             px={4}
-            onClick={() => selectOption(option)}
+            onClick={() => onSelectOption(option)}
             className="font-medium"
           >
             {option}

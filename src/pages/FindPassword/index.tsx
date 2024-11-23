@@ -44,10 +44,8 @@ const FindPasswordPage: React.FC = () => {
   return (
     <>
       <div className="flex h-full items-center justify-center">
-        <div className="flex h-[500px] w-[500px] flex-col bg-white px-[70px] shadow-form">
-          <h2 className="mt-[62px] text-4xl font-semibold text-title">
-            비밀번호 변경
-          </h2>
+        <div className="flex w-[500px] flex-col bg-white px-[70px] pb-[51px] pt-[62px] shadow-form">
+          <h2 className="text-4xl font-semibold text-title">비밀번호 변경</h2>
           <p className="font-md mt-2 font-regular text-title">
             가입 시 사용했던 이메일 주소를 입력해주세요.
             <br />
@@ -89,7 +87,7 @@ const FindPasswordPage: React.FC = () => {
               )}
             </Button>
           </form>
-          <div className="mt-[82px] flex w-full justify-center">
+          <div className="mt-4 flex w-full justify-center">
             <a
               href="mailto:themonitor2024@gmail.com"
               className="text-sm font-medium text-body1 underline"

@@ -1,25 +1,40 @@
-import {
-  BookmarkBlankIcon,
-  BookmarkFillIcon,
-  ClockIcon,
-  PersonIcon,
-  ReportCheckIcon,
-} from "@assets/svgs";
+import { ReportCheckIcon } from "@assets/svgs";
 import { subDays } from "date-fns";
 import React, { useRef, useState } from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import DateSelector from "./components/DateSelector";
 import PortalDropdown from "./components/PortalDropdown";
-import { DefaultImage } from "@assets/images";
 import Button from "@components/Button";
 import { useOutsideClick } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import routes from "@constants/routes";
+import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
+import Category from "./components/Category";
+import useGetArticlesByKeyword from "@api/hooks/articles/useGetArticlesByKeyword";
+import ArticleBox from "./components/ArticleBox";
+import Pagination from "./components/Pagination";
+import { categoryNameMap } from "@constants/category";
+import { Keyword } from "@api/keywordsAPI";
+import useGetArticles from "@api/hooks/articles/useGetArticles";
+import { CategoryTypeEn, CategoryTypeKr } from "types/category";
 
 const MonitoringPage: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState("Company");
+  const [selectedCategory, setSelectedCategory] = useState<
+    CategoryTypeEn | undefined
+  >("SELF");
+
+  const handleSelectCategory = (category: CategoryTypeEn | undefined) => {
+    setSelectedCategory(category);
+  };
+  const { data: keywordsData } = useGetKeywords(1);
+
+  const [selectedKeyword, setSelectedKeyword] = useState<Keyword | undefined>();
+  const handleSelectKeyword = (keyword: Keyword | undefined) => {
+    setSelectedKeyword(keyword);
+  };
+
   const [dateRange, setDateRange] = useState([
     {
       startDate: subDays(new Date(), 1) as Date,
@@ -78,68 +93,54 @@ const MonitoringPage: React.FC = () => {
     handler: () => setShowDropdown(false),
   });
 
-  // 임시 state
-  const [isBookmarkChecked, setIsBookmarkChecked] = useState(false);
+  const [page, setPage] = useState(1);
+  const { data: articles } = useGetArticles({
+    clientId: 1,
+    categoryType: selectedCategory,
+    page,
+  });
+  const { data: articlesByKeyword } = useGetArticlesByKeyword({
+    keyword: selectedKeyword?.keywordName,
+    page,
+  });
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  const articlesToDisplay = selectedCategory ? articles : articlesByKeyword;
+
+  const totalCount = Math.min(articlesToDisplay?.totalCount || 0, 100);
 
   return (
     <div className="flex h-full bg-white">
       <div className="flex h-full w-[232px] flex-col gap-3 border-r border-neutral-200 px-4 py-5">
-        <div className="border-t-1 border-neutral-200">
-          <button
-            className={`w-full p-2 text-left text-md font-semibold hover:bg-surface-secondary ${
-              selectedCategory === "Company"
-                ? "bg-surface-secondary text-primary-700"
-                : "text-neutral-700"
-            }`}
-            onClick={() => setSelectedCategory("Company")}
-          >
-            자사
-          </button>
-          <ul className="mt-2 flex flex-col gap-1 pl-6 text-sm font-medium text-body3">
-            <li className="my-2">keyword</li>
-            <li className="my-2">keyword</li>
-          </ul>
-        </div>
-        <div className="border-t-1 border-neutral-200">
-          <button
-            className={`w-full p-2 text-left text-md font-semibold hover:bg-surface-secondary ${
-              selectedCategory === "Competitor"
-                ? "bg-surface-secondary text-primary-700"
-                : "text-neutral-700"
-            }`}
-            onClick={() => setSelectedCategory("Competitor")}
-          >
-            경쟁사
-          </button>
-          <ul className="mt-2 flex flex-col gap-1 pl-6 text-sm font-medium text-body3">
-            <li className="my-2">keyword</li>
-            <li className="my-2">keyword</li>
-          </ul>
-        </div>
-        <div className="border-t-1 border-neutral-200">
-          <button
-            className={`w-full p-2 text-left text-md font-semibold hover:bg-surface-secondary ${
-              selectedCategory === "Industry"
-                ? "bg-surface-secondary text-primary-700"
-                : "text-neutral-700"
-            }`}
-            onClick={() => setSelectedCategory("Industry")}
-          >
-            업계
-          </button>
-          <ul className="mt-2 flex flex-col gap-1 pl-6 text-sm font-medium text-body3">
-            <li className="my-2">keyword</li>
-            <li className="my-2">keyword</li>
-          </ul>
-        </div>
+        {keywordsData &&
+          (
+            Object.entries(categoryNameMap) as [
+              CategoryTypeEn,
+              CategoryTypeKr,
+            ][]
+          ).map(([categoryEn, categoryKr]) => (
+            <Category
+              key={categoryEn}
+              categoryKr={categoryKr}
+              categoryEn={categoryEn}
+              selectedCategory={selectedCategory}
+              onSelectCategory={handleSelectCategory}
+              keywords={keywordsData[categoryEn]}
+              selectedKeyword={selectedKeyword}
+              onSelectKeyword={handleSelectKeyword}
+            />
+          ))}
       </div>
       <div className="flex w-[976px] flex-col">
         <div className="flex h-[69px] w-full items-center justify-between px-8">
           <div className="flex gap-3">
             <div className="flex items-center gap-1 border-r-1 border-neutral-200 pr-3 text-sm">
               <div className="font-regular text-body1">검색 결과</div>
-              <div className="w-[39px] text-right font-semibold text-primary-800">
-                57건
+              <div className="text-right font-semibold text-primary-800">
+                {totalCount}건
               </div>
             </div>
             <DateSelector
@@ -173,55 +174,27 @@ const MonitoringPage: React.FC = () => {
             <span>보고서 편집하기</span>
           </Button>
         </div>
-        <div className="flex flex-col pl-8">
-          <div className="flex h-[132px] w-[658px] gap-4 border-b-1 border-b-neutral-200">
-            <img
-              src={DefaultImage}
-              className="mt-4 h-[92px] w-[92px] rounded-[6px]"
-            />
-            <div className="flex w-[466px] flex-col gap-[6px] py-4">
-              <div className="flex items-center gap-[6px] text-xs font-regular text-body3">
-                <div className="font-semibold text-title">데일리단</div>
-                <div className="flex items-center gap-[2px]">
-                  <PersonIcon className="h-4 w-4" />
-                  <div>임유정 기자</div>
-                </div>
-                <div className="flex items-center gap-[2px]">
-                  <ClockIcon />
-                  <div>2024. 10. 04</div>
-                </div>
-              </div>
-              <div className="text-md font-semibold text-neutral-700">
-                한솥도시락, 달콤·고소·담백 ‘제주녹차 미니꿀호떡’ 출시
-              </div>
-              <p className="line-clamp-2 text-sm font-normal text-body3">
-                한솥도시락은 이번 리뉴얼 출시를 통해 보다 업그레이드된 맛과
-                품질로 그간 받은 관심과 성원에 보답하겠다는 입장이다. ‘제주녹차
-                미니꿀호떡’은 기존 메뉴에 있던 달콤한 꿀과 고소한 견과류에
-                녹차가 추가됐다. 은은한 녹차 향과 담백한 맛이 가미돼 깊은 풍미를
-                선사하는 것이 특징이다. 출출할 때 간식 대용으로 찾거나 식사 후
-                풍성한 디저트로 즐기기에 안성맞춤이다. 이처럼 깊은 맛을 내는
-                핵심 비결은 녹차에 있다. 진한 맛과 풍미가 일품인 제주산 프리미엄
-                녹차를 사용했기 때문이다. 실제로 제주도는 중국 황산, 일본
-                후지산과 더불어 세계 3대 녹차 생산지로 손꼽히며 깊은 녹차 향을
-                내는 것으로 유명하다.
-              </p>
-            </div>
-            <div className="px-4 pt-[18px]">
-              <button
-                type="button"
-                onClick={() => setIsBookmarkChecked((prev) => !prev)}
-                className="flex h-8 w-8 items-center justify-center hover:bg-neutral-100"
-              >
-                {isBookmarkChecked ? (
-                  <BookmarkFillIcon />
-                ) : (
-                  <BookmarkBlankIcon />
-                )}
-              </button>
-            </div>
-          </div>
+        <div className="flex flex-col overflow-y-auto pl-8">
+          {articlesToDisplay?.listPageResponse[0].googleArticles.map(
+            (article, idx) => (
+              <ArticleBox
+                key={idx}
+                title={article.title}
+                body={article.body}
+                publisherName={article.publisherName}
+                reporterName={article.reporterName}
+                publishDate={article.publishDate}
+                imageUrl={article.imageUrl}
+                url={article.url}
+              />
+            ),
+          )}
         </div>
+        <Pagination
+          totalCount={totalCount}
+          currentPage={page}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );

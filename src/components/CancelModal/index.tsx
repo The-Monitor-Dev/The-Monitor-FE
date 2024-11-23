@@ -1,6 +1,6 @@
 import { CloseIcon, ErrorIcon } from "@assets/svgs";
 
-interface ModalProps {
+interface CancelModalProps {
   onClose: () => void;
   handleCancel: () => void;
   headingText?: string;
@@ -9,7 +9,7 @@ interface ModalProps {
   cancelButtonText?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({
+const CancelModal: React.FC<CancelModalProps> = ({
   onClose,
   handleCancel,
   headingText,
@@ -19,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
-      <div className="relative flex h-[340px] w-[460px] flex-col items-center rounded bg-white pt-10">
+      <div className="relative flex w-[460px] flex-col items-center rounded bg-white pb-[42px] pt-10">
         <CloseIcon
           type="button"
           className="absolute right-5 top-5 cursor-pointer fill-neutral-700"
@@ -53,4 +53,4 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default Modal;
+export default CancelModal;

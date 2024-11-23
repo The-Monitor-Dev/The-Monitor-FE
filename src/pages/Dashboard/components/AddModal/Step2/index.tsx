@@ -89,6 +89,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
         <div className="h-[221px] overflow-y-auto pb-[17px]">
           <KeywordLabel label="검색 키워드" isRequired />
           <KeywordInput
+            type="modal"
             placeholder="검색할 키워드를 입력해주세요..."
             keywords={keywordsByCategory[selectedButton]}
             onAddKeyword={(keyword) => updateKeywords("add", keyword)}

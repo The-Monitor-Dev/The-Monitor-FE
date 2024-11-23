@@ -57,6 +57,7 @@ const Step3: React.FC = () => {
         <div className="h-[265px] overflow-y-auto pb-[17px]">
           <KeywordLabel label="받는 사람" isRequired />
           <KeywordInput
+            type="modal"
             placeholder="메일을 입력해주세요."
             keywords={recipientEmails}
             onAddKeyword={(email) =>
@@ -72,6 +73,7 @@ const Step3: React.FC = () => {
           <div className="mt-7">
             <KeywordLabel label="참조인" />
             <KeywordInput
+              type="modal"
               placeholder="메일을 입력해주세요."
               keywords={referenceEmails}
               onAddKeyword={(email) =>

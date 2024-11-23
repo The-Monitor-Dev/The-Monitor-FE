@@ -9,6 +9,7 @@ interface KeywordInputProps {
   validateKeyword?: (keyword: string) => boolean;
   errorMessage?: string;
   duplicateErrorMessage?: string;
+  type?: "default" | "modal";
 }
 
 const KeywordInput: React.FC<KeywordInputProps> = ({
@@ -19,6 +20,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
   validateKeyword,
   errorMessage,
   duplicateErrorMessage,
+  type = "default",
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [errorType, setErrorType] = useState<"invalid" | "duplicate" | null>(
@@ -58,8 +60,9 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        className="w-full border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
+        className={`w-full border-b border-neutral-200 bg-transparent ${type === "modal" ? "px-4" : "px-0"} pb-1 outline-none`}
       />
+
       {errorType && (
         <p className="mt-1 text-xs font-regular text-error-500">
           {errorType === "invalid" ? errorMessage : duplicateErrorMessage}

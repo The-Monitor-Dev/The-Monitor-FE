@@ -4,6 +4,7 @@ import AddModal from "./components/AddModal";
 import CancelModal from "@components/CancelModal";
 import MonitoringCard from "./components/MonitoringCard";
 import SearchBar from "@components/SearchBar";
+import ClientNotFound from "./components/ClientNotFound";
 
 const DashboardPage: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -47,6 +48,7 @@ const DashboardPage: React.FC = () => {
       <div className="grid w-[1048px] grid-cols-4 gap-3">
         <MonitoringCard name="한솥" manager="이현수" />
       </div>
+      {/* <ClientNotFound handleAddModalOpen={handleAddModalOpen} /> */}
       {isAddModalOpen && (
         <AddModal onClose={handleClose} onSubmit={handleSubmit} />
       )}

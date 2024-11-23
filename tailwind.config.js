@@ -48,6 +48,7 @@ export default {
         pretendard: ["Pretendard", ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
+        headingLarge: ["44px", "140%"],
         "4xl": ["28px", "150%"],
         "3xl": ["24px", "150%"],
         "2xl": ["22px", "150%"],

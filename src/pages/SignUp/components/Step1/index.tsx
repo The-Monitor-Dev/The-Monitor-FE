@@ -213,7 +213,7 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
       >
         다음
       </Button>
-      <div className="mt-3 flex w-full justify-center">
+      <div className="mt-4 flex w-full justify-center">
         <a
           href="mailto:themonitor2024@gmail.com"
           className="text-sm font-medium text-body1 underline"

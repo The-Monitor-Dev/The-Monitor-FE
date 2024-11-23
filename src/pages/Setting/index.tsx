@@ -35,7 +35,7 @@ const SettingPage = () => {
   };
 
   return (
-    <div className="h-full w-full bg-white">
+    <div className="h-full bg-white">
       <div className="flex items-center justify-between px-8 py-5">
         <div className="flex">
           <button
@@ -61,7 +61,7 @@ const SettingPage = () => {
           저장
         </Button>
       </div>
-      <div className="ml-8 flex h-[662px] w-full">
+      <div className="ml-8 flex h-[662px]">
         {activeTab === "검색 키워드" ? (
           <>
             <KeywordList
@@ -96,6 +96,7 @@ const SettingPage = () => {
               onDeleteKeyword={(keyword) =>
                 handleKeywordChange("INDUSTRY", keyword, "delete")
               }
+              showBorder={false}
             />
           </>
         ) : (
@@ -122,6 +123,7 @@ const SettingPage = () => {
                 handleKeywordChange("CC", keyword, "delete")
               }
             />
+            <KeywordList title="메일서명" type="sign" showBorder={false} />
           </>
         )}
       </div>

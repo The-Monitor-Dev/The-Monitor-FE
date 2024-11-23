@@ -4,8 +4,8 @@ import { CloseIcon } from "@assets/svgs";
 interface KeywordInputProps {
   placeholder: string;
   keywords: string[];
-  onAddKeyword: (keyword: string) => void;
-  onDeleteKeyword: (keyword: string) => void;
+  onAddKeyword?: (keyword: string) => void;
+  onDeleteKeyword?: (keyword: string) => void;
   validateKeyword?: (keyword: string) => boolean;
   errorMessage?: string;
   duplicateErrorMessage?: string;
@@ -48,7 +48,10 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
       return;
     }
 
-    onAddKeyword(keyword);
+    if (onAddKeyword) {
+      onAddKeyword(keyword);
+    }
+
     setInputValue("");
     setErrorType(null);
   };
@@ -60,7 +63,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        className={`w-full border-b border-neutral-200 bg-transparent ${type === "modal" ? "px-4" : "px-0"} pb-1 outline-none`}
+        className={`w-full border-b border-neutral-200 bg-transparent ${type === "modal" ? "px-4 pb-1" : "py-3 pb-2 pt-3"} outline-none`}
       />
 
       {errorType && (
@@ -77,11 +80,13 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
             <span className="text-sm font-semibold text-primary-700">
               {keyword}
             </span>
-            <CloseIcon
-              type="button"
-              className="h-5 w-5 cursor-pointer fill-primary-500"
-              onClick={() => onDeleteKeyword(keyword)}
-            />
+            {onDeleteKeyword && (
+              <CloseIcon
+                type="button"
+                className="h-5 w-5 cursor-pointer fill-primary-500"
+                onClick={() => onDeleteKeyword(keyword)}
+              />
+            )}
           </div>
         ))}
       </div>

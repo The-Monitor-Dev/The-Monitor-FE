@@ -87,7 +87,7 @@ const Step2: React.FC = () => {
       >
         완료
       </Button>
-      <div className="mt-3 flex w-full justify-center">
+      <div className="mt-4 flex w-full justify-center">
         <a
           href="mailto:themonitor2024@gmail.com"
           className="text-sm font-medium text-body1 underline"

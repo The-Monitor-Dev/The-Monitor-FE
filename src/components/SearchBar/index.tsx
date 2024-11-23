@@ -1,21 +1,27 @@
 import { CloseIcon, SearchIcon } from "@assets/svgs";
 import cn from "@utils/cn";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 
 interface SearchBarProps {
   placeholder: string;
   bgColor: string;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ placeholder, bgColor }) => {
-  const [value, setValue] = useState("");
+const SearchBar: React.FC<SearchBarProps> = ({
+  placeholder,
+  bgColor,
+  value,
+  onChange,
+}) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    onChange(e.target.value);
   };
   const hasText = value.trim().length > 0;
 
   const handleClear = () => {
-    setValue("");
+    onChange("");
   };
 
   return (

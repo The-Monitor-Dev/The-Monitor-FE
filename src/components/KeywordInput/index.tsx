@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import { CloseIcon } from "@assets/svgs";
 
 interface KeywordInputProps {
-  label: string;
   placeholder: string;
   keywords: string[];
-  onAddKeyword: (keyword: string) => void;
-  onDeleteKeyword: (keyword: string) => void;
+  onAddKeyword?: (keyword: string) => void;
+  onDeleteKeyword?: (keyword: string) => void;
   validateKeyword?: (keyword: string) => boolean;
   errorMessage?: string;
   duplicateErrorMessage?: string;
-  isRequired?: boolean;
+  type?: "default" | "modal";
 }
 
 const KeywordInput: React.FC<KeywordInputProps> = ({
-  label,
   placeholder,
   keywords,
   onAddKeyword,
@@ -22,7 +20,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
   validateKeyword,
   errorMessage,
   duplicateErrorMessage,
-  isRequired = false,
+  type = "default",
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [errorType, setErrorType] = useState<"invalid" | "duplicate" | null>(
@@ -50,26 +48,24 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
       return;
     }
 
-    onAddKeyword(keyword);
+    if (onAddKeyword) {
+      onAddKeyword(keyword);
+    }
+
     setInputValue("");
     setErrorType(null);
   };
 
   return (
-    <div className="flex flex-col">
-      <label className="flex items-center">
-        <p className="mr-[6px] text-md font-semibold text-title">{label}</p>
-        <p className="text-sm font-regular text-body3">
-          [{isRequired ? "필수" : "선택"}]
-        </p>
-      </label>
+    <div>
       <input
         placeholder={placeholder}
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        className="mt-4 border-b border-neutral-200 bg-transparent px-3 py-2 outline-none"
+        className={`w-full border-b border-neutral-200 bg-transparent ${type === "modal" ? "px-4 pb-1" : "py-3 pb-2 pt-3"} outline-none`}
       />
+
       {errorType && (
         <p className="mt-1 text-xs font-regular text-error-500">
           {errorType === "invalid" ? errorMessage : duplicateErrorMessage}
@@ -84,11 +80,13 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
             <span className="text-sm font-semibold text-primary-700">
               {keyword}
             </span>
-            <CloseIcon
-              type="button"
-              className="h-5 w-5 cursor-pointer fill-primary-500"
-              onClick={() => onDeleteKeyword(keyword)}
-            />
+            {onDeleteKeyword && (
+              <CloseIcon
+                type="button"
+                className="h-5 w-5 cursor-pointer fill-primary-500"
+                onClick={() => onDeleteKeyword(keyword)}
+              />
+            )}
           </div>
         ))}
       </div>

@@ -3,6 +3,8 @@ import { AttentionIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
 import { useFormContext } from "react-hook-form";
+import KeywordLabel from "../../KeywordLabel";
+import useValidateEmail from "@hooks/useValidateEmail";
 
 const Step3: React.FC = () => {
   const { watch, setValue } = useFormContext();
@@ -12,10 +14,7 @@ const Step3: React.FC = () => {
     "referenceEmails",
   ]);
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email.trim());
-  };
+  const validateEmail = useValidateEmail("email");
 
   const handleKeywordChange = (
     category: "recipientEmails" | "referenceEmails",
@@ -54,8 +53,9 @@ const Step3: React.FC = () => {
           </p>
         </div>
         <div className="h-[265px] overflow-y-auto pb-[17px]">
+          <KeywordLabel label="받는 사람" isRequired />
           <KeywordInput
-            label="받는 사람"
+            type="modal"
             placeholder="메일을 입력해주세요."
             keywords={recipientEmails}
             onAddKeyword={(email) =>
@@ -67,11 +67,11 @@ const Step3: React.FC = () => {
             validateKeyword={validateEmail}
             errorMessage="*잘못된 이메일 형식입니다."
             duplicateErrorMessage="*이미 추가된 이메일입니다."
-            isRequired
           />
           <div className="mt-7">
+            <KeywordLabel label="참조인" />
             <KeywordInput
-              label="참조인"
+              type="modal"
               placeholder="메일을 입력해주세요."
               keywords={referenceEmails}
               onAddKeyword={(email) =>

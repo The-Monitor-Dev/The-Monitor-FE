@@ -1,16 +1,28 @@
-import React, { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { AddCircleThinIcon, CloseIcon, DonerIcon } from "@assets/svgs";
 import { useOutsideClick } from "@chakra-ui/react";
 import { HexColorPicker } from "react-colorful";
 import DonerMenu from "../DonerMenu";
 import Table from "../Table";
+import usePatchReportColor from "@api/hooks/reports/usePatchReportColor";
+import usePatchReportTitle from "@api/hooks/reports/usePatchReportTitle";
 
 interface ReportSectionProps {
   initialTitle?: string;
+  initialColor?: string;
+  reportId?: number;
 }
 
 const ReportSection: React.FC<ReportSectionProps> = ({
-  initialTitle = "보고서 제목",
+  initialTitle,
+  initialColor,
+  reportId,
 }) => {
   const [image, setImage] = useState<string | null>(null);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,14 +37,29 @@ const ReportSection: React.FC<ReportSectionProps> = ({
     setImage(null);
   };
 
-  const [color, setColor] = useState("#ffffff");
+  const [color, setColor] = useState(initialColor || "#FFFFFF");
+
+  useEffect(() => {
+    if (initialColor) setColor(initialColor);
+  }, [initialColor]);
+
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [isColorEditing, setIsColorEditing] = useState(false);
   const colorPickerRef = useRef<HTMLDivElement | null>(null);
   const colorInputRef = useRef<HTMLInputElement>(null);
+  const { mutate: mutateColor } = usePatchReportColor();
+
+  const handleMutateColor = () => {
+    if (reportId && color && color !== initialColor) {
+      mutateColor({ clientId: 1, reportId, data: { color } });
+    }
+  };
   useOutsideClick({
     ref: colorPickerRef,
-    handler: () => setIsColorPickerOpen(false),
+    handler: () => {
+      setIsColorPickerOpen(false);
+      handleMutateColor();
+    },
   });
 
   const handleColorClick = () => {
@@ -43,6 +70,7 @@ const ReportSection: React.FC<ReportSectionProps> = ({
   const handleColorBlur = () => {
     if (/^#[0-9A-F]{6}$/i.test(color)) {
       setIsColorEditing(false);
+      handleMutateColor();
     } else {
       alert("유효한 HEX 색상 코드를 입력하세요.");
       setColor("#ffffff");
@@ -55,8 +83,15 @@ const ReportSection: React.FC<ReportSectionProps> = ({
     }
   };
 
+  const { mutate: mutateTitle } = usePatchReportTitle();
+
   const [isTitleEditing, setIsTitleEditing] = useState(false);
   const [title, setTitle] = useState(initialTitle);
+
+  useEffect(() => {
+    setTitle(initialTitle);
+  }, [initialTitle]);
+
   const titleInputRef = useRef<HTMLInputElement>(null);
 
   const handleTitleClick = () => {
@@ -66,6 +101,9 @@ const ReportSection: React.FC<ReportSectionProps> = ({
 
   const handleTitleBlur = () => {
     setIsTitleEditing(false);
+    if (reportId && title && title !== initialTitle) {
+      mutateTitle({ clientId: 1, reportId, data: { title } });
+    }
   };
 
   const handleTitleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -143,7 +181,7 @@ const ReportSection: React.FC<ReportSectionProps> = ({
                 className="w-[68px] cursor-pointer text-sm font-semibold text-body1"
                 onClick={handleColorClick}
               >
-                {color.toUpperCase()}
+                {color?.toUpperCase()}
               </span>
             )}
           </div>
@@ -161,7 +199,7 @@ const ReportSection: React.FC<ReportSectionProps> = ({
           />
         ) : (
           <span
-            className="flex-grow cursor-pointer px-5 py-3 text-3xl font-semibold text-title"
+            className="h-[60px] flex-grow cursor-pointer px-5 py-3 text-3xl font-semibold text-title"
             onClick={handleTitleClick}
           >
             {title}

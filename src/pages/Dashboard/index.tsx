@@ -32,10 +32,21 @@ const DashboardPage: React.FC = () => {
     setIsAddModalOpen(false);
   };
 
+  const [value, setValue] = useState("");
+
+  const handleChange = (value: string) => {
+    setValue(value);
+  };
+
   return (
     <div className="flex flex-col items-center">
       <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
-        <SearchBar placeholder="고객사명을 입력해주세요." bgColor="white" />
+        <SearchBar
+          value={value}
+          onChange={handleChange}
+          placeholder="고객사명을 입력해주세요."
+          bgColor="white"
+        />
         <button
           type="button"
           className="flex h-10 gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"

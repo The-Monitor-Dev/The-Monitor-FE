@@ -4,6 +4,7 @@ import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
 import { useFormContext } from "react-hook-form";
 import KeywordLabel from "../../KeywordLabel";
+import useValidateEmail from "@hooks/useValidateEmail";
 
 const Step3: React.FC = () => {
   const { watch, setValue } = useFormContext();
@@ -13,10 +14,7 @@ const Step3: React.FC = () => {
     "referenceEmails",
   ]);
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email.trim());
-  };
+  const validateEmail = useValidateEmail("email");
 
   const handleKeywordChange = (
     category: "recipientEmails" | "referenceEmails",

@@ -1,3 +1,4 @@
+import useValidateEmail from "@hooks/useValidateEmail";
 import KeywordInput from "@components/KeywordInput";
 
 interface KeywordListProps {
@@ -15,6 +16,8 @@ const KeywordList = ({
   onDeleteKeyword,
   type,
 }: KeywordListProps) => {
+  const validateEmail = useValidateEmail(type);
+
   return (
     <div className="w-[340px] border-r-1 border-neutral-200">
       <div className="border-b-1 border-neutral-200 px-5 py-4 text-xl font-medium">
@@ -30,11 +33,13 @@ const KeywordList = ({
           keywords={keywords}
           onAddKeyword={onAddKeyword}
           onDeleteKeyword={onDeleteKeyword}
+          validateKeyword={validateEmail}
           duplicateErrorMessage={
             type === "email"
               ? "*이미 추가된 이메일입니다."
               : "*이미 추가된 키워드입니다."
           }
+          errorMessage={type === "email" ? "*잘못된 이메일 형식입니다." : ""}
         />
       </div>
     </div>

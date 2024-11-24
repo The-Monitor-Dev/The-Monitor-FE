@@ -1,5 +1,5 @@
 import { authApiDelete, authApiGet, authApiPost } from "./apiUtils";
-import { Client, clientParams, GetClientInfo } from "./types/clients";
+import { Client, ClientParams, GetClientInfo } from "./types/clients";
 
 export const getClients = async () => {
   return authApiGet<Client[]>("/clients");
@@ -13,7 +13,7 @@ export const getClientInfo = async (clientId: number) => {
   return authApiGet<GetClientInfo>("/clients/info", { clientId });
 };
 
-export const deleteClient = ({ clientId }: clientParams) => {
+export const deleteClient = ({ clientId }: ClientParams) => {
   return authApiDelete("/clients", {
     clientId,
   });

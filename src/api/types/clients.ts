@@ -10,6 +10,6 @@ export interface Client {
   logoUrl: string;
 }
 
-export interface clientParams {
+export interface ClientParams {
   clientId: number;
 }

@@ -5,6 +5,7 @@ import CancelModal from "@components/CancelModal";
 import MonitoringCard from "./components/MonitoringCard";
 import SearchBar from "@components/SearchBar";
 import ClientNotFound from "./components/ClientNotFound";
+import { useGetClients } from "@api/hooks/clients/useGetClients";
 
 const DashboardPage: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -38,28 +39,42 @@ const DashboardPage: React.FC = () => {
     setValue(value);
   };
 
+  const { data: clientsData } = useGetClients();
+
   return (
     <div className="flex flex-col items-center">
-      <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
-        <SearchBar
-          value={value}
-          onChange={handleChange}
-          placeholder="고객사명을 입력해주세요."
-          bgColor="white"
-        />
-        <button
-          type="button"
-          className="flex h-10 gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"
-          onClick={handleAddModalOpen}
-        >
-          고객사 추가하기
-          <AddCircleFillIcon className="fill-primary-500" />
-        </button>
-      </div>
-      <div className="grid w-[1048px] grid-cols-4 gap-3">
-        <MonitoringCard name="한솥" manager="이현수" />
-      </div>
-      {/* <ClientNotFound handleAddModalOpen={handleAddModalOpen} /> */}
+      {!clientsData || clientsData?.length === 0 ? (
+        <ClientNotFound handleAddModalOpen={handleAddModalOpen} />
+      ) : (
+        <>
+          <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
+            <SearchBar
+              value={value}
+              onChange={handleChange}
+              placeholder="고객사명을 입력해주세요."
+              bgColor="white"
+            />
+            <button
+              type="button"
+              className="flex h-10 gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"
+              onClick={handleAddModalOpen}
+            >
+              고객사 추가하기
+              <AddCircleFillIcon className="fill-primary-500" />
+            </button>
+          </div>
+          <div className="grid w-[1048px] grid-cols-4 gap-3">
+            {clientsData?.map((client) => (
+              <MonitoringCard
+                key={client.clientId}
+                name={client.name}
+                manager={client.managerName}
+                logoUrl={client.logoUrl}
+              />
+            ))}
+          </div>
+        </>
+      )}
       {isAddModalOpen && (
         <AddModal onClose={handleClose} onSubmit={handleSubmit} />
       )}

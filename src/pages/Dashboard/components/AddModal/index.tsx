@@ -4,18 +4,19 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import usePostClient from "@api/hooks/clients/usePostClient";
 
 type AddModalFormData = {
   companyName: string;
   personInCharge: string;
-  uploadingImg?: File;
+  uploadingImg: File | null;
   keywordsByCategory: {
     SELF: string[];
     COMPETITOR: string[];
     INDUSTRY: string[];
   };
   recipientEmails: string[];
-  referenceEmails?: string[];
+  referenceEmails: string[];
 };
 
 interface AddModalProps {
@@ -26,6 +27,7 @@ interface AddModalProps {
 const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
   const [step, setStep] = useState(1);
   const methods = useForm<AddModalFormData>({ mode: "onChange" });
+  const { mutate } = usePostClient();
 
   const handleNextStep = () => {
     if (step < 3) {
@@ -40,8 +42,32 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit: SubmitHandler<AddModalFormData> = (data) => {
-    console.log(data);
-    onSubmit();
+    const clientData = {
+      name: data.companyName,
+      manager_name: data.personInCharge,
+      category_keywords: {
+        SELF: data.keywordsByCategory.SELF,
+        COMPETITOR: data.keywordsByCategory.COMPETITOR,
+        INDUSTRY: data.keywordsByCategory.INDUSTRY,
+      },
+      recipient_emails: data.recipientEmails,
+      cc_emails: data.referenceEmails ?? [],
+      logo: data.uploadingImg || null,
+    };
+
+    const formData = new FormData();
+
+    formData.append("clientRequest", JSON.stringify(clientData));
+
+    mutate(formData, {
+      onSuccess: () => {
+        onSubmit();
+      },
+      onError: (error) => {
+        console.error("클라이언트 추가 실패:", error);
+        console.log(clientData);
+      },
+    });
   };
 
   return (

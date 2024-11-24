@@ -11,8 +11,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
-      <div className="w-120 relative flex flex-col rounded bg-white px-[70px] pb-11 pt-10">
+    <div className="fixed inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-65">
+      <div className="w-120 relative z-[100] flex flex-col rounded bg-white px-[70px] pb-11 pt-10">
         <CloseIcon
           type="button"
           className="absolute right-5 top-5 cursor-pointer fill-neutral-700"

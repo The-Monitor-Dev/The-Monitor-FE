@@ -26,8 +26,8 @@ const EditModal: React.FC<EditModalProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
-      <div className="relative h-[707px] w-[580px] bg-white px-[50px] pt-20">
+    <div className="fixed inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-65">
+      <div className="relative z-[100] h-[707px] w-[580px] bg-white px-[50px] pt-20">
         <h2 className="mb-2 text-4xl font-semibold text-title">
           고객사 정보 수정하기
         </h2>

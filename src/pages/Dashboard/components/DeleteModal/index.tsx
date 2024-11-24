@@ -1,3 +1,4 @@
+import useDeleteClient from "@api/hooks/clients/useDeleteClient";
 import { CloseIcon, ErrorIcon } from "@assets/svgs";
 import Input from "@components/Input";
 import { useState } from "react";
@@ -16,6 +17,8 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   const [clientName, setClientName] = useState<string>("");
   const [error, setError] = useState<string>("");
 
+  const { mutate } = useDeleteClient();
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setClientName(value);
@@ -31,6 +34,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 
   const handleDelete = () => {
     if (clientName === name) {
+      mutate({ clientId });
       handleModalClose();
     } else {
       setError("*해당하는 고객사가 존재하지 않습니다.");

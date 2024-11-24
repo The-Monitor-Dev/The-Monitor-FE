@@ -9,3 +9,7 @@ export interface Client {
   managerName: string;
   logoUrl: string;
 }
+
+export interface clientParams {
+  clientId: number;
+}

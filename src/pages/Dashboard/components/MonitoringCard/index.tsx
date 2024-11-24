@@ -12,12 +12,14 @@ interface MonitoringCardProps {
   name: string;
   manager: string;
   logoUrl: string;
+  clientId: number;
 }
 
 const MonitoringCard: React.FC<MonitoringCardProps> = ({
   name,
   manager,
   logoUrl,
+  clientId,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -104,7 +106,11 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
       </div>
 
       {isDeleteModalOpen && (
-        <DeleteModal onClose={() => setIsDeleteModalOpen(false)} />
+        <DeleteModal
+          clientId={clientId}
+          name={name}
+          onClose={() => setIsDeleteModalOpen(false)}
+        />
       )}
       {isEditModalOpen && (
         <EditModal onClose={() => setIsEditModalOpen(false)} />

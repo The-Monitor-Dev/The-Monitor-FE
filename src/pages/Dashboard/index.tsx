@@ -67,6 +67,7 @@ const DashboardPage: React.FC = () => {
             {clientsData?.map((client) => (
               <MonitoringCard
                 key={client.clientId}
+                clientId={client.clientId}
                 name={client.name}
                 manager={client.managerName}
                 logoUrl={client.logoUrl}

@@ -4,7 +4,7 @@ import Button from "@components/Button";
 import Input from "@components/Input";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import PasswordSentModal from "./components/PasswordSentModal";
+import PasswordSentModal from "./PasswordSentModal";
 
 type FindPasswordFormData = {
   email: string;

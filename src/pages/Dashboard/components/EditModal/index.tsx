@@ -129,7 +129,7 @@ const EditModal: React.FC<EditModalProps> = ({
             type="file"
             id="fileInput"
             className="hidden"
-            accept="image/*"
+            accept="image/png, image/jpeg"
             onChange={handleImageChange}
           />
         </div>

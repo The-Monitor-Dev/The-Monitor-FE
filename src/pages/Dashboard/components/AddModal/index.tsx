@@ -9,7 +9,7 @@ import usePostClient from "@api/hooks/clients/usePostClient";
 type AddModalFormData = {
   companyName: string;
   personInCharge: string;
-  uploadingImg: File | null;
+  logoFile: File | null;
   keywordsByCategory: {
     SELF: string[];
     COMPETITOR: string[];
@@ -42,6 +42,7 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit: SubmitHandler<AddModalFormData> = (data) => {
+    console.log("uploadingImg", data.logoFile);
     const clientData = {
       name: data.companyName,
       manager_name: data.personInCharge,
@@ -52,12 +53,15 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
       },
       recipient_emails: data.recipientEmails,
       cc_emails: data.referenceEmails ?? [],
-      logo: data.uploadingImg || null,
     };
 
     const formData = new FormData();
 
     formData.append("clientRequest", JSON.stringify(clientData));
+
+    if (data.logoFile) {
+      formData.append("logo", data.logoFile);
+    }
 
     mutate(formData, {
       onSuccess: () => {

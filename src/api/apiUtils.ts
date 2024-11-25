@@ -55,3 +55,14 @@ export const authApiPatch = async <T>(
   });
   return response.data;
 };
+
+export const authApiPut = async <T>(
+  url: string,
+  data?: any,
+  params?: any,
+): Promise<ApiResponse<T>> => {
+  const response = await tokenInstance.put<ApiResponse<T>>(url, data, {
+    params,
+  });
+  return response.data;
+};

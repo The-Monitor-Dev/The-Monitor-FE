@@ -16,7 +16,10 @@ const tokenInstance = axios.create({
 
 tokenInstance.interceptors.request.use(
   (config) => {
-    if (config.method === "post" && config.url?.includes("/clients")) {
+    if (
+      (config.method === "post" && config.url?.includes("/clients")) ||
+      (config.method === "put" && config.url?.includes("/clients"))
+    ) {
       config.headers["Content-Type"] = "multipart/form-data";
     } else {
       config.headers["Content-Type"] = "application/json";

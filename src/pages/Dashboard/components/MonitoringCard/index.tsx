@@ -113,7 +113,13 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
         />
       )}
       {isEditModalOpen && (
-        <EditModal onClose={() => setIsEditModalOpen(false)} />
+        <EditModal
+          clientId={clientId}
+          manager={manager}
+          name={name}
+          logoUrl={logoUrl}
+          onClose={() => setIsEditModalOpen(false)}
+        />
       )}
     </div>
   );

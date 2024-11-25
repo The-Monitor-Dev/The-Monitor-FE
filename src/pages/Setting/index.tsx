@@ -2,6 +2,7 @@ import Button from "@components/Button";
 import { useState, useEffect } from "react";
 import KeywordList from "./KeywordList";
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
+import useGetEmails from "@api/hooks/keywords/useGetEmails";
 
 const SettingPage = () => {
   const [selfKeywords, setSelfKeywords] = useState<string[]>([]);
@@ -12,6 +13,7 @@ const SettingPage = () => {
   const [activeTab, setActiveTab] = useState("검색 키워드");
 
   const { data: keywordsData } = useGetKeywords(1);
+  const { data: emailsData } = useGetEmails(1);
 
   const updateFunctions: Record<
     "SELF" | "COMPETITOR" | "INDUSTRY" | "RECIPIENT" | "CC",
@@ -43,6 +45,13 @@ const SettingPage = () => {
       );
     }
   }, [keywordsData]);
+
+  useEffect(() => {
+    if (emailsData) {
+      updateFunctions.RECIPIENT(emailsData.recipients);
+      updateFunctions.CC(emailsData.ccs);
+    }
+  }, [emailsData]);
 
   const handleKeywordChange = (
     category: "SELF" | "COMPETITOR" | "INDUSTRY" | "RECIPIENT" | "CC",

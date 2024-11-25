@@ -11,6 +11,16 @@ export interface GetKeywordsResponse {
   INDUSTRY: Keyword[];
 }
 
+export interface GetEmailsResponse {
+  recipients: string[];
+  ccs: string[];
+  signatureImageUrl: string;
+}
+
 export const getKeywords = async (clientId: number) => {
   return authApiGet<GetKeywordsResponse>("/keywords", { clientId });
+};
+
+export const getEmails = async (clientId: number) => {
+  return authApiGet<GetEmailsResponse>("/emails", { clientId });
 };

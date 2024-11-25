@@ -68,7 +68,7 @@ const KeywordList = ({
               <img
                 src={URL.createObjectURL(image)}
                 alt="Selected"
-                className="h-[100px] w-[300px] rounded object-cover"
+                className="h-[100px] w-[300px] rounded object-contain"
               />
             )}
 

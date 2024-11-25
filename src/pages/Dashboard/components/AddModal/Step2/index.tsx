@@ -1,10 +1,11 @@
 import { AttentionIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
-import { categoryNameMap } from "@constants/category";
+
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import KeywordLabel from "../../KeywordLabel";
+import { enToKrCategoryMap } from "@constants/category";
 
 interface Step2Props {
   handleNext: () => void;
@@ -71,7 +72,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
                 handleButtonClick(buttonName as keyof typeof keywordsByCategory)
               }
             >
-              {categoryNameMap[buttonName]}
+              {enToKrCategoryMap[buttonName]}
             </button>
           ))}
         </div>

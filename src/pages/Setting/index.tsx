@@ -1,6 +1,7 @@
 import Button from "@components/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import KeywordList from "./KeywordList";
+import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
 
 const SettingPage = () => {
   const [selfKeywords, setSelfKeywords] = useState<string[]>([]);
@@ -9,6 +10,8 @@ const SettingPage = () => {
   const [recipientEmails, setRecipientEmails] = useState<string[]>([]);
   const [ccEmails, setCcEmails] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("검색 키워드");
+
+  const { data: keywordsData } = useGetKeywords(1);
 
   const updateFunctions: Record<
     "SELF" | "COMPETITOR" | "INDUSTRY" | "RECIPIENT" | "CC",
@@ -20,6 +23,26 @@ const SettingPage = () => {
     RECIPIENT: setRecipientEmails,
     CC: setCcEmails,
   };
+
+  useEffect(() => {
+    if (keywordsData) {
+      updateFunctions.SELF(
+        keywordsData.SELF.map(
+          (item: { keywordName: string }) => item.keywordName,
+        ),
+      );
+      updateFunctions.COMPETITOR(
+        keywordsData.COMPETITOR.map(
+          (item: { keywordName: string }) => item.keywordName,
+        ),
+      );
+      updateFunctions.INDUSTRY(
+        keywordsData.INDUSTRY.map(
+          (item: { keywordName: string }) => item.keywordName,
+        ),
+      );
+    }
+  }, [keywordsData]);
 
   const handleKeywordChange = (
     category: "SELF" | "COMPETITOR" | "INDUSTRY" | "RECIPIENT" | "CC",

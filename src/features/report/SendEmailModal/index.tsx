@@ -1,6 +1,8 @@
+import usePostSendEmail from "@api/hooks/emails/usePostSendEmail";
 import { CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import Input from "@components/Input";
+import { clientId } from "@constants/clientId";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface SendEmailModalProps {
@@ -8,16 +10,20 @@ interface SendEmailModalProps {
 }
 
 type SendEmailFormData = {
-  title: string;
-  body: string;
+  subject: string;
+  content: string;
 };
 
 const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
   const { register, handleSubmit, watch } = useForm<SendEmailFormData>();
-  const [title, body] = watch(["title", "body"]);
-
-  const onSubmit: SubmitHandler<SendEmailFormData> = (data) => {
-    console.log(data);
+  const [subject, content] = watch(["subject", "content"]);
+  const { mutate } = usePostSendEmail();
+  const onSubmit: SubmitHandler<SendEmailFormData> = ({ subject, content }) => {
+    mutate({
+      clientId: clientId,
+      subject,
+      content,
+    });
   };
 
   return (
@@ -58,7 +64,7 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
               <Input
                 type="text"
                 placeholder="메일 제목을 입력해주세요."
-                {...register("title", { required: true })}
+                {...register("subject", { required: true })}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -70,13 +76,13 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
               </label>
               <div className="flex flex-col gap-2 rounded border-1 border-transparent bg-surface-primary px-4 pb-2 pt-3 focus-within:border-primary-500">
                 <textarea
-                  {...register("body")}
+                  {...register("content")}
                   maxLength={500}
                   placeholder="본문 내용을 입력해주세요."
                   className="h-[96px] resize-none bg-surface-primary text-md font-regular outline-none placeholder:text-disable"
                 />
                 <div className="self-end text-xs font-medium text-body3">
-                  {body?.length || 0}/500
+                  {content?.length || 0}/500
                 </div>
               </div>
             </div>
@@ -86,7 +92,7 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
           <Button
             type="submit"
             style="filled"
-            disabled={!title}
+            disabled={!subject}
             className="w-[360px] py-3 text-md font-semibold"
           >
             전송하기

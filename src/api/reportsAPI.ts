@@ -7,7 +7,9 @@ import {
 import {
   GetReportDetailsResponse,
   PatchReportColorParams,
+  PatchReportLogoParams,
   PatchReportTitleParams,
+  PostReportArticleParams,
   PostSearchReportsParams,
   ReportParams,
   ReportResponse,
@@ -39,6 +41,17 @@ export const postSearchReports = ({
   );
 };
 
+export const postReportArticle = ({
+  clientId,
+  reportId,
+  data,
+}: PostReportArticleParams) => {
+  return authApiPost("reports/articles/update", data, {
+    clientId,
+    reportId,
+  });
+};
+
 export const deleteReport = ({ clientId, reportId }: ReportParams) => {
   return authApiDelete("/reports", {
     clientId,
@@ -63,6 +76,20 @@ export const patchReportColor = ({
   data,
 }: PatchReportColorParams) => {
   return authApiPatch("/reports/color", data, {
+    clientId,
+    reportId,
+  });
+};
+
+export const patchReportLogo = ({
+  clientId,
+  reportId,
+  logo,
+}: PatchReportLogoParams) => {
+  const formData = new FormData();
+  formData.append("logo", logo);
+
+  return authApiPatch("/reports/logo", formData, {
     clientId,
     reportId,
   });

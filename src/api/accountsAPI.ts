@@ -29,6 +29,10 @@ export const postSendPasswordChangeEmail = async (
   return apiPost("/accounts/sendPasswordChangeEmail", data);
 };
 
+export const postSetClient = async (clientId: number) => {
+  return authApiPost("accounts/set-client", undefined, { clientId });
+};
+
 export const checkToken = async () => {
   return authApiGet("/accounts/tokenValidity");
 };

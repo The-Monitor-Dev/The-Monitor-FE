@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import Button from "@components/Button";
 import { UndoIcon, ReportIcon, MailIcon } from "@assets/svgs";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import routes from "@constants/routes";
 import SendEmailModal from "../SendEmailModal";
 
-const ReportHeader: React.FC = () => {
+interface ReportHeaderProps {
+  onSave?: () => void;
+}
+
+const ReportHeader: React.FC<ReportHeaderProps> = ({ onSave }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleExit = () => {
+    if (location.pathname.startsWith(routes.reportEdit)) {
+      navigate(routes.report);
+    } else if (location.pathname === routes.reportNew) {
+      navigate(routes.monitoring);
+    }
+  };
 
   const [isSendEmailModalOpen, setIsSendEmailModalOpen] = useState(false);
   const handleSendEmailModalClose = () => {
@@ -18,7 +31,7 @@ const ReportHeader: React.FC = () => {
       <Button
         type="button"
         style="outline-m"
-        onClick={() => navigate(routes.monitoring)}
+        onClick={handleExit}
         className="flex items-center gap-1 py-2 pl-2 pr-3"
       >
         <UndoIcon />
@@ -45,9 +58,16 @@ const ReportHeader: React.FC = () => {
         {isSendEmailModalOpen && (
           <SendEmailModal onClose={handleSendEmailModalClose} />
         )}
-        <Button type="button" style="filled" className="px-3 py-2">
-          저장하기
-        </Button>
+        {location.pathname === routes.reportNew && (
+          <Button
+            type="button"
+            style="filled"
+            onClick={onSave}
+            className="px-3 py-2"
+          >
+            저장하기
+          </Button>
+        )}
       </div>
     </div>
   );

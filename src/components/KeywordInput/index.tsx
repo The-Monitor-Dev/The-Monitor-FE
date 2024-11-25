@@ -63,7 +63,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
         value={inputValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        className={`w-full border-b border-neutral-200 bg-transparent ${type === "modal" ? "px-4 pb-1" : "py-3 pb-2 pt-3"} outline-none`}
+        className={`w-full border-b border-neutral-200 bg-transparent ${type === "modal" ? "px-2 pb-1 pt-[6px]" : "pb-[6px] pt-3"} outline-none`}
       />
 
       {errorType && (

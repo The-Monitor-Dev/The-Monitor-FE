@@ -117,7 +117,7 @@ const SettingPage = () => {
 
   return (
     <div className="h-full bg-white">
-      <div className="flex items-center justify-between px-8 py-5">
+      <div className="flex w-[1208px] items-center justify-between px-8 py-5">
         <div className="flex">
           <button
             type="button"

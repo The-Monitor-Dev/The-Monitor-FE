@@ -18,7 +18,8 @@ tokenInstance.interceptors.request.use(
   (config) => {
     if (
       (config.method === "post" && config.url?.includes("/clients")) ||
-      (config.method === "put" && config.url?.includes("/clients"))
+      (config.method === "put" && config.url?.includes("/clients")) ||
+      (config.method === "put" && config.url?.includes("/emails"))
     ) {
       config.headers["Content-Type"] = "multipart/form-data";
     } else {

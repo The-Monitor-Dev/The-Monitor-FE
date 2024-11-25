@@ -14,7 +14,7 @@ export interface GetKeywordsResponse {
 export interface GetEmailsResponse {
   recipients: string[];
   ccs: string[];
-  signatureImageUrl: string;
+  signatureImageUrl: string | null;
 }
 
 interface KeywordsByCategory {
@@ -27,6 +27,11 @@ export interface putKeywordsData {
   keywordsByCategory: KeywordsByCategory;
 }
 
+export interface putEmailsData {
+  recipients: string[];
+  ccs: string[];
+}
+
 export const getKeywords = async (clientId: number) => {
   return authApiGet<GetKeywordsResponse>("/keywords", { clientId });
 };
@@ -34,6 +39,11 @@ export const getKeywords = async (clientId: number) => {
 export const getEmails = async (clientId: number) => {
   return authApiGet<GetEmailsResponse>("/emails", { clientId });
 };
+
 export const putKeywords = async (clientId: number, data: putKeywordsData) => {
   return authApiPut<putKeywordsData>("/keywords", data, { clientId });
+};
+
+export const putEmails = async (clientId: number, data: FormData) => {
+  return authApiPut("/emails", data, { clientId });
 };

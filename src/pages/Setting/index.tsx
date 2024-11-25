@@ -4,6 +4,7 @@ import KeywordList from "./KeywordList";
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
 import useGetEmails from "@api/hooks/keywords/useGetEmails";
 import usePutkeywords from "@api/hooks/keywords/usePutKeyword";
+import usePutEmails from "@api/hooks/keywords/usePutEmails";
 
 const SettingPage = () => {
   const [selfKeywords, setSelfKeywords] = useState<string[]>([]);
@@ -12,10 +13,23 @@ const SettingPage = () => {
   const [recipientEmails, setRecipientEmails] = useState<string[]>([]);
   const [ccEmails, setCcEmails] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("검색 키워드");
+  const [signatureImageUrl, setSignatureImageUrl] = useState<string | null>(
+    null,
+  );
 
-  const { data: keywordsData } = useGetKeywords(1);
-  const { data: emailsData } = useGetEmails(1);
-  const { mutate } = usePutkeywords();
+  const clientId = 5;
+
+  const { data: keywordsData } = useGetKeywords(clientId);
+  const { data: emailsData } = useGetEmails(clientId);
+
+  const { mutate: mutateKeywords } = usePutkeywords();
+  const { mutate: mutateEmails } = usePutEmails();
+
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+
+  const handleImageChange = (uploadedImage: File | null) => {
+    setUploadedImage(uploadedImage);
+  };
 
   const updateFunctions: Record<
     "SELF" | "COMPETITOR" | "INDUSTRY" | "RECIPIENT" | "CC",
@@ -52,6 +66,7 @@ const SettingPage = () => {
     if (emailsData) {
       updateFunctions.RECIPIENT(emailsData.recipients);
       updateFunctions.CC(emailsData.ccs);
+      setSignatureImageUrl(emailsData.signatureImageUrl || null);
     }
   }, [emailsData]);
 
@@ -70,7 +85,6 @@ const SettingPage = () => {
 
   const handleSave = () => {
     if (activeTab === "검색 키워드") {
-      const clientId = 1;
       const data = {
         keywordsByCategory: {
           SELF: selfKeywords,
@@ -78,7 +92,25 @@ const SettingPage = () => {
           INDUSTRY: industryKeywords,
         },
       };
-      mutate({ clientId: clientId, data: data });
+      mutateKeywords({ clientId: clientId, data: data });
+    }
+
+    if (activeTab === "메일") {
+      const formData = new FormData();
+
+      const emailUpdate = {
+        recipients: recipientEmails,
+        ccs: ccEmails,
+      };
+      formData.append("emailUpdate", JSON.stringify(emailUpdate));
+      if (uploadedImage) {
+        formData.append("signatureImage", uploadedImage);
+      }
+
+      mutateEmails({
+        clientId: clientId,
+        data: formData,
+      });
     }
   };
 
@@ -171,7 +203,13 @@ const SettingPage = () => {
                 handleKeywordChange("CC", keyword, "delete")
               }
             />
-            <KeywordList title="메일서명" type="sign" showBorder={false} />
+            <KeywordList
+              title="메일서명"
+              type="sign"
+              signatureImageUrl={signatureImageUrl}
+              showBorder={false}
+              onImageChange={handleImageChange}
+            />
           </>
         )}
       </div>

@@ -32,15 +32,11 @@ const KeywordList = ({
     const file = event.target.files?.[0];
     if (file) {
       setUploadingImg(URL.createObjectURL(file));
-      if (onImageChange) {
-        onImageChange(file);
-      }
+      onImageChange?.(file);
     }
   };
 
-  const handleButtonClick = () => {
-    fileInputRef.current?.click();
-  };
+  const handleButtonClick = () => fileInputRef.current?.click();
 
   return (
     <div

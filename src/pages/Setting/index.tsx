@@ -1,10 +1,11 @@
 import Button from "@components/Button";
 import { useState, useEffect } from "react";
-import KeywordList from "./KeywordList";
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
 import useGetEmails from "@api/hooks/keywords/useGetEmails";
 import usePutkeywords from "@api/hooks/keywords/usePutKeyword";
 import usePutEmails from "@api/hooks/keywords/usePutEmails";
+import SearchKeywordsTab from "./SearchKeywordsTab";
+import MailTab from "./MailTab";
 
 const SettingPage = () => {
   const [selfKeywords, setSelfKeywords] = useState<string[]>([]);
@@ -143,74 +144,20 @@ const SettingPage = () => {
       </div>
       <div className="ml-8 flex h-[662px]">
         {activeTab === "검색 키워드" ? (
-          <>
-            <KeywordList
-              title="자사"
-              type="keyword"
-              keywords={selfKeywords}
-              onAddKeyword={(keyword) =>
-                handleKeywordChange("SELF", keyword, "add")
-              }
-              onDeleteKeyword={(keyword) =>
-                handleKeywordChange("SELF", keyword, "delete")
-              }
-            />
-            <KeywordList
-              title="경쟁사"
-              type="keyword"
-              keywords={competitorKeywords}
-              onAddKeyword={(keyword) =>
-                handleKeywordChange("COMPETITOR", keyword, "add")
-              }
-              onDeleteKeyword={(keyword) =>
-                handleKeywordChange("COMPETITOR", keyword, "delete")
-              }
-            />
-            <KeywordList
-              title="업계"
-              type="keyword"
-              keywords={industryKeywords}
-              onAddKeyword={(keyword) =>
-                handleKeywordChange("INDUSTRY", keyword, "add")
-              }
-              onDeleteKeyword={(keyword) =>
-                handleKeywordChange("INDUSTRY", keyword, "delete")
-              }
-              showBorder={false}
-            />
-          </>
+          <SearchKeywordsTab
+            selfKeywords={selfKeywords}
+            competitorKeywords={competitorKeywords}
+            industryKeywords={industryKeywords}
+            handleKeywordChange={handleKeywordChange}
+          />
         ) : (
-          <>
-            <KeywordList
-              title="수신인"
-              type="email"
-              keywords={recipientEmails}
-              onAddKeyword={(keyword) =>
-                handleKeywordChange("RECIPIENT", keyword, "add")
-              }
-              onDeleteKeyword={(keyword) =>
-                handleKeywordChange("RECIPIENT", keyword, "delete")
-              }
-            />
-            <KeywordList
-              title="참조인"
-              type="email"
-              keywords={ccEmails}
-              onAddKeyword={(keyword) =>
-                handleKeywordChange("CC", keyword, "add")
-              }
-              onDeleteKeyword={(keyword) =>
-                handleKeywordChange("CC", keyword, "delete")
-              }
-            />
-            <KeywordList
-              title="메일서명"
-              type="sign"
-              signatureImageUrl={signatureImageUrl}
-              showBorder={false}
-              onImageChange={handleImageChange}
-            />
-          </>
+          <MailTab
+            recipientEmails={recipientEmails}
+            ccEmails={ccEmails}
+            signatureImageUrl={signatureImageUrl}
+            handleKeywordChange={handleKeywordChange}
+            handleImageChange={handleImageChange}
+          />
         )}
       </div>
     </div>

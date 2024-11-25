@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import KeywordList from "./KeywordList";
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
 import useGetEmails from "@api/hooks/keywords/useGetEmails";
+import usePutkeywords from "@api/hooks/keywords/usePutKeyword";
 
 const SettingPage = () => {
   const [selfKeywords, setSelfKeywords] = useState<string[]>([]);
@@ -14,6 +15,7 @@ const SettingPage = () => {
 
   const { data: keywordsData } = useGetKeywords(1);
   const { data: emailsData } = useGetEmails(1);
+  const { mutate } = usePutkeywords();
 
   const updateFunctions: Record<
     "SELF" | "COMPETITOR" | "INDUSTRY" | "RECIPIENT" | "CC",
@@ -66,6 +68,20 @@ const SettingPage = () => {
     updateFunctions[category]((prev) => updateKeywords(prev));
   };
 
+  const handleSave = () => {
+    if (activeTab === "검색 키워드") {
+      const clientId = 1;
+      const data = {
+        keywordsByCategory: {
+          SELF: selfKeywords,
+          COMPETITOR: competitorKeywords,
+          INDUSTRY: industryKeywords,
+        },
+      };
+      mutate({ clientId: clientId, data: data });
+    }
+  };
+
   return (
     <div className="h-full bg-white">
       <div className="flex items-center justify-between px-8 py-5">
@@ -89,7 +105,7 @@ const SettingPage = () => {
             메일
           </button>
         </div>
-        <Button style="filled" className="w-[74px] py-2">
+        <Button style="filled" className="w-[74px] py-2" onClick={handleSave}>
           저장
         </Button>
       </div>

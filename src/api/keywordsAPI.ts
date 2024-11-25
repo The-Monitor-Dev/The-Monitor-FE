@@ -1,4 +1,4 @@
-import { authApiGet } from "./apiUtils";
+import { authApiGet, authApiPut } from "./apiUtils";
 
 export interface Keyword {
   keywordId: number;
@@ -17,10 +17,23 @@ export interface GetEmailsResponse {
   signatureImageUrl: string;
 }
 
+interface KeywordsByCategory {
+  SELF: string[];
+  COMPETITOR: string[];
+  INDUSTRY: string[];
+}
+
+export interface putKeywordsData {
+  keywordsByCategory: KeywordsByCategory;
+}
+
 export const getKeywords = async (clientId: number) => {
   return authApiGet<GetKeywordsResponse>("/keywords", { clientId });
 };
 
 export const getEmails = async (clientId: number) => {
   return authApiGet<GetEmailsResponse>("/emails", { clientId });
+};
+export const putKeywords = async (clientId: number, data: putKeywordsData) => {
+  return authApiPut<putKeywordsData>("/keywords", data, { clientId });
 };

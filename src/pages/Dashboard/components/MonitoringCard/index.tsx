@@ -55,7 +55,7 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
   }, [isMenuOpen]);
 
   return (
-    <div className="flex w-[253px] rounded bg-white">
+    <div className="flex h-[274px] w-[253px] rounded bg-white">
       <div className="flex w-full flex-col">
         <div className="relative flex justify-end px-3 py-2">
           <button

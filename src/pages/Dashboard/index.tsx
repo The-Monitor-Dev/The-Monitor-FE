@@ -43,7 +43,7 @@ const DashboardPage: React.FC = () => {
   const { data: clientsData } = useGetClients();
 
   return (
-    <div className="flex h-[calc(100vh-68px)] flex-col items-center">
+    <div className="flex flex-col items-center">
       {!clientsData || clientsData?.length === 0 ? (
         <ClientNotFound handleAddModalOpen={handleAddModalOpen} />
       ) : (
@@ -64,7 +64,7 @@ const DashboardPage: React.FC = () => {
               <AddCircleFillIcon className="fill-primary-500" />
             </Button>
           </div>
-          <div className="grid w-[1048px] flex-grow grid-cols-4 gap-3 overflow-y-auto">
+          <div className="grid grid-cols-4 gap-3">
             {clientsData?.map((client) => (
               <MonitoringCard
                 key={client.clientId}

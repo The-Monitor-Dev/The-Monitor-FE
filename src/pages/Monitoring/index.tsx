@@ -1,4 +1,4 @@
-import { ReportCheckIcon } from "@assets/svgs";
+import { NotFoundIcon, ReportCheckIcon } from "@assets/svgs";
 import { subDays } from "date-fns";
 import React, { useRef, useState } from "react";
 import "react-date-range/dist/styles.css";
@@ -14,10 +14,11 @@ import Category from "./components/Category";
 import useGetArticlesByKeyword from "@api/hooks/articles/useGetArticlesByKeyword";
 import ArticleBox from "./components/ArticleBox";
 import Pagination from "./components/Pagination";
-import { categoryNameMap } from "@constants/category";
 import { Keyword } from "@api/keywordsAPI";
 import useGetArticles from "@api/hooks/articles/useGetArticles";
 import { CategoryTypeEn, CategoryTypeKr } from "types/category";
+import { enToKrCategoryMap } from "@constants/category";
+import { clientId } from "@constants/clientId";
 
 const MonitoringPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const MonitoringPage: React.FC = () => {
   const handleSelectCategory = (category: CategoryTypeEn | undefined) => {
     setSelectedCategory(category);
   };
-  const { data: keywordsData } = useGetKeywords(1);
+  const { data: keywordsData } = useGetKeywords(clientId);
 
   const [selectedKeyword, setSelectedKeyword] = useState<Keyword | undefined>();
   const handleSelectKeyword = (keyword: Keyword | undefined) => {
@@ -95,7 +96,7 @@ const MonitoringPage: React.FC = () => {
 
   const [page, setPage] = useState(1);
   const { data: articles } = useGetArticles({
-    clientId: 1,
+    clientId: clientId,
     categoryType: selectedCategory,
     page,
   });
@@ -117,7 +118,7 @@ const MonitoringPage: React.FC = () => {
       <div className="flex h-full w-[232px] flex-col gap-3 border-r border-neutral-200 px-4 py-5">
         {keywordsData &&
           (
-            Object.entries(categoryNameMap) as [
+            Object.entries(enToKrCategoryMap) as [
               CategoryTypeEn,
               CategoryTypeKr,
             ][]
@@ -174,27 +175,41 @@ const MonitoringPage: React.FC = () => {
             <span>보고서 편집하기</span>
           </Button>
         </div>
-        <div className="flex flex-col overflow-y-auto pl-8">
-          {articlesToDisplay?.listPageResponse[0].googleArticles.map(
-            (article, idx) => (
-              <ArticleBox
-                key={idx}
-                title={article.title}
-                body={article.body}
-                publisherName={article.publisherName}
-                reporterName={article.reporterName}
-                publishDate={article.publishDate}
-                imageUrl={article.imageUrl}
-                url={article.url}
-              />
-            ),
-          )}
-        </div>
-        <Pagination
-          totalCount={totalCount}
-          currentPage={page}
-          onPageChange={handlePageChange}
-        />
+        {articlesToDisplay?.totalCount === 0 ? (
+          <div className="mt-[200px] flex flex-col items-center">
+            <NotFoundIcon className="h-[100px] w-[100px] fill-black" />
+            <span className="mt-6 text-3xl font-semibold text-body1">
+              검색 결과가 없습니다.
+            </span>
+            <span className="mt-1 text-lg font-medium text-body3">
+              기간을 다시 설정해주세요.
+            </span>
+          </div>
+        ) : (
+          <div className="flex max-h-[calc(100vh-137px)] flex-col overflow-y-auto pb-9">
+            <div className="flex flex-col pl-8">
+              {articlesToDisplay?.listPageResponse[0].googleArticles.map(
+                (article, idx) => (
+                  <ArticleBox
+                    key={idx}
+                    title={article.title}
+                    body={article.body}
+                    publisherName={article.publisherName}
+                    reporterName={article.reporterName}
+                    publishDate={article.publishDate}
+                    imageUrl={article.imageUrl}
+                    url={article.url}
+                  />
+                ),
+              )}
+            </div>
+            <Pagination
+              totalCount={totalCount}
+              currentPage={page}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

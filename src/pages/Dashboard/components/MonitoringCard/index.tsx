@@ -1,4 +1,3 @@
-import { DefaultImage } from "@assets/images";
 import {
   DeleteIcon,
   EditSquareIcon,
@@ -12,9 +11,16 @@ import EditModal from "../EditModal";
 interface MonitoringCardProps {
   name: string;
   manager: string;
+  logoUrl: string;
+  clientId: number;
 }
 
-const MonitoringCard: React.FC<MonitoringCardProps> = ({ name, manager }) => {
+const MonitoringCard: React.FC<MonitoringCardProps> = ({
+  name,
+  manager,
+  logoUrl,
+  clientId,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -85,7 +91,10 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({ name, manager }) => {
           )}
         </div>
         <div className="flex justify-center border-b-1 border-neutral-200">
-          <img src={DefaultImage} className="mb-10 mt-5 w-24 rounded" />
+          <img
+            src={logoUrl}
+            className="mb-10 mt-5 h-[72px] w-24 overflow-hidden rounded object-contain"
+          />
         </div>
         <div className="flex w-full flex-col gap-1 py-4 pl-4 pr-5">
           <h2 className="text-left text-xl font-semibold text-title">{name}</h2>
@@ -97,10 +106,20 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({ name, manager }) => {
       </div>
 
       {isDeleteModalOpen && (
-        <DeleteModal onClose={() => setIsDeleteModalOpen(false)} />
+        <DeleteModal
+          clientId={clientId}
+          name={name}
+          onClose={() => setIsDeleteModalOpen(false)}
+        />
       )}
       {isEditModalOpen && (
-        <EditModal onClose={() => setIsEditModalOpen(false)} />
+        <EditModal
+          clientId={clientId}
+          manager={manager}
+          name={name}
+          logoUrl={logoUrl}
+          onClose={() => setIsEditModalOpen(false)}
+        />
       )}
     </div>
   );

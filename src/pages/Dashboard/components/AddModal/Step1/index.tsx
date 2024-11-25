@@ -19,13 +19,15 @@ const Step1: React.FC<Step1Props> = ({ handleNext }) => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const uploadingImg = URL.createObjectURL(file);
-      setValue("uploadingImg", uploadingImg);
+      const previewUrl = URL.createObjectURL(file);
+      setValue("uploadingImg", previewUrl);
+      setValue("logoFile", file);
     }
   };
 
   const handleDeleteImage = () => {
     setValue("uploadingImg", null);
+    setValue("logoFile", null);
   };
 
   const handleAddImage = () => {

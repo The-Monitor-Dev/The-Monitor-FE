@@ -1,4 +1,4 @@
-import { getClientInfo } from "@api/clients";
+import { getClientInfo } from "@api/clientsAPI";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetClientInfo = (clientId: number) => {

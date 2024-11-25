@@ -1,5 +1,4 @@
 import { deleteClient } from "@api/clientsAPI";
-import { ClientParams } from "@api/types/clients";
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -8,7 +7,7 @@ const useDeleteClient = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (params: ClientParams) => deleteClient(params),
+    mutationFn: (params: number) => deleteClient(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["clients"] });
       toast({

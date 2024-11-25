@@ -34,7 +34,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 
   const handleDelete = () => {
     if (clientName === name) {
-      mutate({ clientId });
+      mutate(clientId);
       handleModalClose();
     } else {
       setError("*해당하는 고객사가 존재하지 않습니다.");

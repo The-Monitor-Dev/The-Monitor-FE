@@ -56,7 +56,7 @@ const EditModal: React.FC<EditModalProps> = ({
       formData.append("logo", selectedFile);
     }
 
-    mutate({ clientId: { clientId }, data: formData });
+    mutate({ clientId: clientId, data: formData });
 
     onClose();
   };

@@ -6,6 +6,7 @@ import MonitoringCard from "./components/MonitoringCard";
 import SearchBar from "@components/SearchBar";
 import ClientNotFound from "./components/ClientNotFound";
 import { useGetClients } from "@api/hooks/clients/useGetClients";
+import Button from "@components/Button";
 
 const DashboardPage: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -54,14 +55,14 @@ const DashboardPage: React.FC = () => {
               placeholder="고객사명을 입력해주세요."
               bgColor="white"
             />
-            <button
-              type="button"
-              className="flex h-10 gap-1 rounded border-[0.5px] border-primary-200 bg-surface-secondary p-2 pl-3 text-md font-semibold text-primary-700"
+            <Button
+              style="tonal"
+              className="flex h-10 items-center gap-1 p-2 pl-3"
               onClick={handleAddModalOpen}
             >
               고객사 추가하기
               <AddCircleFillIcon className="fill-primary-500" />
-            </button>
+            </Button>
           </div>
           <div className="grid w-[1048px] grid-cols-4 gap-3">
             {clientsData?.map((client) => (

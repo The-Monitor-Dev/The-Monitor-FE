@@ -42,7 +42,6 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
   };
 
   const handleSubmit: SubmitHandler<AddModalFormData> = (data) => {
-    console.log("uploadingImg", data.logoFile);
     const clientData = {
       name: data.companyName,
       manager_name: data.personInCharge,
@@ -66,10 +65,6 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
     mutate(formData, {
       onSuccess: () => {
         onSubmit();
-      },
-      onError: (error) => {
-        console.error("클라이언트 추가 실패:", error);
-        console.log(clientData);
       },
     });
   };

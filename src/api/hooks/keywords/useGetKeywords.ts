@@ -1,10 +1,10 @@
 import { getKeywords } from "@api/keywordsAPI";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetKeywords = (clientId: number) => {
+const useGetKeywords = () => {
   return useQuery({
-    queryKey: ["keywords", clientId],
-    queryFn: () => getKeywords(clientId),
+    queryKey: ["keywords"],
+    queryFn: getKeywords,
     select: (data) => data.result,
   });
 };

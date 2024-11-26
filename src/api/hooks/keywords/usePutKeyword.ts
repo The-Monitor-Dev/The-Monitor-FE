@@ -3,7 +3,7 @@ import { PutKeywordsParams } from "@api/types/keywords";
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const usePutkeywords = () => {
+const usePutKeywords = () => {
   const toast = useToast();
   const queryClient = useQueryClient();
   return useMutation({
@@ -18,4 +18,4 @@ const usePutkeywords = () => {
   });
 };
 
-export default usePutkeywords;
+export default usePutKeywords;

@@ -24,10 +24,8 @@ tokenInstance.interceptors.response.use(
       });
     } else {
       // window.location.href = "/404";
-
-      return Promise.reject(error);
     }
-    return Promise.reject();
+    return Promise.reject(error);
   },
 );
 

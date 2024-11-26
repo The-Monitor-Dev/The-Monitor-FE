@@ -16,11 +16,10 @@ interface KeywordsByCategory {
   INDUSTRY: string[];
 }
 
-export interface putKeywordsData {
+export interface PutKeywordsData {
   keywordsByCategory: KeywordsByCategory;
 }
 
 export interface PutKeywordsParams {
-  clientId: number;
-  data: putKeywordsData;
+  data: PutKeywordsData;
 }

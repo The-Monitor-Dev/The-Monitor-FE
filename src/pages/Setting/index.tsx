@@ -1,11 +1,11 @@
 import Button from "@components/Button";
 import { useState, useEffect } from "react";
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
-import usePutkeywords from "@api/hooks/keywords/usePutKeyword";
 import SearchKeywordsTab from "./SearchKeywordsTab";
 import MailTab from "./MailTab";
 import useGetEmails from "@api/hooks/emails/useGetEmails";
 import usePutEmails from "@api/hooks/emails/usePutEmails";
+import usePutKeywords from "@api/hooks/keywords/usePutKeyword";
 
 const SettingPage = () => {
   const [selfKeywords, setSelfKeywords] = useState<string[]>([]);
@@ -20,10 +20,10 @@ const SettingPage = () => {
 
   const clientId = 5;
 
-  const { data: keywordsData } = useGetKeywords(clientId);
+  const { data: keywordsData } = useGetKeywords();
   const { data: emailsData } = useGetEmails(clientId);
 
-  const { mutate: mutateKeywords } = usePutkeywords();
+  const { mutate: mutateKeywords } = usePutKeywords();
   const { mutate: mutateEmails } = usePutEmails();
 
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
@@ -93,7 +93,7 @@ const SettingPage = () => {
           INDUSTRY: industryKeywords,
         },
       };
-      mutateKeywords({ clientId: clientId, data: data });
+      mutateKeywords({ data });
     }
 
     if (activeTab === "메일") {

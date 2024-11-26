@@ -1,3 +1,4 @@
+import { CategoryTypeEn } from "types/category";
 import KeywordList from "../KeywordList";
 
 interface SearchKeywordsTabProps {
@@ -5,7 +6,7 @@ interface SearchKeywordsTabProps {
   competitorKeywords: string[];
   industryKeywords: string[];
   handleKeywordChange: (
-    category: "SELF" | "COMPETITOR" | "INDUSTRY",
+    category: CategoryTypeEn,
     keyword: string,
     action: "add" | "delete",
   ) => void;

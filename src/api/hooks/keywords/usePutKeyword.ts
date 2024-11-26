@@ -7,8 +7,7 @@ const usePutkeywords = () => {
   const toast = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ clientId, data }: PutKeywordsParams) =>
-      putKeywords(clientId, data),
+    mutationFn: (params: PutKeywordsParams) => putKeywords(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["keywords"] });
       toast({

@@ -1,12 +1,16 @@
 import React from "react";
-import { AttentionIcon } from "@assets/svgs";
+import { AttentionIcon, LoadingIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
 import { useFormContext } from "react-hook-form";
 import KeywordLabel from "../../KeywordLabel";
 import useValidateEmail from "@hooks/useValidateEmail";
 
-const Step3: React.FC = () => {
+interface Step3Props {
+  isPending: boolean;
+}
+
+const Step3: React.FC<Step3Props> = ({ isPending }) => {
   const { watch, setValue } = useFormContext();
 
   const [recipientEmails = [], referenceEmails = []] = watch([
@@ -90,10 +94,10 @@ const Step3: React.FC = () => {
       <Button
         type="submit"
         style="filled"
-        className="absolute bottom-16 mx-[60px] w-[360px] py-3"
-        disabled={recipientEmails.length === 0}
+        className="absolute bottom-16 mx-[60px] flex w-[360px] items-center justify-center py-3"
+        disabled={isPending || recipientEmails.length === 0}
       >
-        완료
+        {isPending ? <LoadingIcon className="h-6 w-6 animate-spin" /> : "완료"}
       </Button>
     </div>
   );

@@ -7,10 +7,21 @@ import SearchBar from "@components/SearchBar";
 import ClientNotFound from "./components/ClientNotFound";
 import { useGetClients } from "@api/hooks/clients/useGetClients";
 import Button from "@components/Button";
+import usePostSearchClient from "@api/hooks/clients/usePostSearchClient";
 
 const DashboardPage: React.FC = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { data: clientsData, isLoading } = useGetClients();
+  const { data: searchData, isLoading: isSearching } =
+    usePostSearchClient(searchText);
+
+  if (isLoading || isSearching) {
+    return null;
+  }
 
   const handleAddModalOpen = () => {
     setIsAddModalOpen(true);
@@ -34,17 +45,22 @@ const DashboardPage: React.FC = () => {
     setIsAddModalOpen(false);
   };
 
-  const [value, setValue] = useState("");
-
-  const handleChange = (value: string) => {
-    setValue(value);
+  const handleChangeSearchText = (value: string) => {
+    setSearchText(value);
+    if (!value.trim()) {
+      setSearchQuery("");
+    }
   };
 
-  const { data: clientsData, isLoading } = useGetClients();
+  const handleSearch = () => {
+    if (!searchText.trim()) {
+      setSearchQuery("");
+    } else {
+      setSearchQuery(searchText);
+    }
+  };
 
-  if (isLoading) {
-    return null;
-  }
+  const displayClientData = searchQuery ? searchData : clientsData;
 
   return (
     <div className="flex flex-col items-center">
@@ -54,10 +70,11 @@ const DashboardPage: React.FC = () => {
         <>
           <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
             <SearchBar
-              value={value}
-              onChange={handleChange}
+              value={searchText}
+              onChange={handleChangeSearchText}
               placeholder="고객사명을 입력해주세요."
               bgColor="white"
+              onSearch={handleSearch}
             />
             <Button
               style="tonal"
@@ -68,16 +85,18 @@ const DashboardPage: React.FC = () => {
               <AddCircleFillIcon className="fill-primary-500" />
             </Button>
           </div>
-          <div className="grid grid-cols-4 gap-3">
-            {clientsData?.map((client) => (
-              <MonitoringCard
-                key={client.clientId}
-                clientId={client.clientId}
-                name={client.name}
-                manager={client.managerName}
-                logoUrl={client.logoUrl}
-              />
-            ))}
+          <div className="flex max-h-[calc(100vh-217px)] w-full justify-center overflow-y-auto">
+            <div className="pb-б grid w-[1048px] grid-cols-4 gap-3">
+              {displayClientData?.map((client) => (
+                <MonitoringCard
+                  key={client.clientId}
+                  clientId={client.clientId}
+                  name={client.name}
+                  manager={client.managerName}
+                  logoUrl={client.logoUrl}
+                />
+              ))}
+            </div>
           </div>
         </>
       )}

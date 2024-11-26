@@ -68,7 +68,7 @@ const DashboardPage: React.FC = () => {
               <AddCircleFillIcon className="fill-primary-500" />
             </Button>
           </div>
-          <div className="grid w-[1048px] grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-3">
             {clientsData?.map((client) => (
               <MonitoringCard
                 key={client.clientId}

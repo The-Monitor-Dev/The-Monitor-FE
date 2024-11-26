@@ -8,15 +8,8 @@ const usePostClient = () => {
     mutationFn: (data: FormData) => {
       return postClient(data);
     },
-    onMutate: async (data) => {
-      const previousClients = queryClient.getQueryData(["clients"]);
-
-      queryClient.setQueryData(["clients"], (oldData: any) => ({
-        ...oldData,
-        clients: [...(oldData?.clients || []), { ...data }],
-      }));
-
-      return { previousClients };
+    onMutate: async () => {
+      return queryClient.getQueryData(["clients"]);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["clients"] });

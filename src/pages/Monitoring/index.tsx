@@ -14,11 +14,11 @@ import Category from "./components/Category";
 import useGetArticlesByKeyword from "@api/hooks/articles/useGetArticlesByKeyword";
 import ArticleBox from "./components/ArticleBox";
 import Pagination from "./components/Pagination";
-import { Keyword } from "@api/keywordsAPI";
 import useGetArticles from "@api/hooks/articles/useGetArticles";
 import { CategoryTypeEn, CategoryTypeKr } from "types/category";
 import { enToKrCategoryMap } from "@constants/category";
 import { clientId } from "@constants/clientId";
+import { Keyword } from "@api/types/keywords";
 
 const MonitoringPage: React.FC = () => {
   const navigate = useNavigate();

@@ -10,6 +10,8 @@ interface KeywordListProps {
   onDeleteKeyword?: (keyword: string) => void;
   type: string;
   showBorder?: boolean;
+  signatureImageUrl?: string | null;
+  onImageChange?: (image: File | null) => void;
 }
 
 const KeywordList = ({
@@ -19,21 +21,22 @@ const KeywordList = ({
   onDeleteKeyword,
   type,
   showBorder = true,
+  onImageChange,
+  signatureImageUrl,
 }: KeywordListProps) => {
   const validateEmail = useValidateEmail(type);
-  const [image, setImage] = useState<File | null>(null);
+  const [uploadingImg, setUploadingImg] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setImage(file);
+      setUploadingImg(URL.createObjectURL(file));
+      onImageChange?.(file);
     }
   };
 
-  const handleButtonClick = () => {
-    fileInputRef.current?.click();
-  };
+  const handleButtonClick = () => fileInputRef.current?.click();
 
   return (
     <div
@@ -56,7 +59,17 @@ const KeywordList = ({
               </p>
             </div>
 
-            {!image ? (
+            {signatureImageUrl ? (
+              <img
+                src={signatureImageUrl}
+                className="h-[100px] w-[300px] rounded object-contain"
+              />
+            ) : uploadingImg ? (
+              <img
+                src={uploadingImg}
+                className="h-[100px] w-[300px] rounded object-contain"
+              />
+            ) : (
               <button
                 type="button"
                 className="flex h-[100px] w-[300px] items-center justify-center rounded bg-surface-primary"
@@ -64,12 +77,6 @@ const KeywordList = ({
               >
                 <AddCircleFillIcon className="fill-neutral-400" />
               </button>
-            ) : (
-              <img
-                src={URL.createObjectURL(image)}
-                alt="Selected"
-                className="h-[100px] w-[300px] rounded object-cover"
-              />
             )}
 
             <input

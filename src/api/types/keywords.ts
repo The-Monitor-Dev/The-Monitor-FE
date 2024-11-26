@@ -1,6 +1,9 @@
+import { CategoryTypeEn } from "types/category";
+
 export interface Keyword {
   keywordId: number;
   keywordName: string;
+  categoryType: CategoryTypeEn;
 }
 
 export type GetKeywordsResponse = {

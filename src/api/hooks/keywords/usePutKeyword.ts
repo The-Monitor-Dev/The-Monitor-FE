@@ -1,4 +1,5 @@
-import { putKeywords, PutKeywordsParams } from "@api/keywordsAPI";
+import { putKeywords } from "@api/keywordsAPI";
+import { PutKeywordsParams } from "@api/types/keywords";
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

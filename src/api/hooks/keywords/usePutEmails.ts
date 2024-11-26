@@ -1,4 +1,5 @@
-import { putEmails, putEmailsParams } from "@api/keywordsAPI";
+import { putEmails } from "@api/emailsAPI";
+import { putEmailsParams } from "@api/types/emails";
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 

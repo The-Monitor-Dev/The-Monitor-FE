@@ -1,5 +1,5 @@
-import { authApiPost } from "./apiUtils";
-import { PostSendEmailParams } from "./types/emails";
+import { authApiGet, authApiPost, authApiPut } from "./apiUtils";
+import { GetEmailsResponse, PostSendEmailParams } from "./types/emails";
 
 export const postSendEmail = ({
   clientId,
@@ -16,4 +16,12 @@ export const postSendEmail = ({
       clientId,
     },
   );
+};
+
+export const putEmails = async (clientId: number, data: FormData) => {
+  return authApiPut("/emails", data, { clientId });
+};
+
+export const getEmails = async (clientId: number) => {
+  return authApiGet<GetEmailsResponse>("/emails", { clientId });
 };

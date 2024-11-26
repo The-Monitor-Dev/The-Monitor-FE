@@ -43,3 +43,4 @@ export { default as DoubleArrowLeftIcon } from "./doubleArrowLeft.svg?react";
 export { default as ArrowRightIcon } from "./arrowRight.svg?react";
 export { default as DoubleArrowRightIcon } from "./doubleArrowRight.svg?react";
 export { default as PencilIcon } from "./pencil.svg?react";
+export { default as DashboardIcon } from "./dashboard.svg?react";

@@ -11,7 +11,7 @@ const SummarizeModal: React.FC<SummarizeModalProps> = ({ onClose }) => {
     setText(e.target.value);
   };
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
+    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-65">
       <div className="flex h-[273px] w-[480px] flex-col rounded bg-white">
         <div className="mb-4 mt-5 flex flex-col gap-4 px-6">
           <span className="text-xl font-semibold">기사 한 줄 요약</span>

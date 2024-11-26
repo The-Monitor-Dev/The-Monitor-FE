@@ -1,6 +1,11 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { HandleIcon, SummarizeIcon, DeleteIcon } from "@assets/svgs";
+import {
+  HandleIcon,
+  SummarizeIcon,
+  DeleteIcon,
+  DashboardIcon,
+} from "@assets/svgs";
 import { useState } from "react";
 import SummarizeModal from "../SummarizeModal";
 
@@ -68,6 +73,12 @@ const SortableItem: React.FC<SortableItemProps> = ({ idx, id, row }) => {
             className="flex h-6 w-6 items-center justify-center"
           >
             <DeleteIcon className="h-4 w-4 fill-neutral-500" />
+          </button>
+          <button
+            type="button"
+            className="flex h-6 w-6 items-center justify-center"
+          >
+            <DashboardIcon className="h-4 w-4" />
           </button>
         </td>
         <div

@@ -9,25 +9,9 @@ const tokenInstance = axios.create({
   baseURL,
   headers: {
     Accept: "*/*",
-    "Content-Type": "application/json",
   },
   withCredentials: true,
 });
-
-tokenInstance.interceptors.request.use(
-  (config) => {
-    if (
-      (config.method === "post" && config.url?.includes("/clients")) ||
-      (config.method === "put" && config.url?.includes("/clients"))
-    ) {
-      config.headers["Content-Type"] = "multipart/form-data";
-    } else {
-      config.headers["Content-Type"] = "application/json";
-    }
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
 
 tokenInstance.interceptors.response.use(
   (response) => response,
@@ -39,7 +23,7 @@ tokenInstance.interceptors.response.use(
         status: "error",
       });
     } else {
-      window.location.href = "/404";
+      // window.location.href = "/404";
 
       return Promise.reject(error);
     }

@@ -40,11 +40,15 @@ const DashboardPage: React.FC = () => {
     setValue(value);
   };
 
-  const { data: clientsData } = useGetClients();
+  const { data: clientsData, isLoading } = useGetClients();
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col items-center">
-      {!clientsData || clientsData?.length === 0 ? (
+      {clientsData?.length === 0 ? (
         <ClientNotFound handleAddModalOpen={handleAddModalOpen} />
       ) : (
         <>

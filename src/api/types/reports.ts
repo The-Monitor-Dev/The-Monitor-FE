@@ -6,12 +6,31 @@ export interface ReportResponse {
   createdAt: string;
   updatedAt: string;
 }
+interface ReportArticle {
+  publishedDate: string;
+  headLine: string;
+  url: string;
+  media: string;
+  reporter: string;
+  summary: string;
+}
+
+interface ReportCategory {
+  reportCategoryId: number;
+  reportCategoryName: string;
+  reportCategoryDescription: string;
+  reportArticlesResponses: ReportArticle[];
+}
 
 export interface GetReportDetailsResponse {
-  reportId: number;
   title: string;
-  logo: string;
   color: string;
+  logo: string;
+  articles: {
+    SELF: ReportCategory[];
+    COMPETITOR: ReportCategory[];
+    INDUSTRY: ReportCategory[];
+  };
 }
 
 // Params
@@ -19,6 +38,18 @@ export interface GetReportDetailsResponse {
 export interface PostSearchReportsParams {
   clientId: number;
   searchTitle: string;
+}
+
+export interface PostReportArticleParams extends ReportParams {
+  data: {
+    categoryType: string;
+    keyword: string;
+    articleTitle: string;
+    url: string;
+    publishedDate: string;
+    publisherName: string;
+    reporterName: string;
+  };
 }
 
 export interface ReportParams {
@@ -35,4 +66,7 @@ export interface PatchReportColorParams extends ReportParams {
   data: {
     color: string;
   };
+}
+export interface PatchReportLogoParams extends ReportParams {
+  logo: File;
 }

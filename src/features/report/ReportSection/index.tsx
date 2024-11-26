@@ -9,9 +9,9 @@ import { AddCircleThinIcon, CloseIcon, DonerIcon } from "@assets/svgs";
 import { useOutsideClick } from "@chakra-ui/react";
 import { HexColorPicker } from "react-colorful";
 import DonerMenu from "../DonerMenu";
-import Table from "../Table";
 import usePatchReportColor from "@api/hooks/reports/usePatchReportColor";
 import usePatchReportTitle from "@api/hooks/reports/usePatchReportTitle";
+import ArticleTable from "../ArticleTable";
 
 interface ReportSectionProps {
   initialTitle?: string;
@@ -216,7 +216,7 @@ const ReportSection: React.FC<ReportSectionProps> = ({
       </div>
       <div className="flex flex-col pl-9">
         <div className="py-3 pl-1 text-xl font-semibold text-title">자사</div>
-        <Table />
+        {/* <ArticleTable /> */}
       </div>
     </div>
   );

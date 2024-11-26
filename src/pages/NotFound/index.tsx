@@ -9,7 +9,7 @@ const NotFound: React.FC = () => {
   return (
     <div className="flex h-full flex-col items-center justify-center bg-white">
       <div className="flex flex-col items-center pb-[70px]">
-        <NotFoundIcon />
+        <NotFoundIcon className="fill-primary-500" />
         <span className="text-[40px] font-semibold text-primary-500">
           페이지를 찾을 수 없습니다.
         </span>

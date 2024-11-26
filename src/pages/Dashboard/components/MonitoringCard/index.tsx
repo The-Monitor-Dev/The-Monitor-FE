@@ -7,6 +7,8 @@ import {
 import { useState, useRef, useEffect } from "react";
 import DeleteModal from "../DeleteModal";
 import EditModal from "../EditModal";
+import { Link } from "react-router-dom";
+import routes from "@constants/routes";
 
 interface MonitoringCardProps {
   name: string;
@@ -90,21 +92,24 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
             </div>
           )}
         </div>
-        <div className="flex justify-center border-b-1 border-neutral-200">
-          <img
-            src={logoUrl}
-            className="mb-10 mt-5 h-[72px] w-24 overflow-hidden rounded object-contain"
-          />
-        </div>
-        <div className="flex w-full flex-col gap-1 py-4 pl-4 pr-5">
-          <h2 className="text-left text-xl font-semibold text-title">{name}</h2>
-          <div className="flex items-center">
-            <PersonIcon className="mr-[6px]" />
-            <p className="text-md font-semibold text-disable">{manager}</p>
+        <Link to={routes.monitoring} className="flex flex-col">
+          <div className="flex justify-center border-b-1 border-neutral-200">
+            <img
+              src={logoUrl}
+              className="mb-10 mt-5 h-[72px] w-24 overflow-hidden rounded object-contain"
+            />
           </div>
-        </div>
+          <div className="flex w-full flex-col gap-1 py-4 pl-4 pr-5">
+            <h2 className="text-left text-xl font-semibold text-title">
+              {name}
+            </h2>
+            <div className="flex items-center">
+              <PersonIcon className="mr-[6px]" />
+              <p className="text-md font-semibold text-disable">{manager}</p>
+            </div>
+          </div>
+        </Link>
       </div>
-
       {isDeleteModalOpen && (
         <DeleteModal
           clientId={clientId}

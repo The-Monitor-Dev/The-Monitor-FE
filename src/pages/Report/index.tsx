@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import ReportBox from "./ReportBox";
 import debounce from "lodash/debounce";
 import usePostSearchReports from "@api/hooks/reports/usePostSearchReports";
+import { clientId } from "@constants/clientId";
 
 type SortOption = "updatedAt" | "createdAt";
 
@@ -13,9 +14,9 @@ const ReportPage = () => {
   const [searchTitle, setSearchTitle] = useState("");
   const [debouncedSearchTitle, setDebouncedSearchTitle] = useState("");
 
-  const { data: reportsData } = useGetReports(1);
+  const { data: reportsData } = useGetReports(clientId);
   const { data: searchReportsData } = usePostSearchReports({
-    clientId: 1,
+    clientId: clientId,
     searchTitle: debouncedSearchTitle,
   });
 

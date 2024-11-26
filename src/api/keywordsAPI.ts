@@ -5,11 +5,9 @@ export interface Keyword {
   keywordName: string;
 }
 
-export interface GetKeywordsResponse {
-  SELF: Keyword[];
-  COMPETITOR: Keyword[];
-  INDUSTRY: Keyword[];
-}
+type GetKeywordsResponse = {
+  [key: string]: Keyword[];
+};
 
 export interface GetEmailsResponse {
   recipients: string[];

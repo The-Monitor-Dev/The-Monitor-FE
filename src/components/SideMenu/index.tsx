@@ -4,12 +4,13 @@ import { AnalyzeIcon, HamburgerIcon, NewsIcon } from "@assets/svgs";
 import { useLocation, useNavigate } from "react-router-dom";
 import routes from "@constants/routes";
 import useGetClientInfo from "@api/hooks/clients/useGetClientInfo";
+import { clientId } from "@constants/clientId";
 
 const SideMenu: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data: clientData } = useGetClientInfo(1);
+  const { data: clientData } = useGetClientInfo(clientId);
 
   const [selectedMenu, setSelectedMenu] = useState<string>(
     location.pathname.slice(1),
@@ -28,7 +29,7 @@ const SideMenu: React.FC = () => {
             <div className="flex h-[52px] items-center gap-1 border-b border-neutral-200 pb-4 pt-3">
               <img
                 src={clientData?.logoUrl || DefaultImage}
-                className="h-6 w-6"
+                className="h-6 w-6 object-contain"
               />
               <span className="text-xl font-semibold text-title">
                 {clientData?.name}

@@ -1,26 +1,25 @@
+import { useState } from "react";
 import useGetReports from "@api/hooks/reports/useGetReports";
-import { DonerIcon } from "@assets/svgs";
-import SearchBar from "@components/SearchBar";
-import { useEffect, useMemo, useState } from "react";
-import ReportBox from "./ReportBox";
-import debounce from "lodash/debounce";
 import usePostSearchReports from "@api/hooks/reports/usePostSearchReports";
 import { clientId } from "@constants/clientId";
+import { DonerIcon } from "@assets/svgs";
+import SearchBar from "@components/SearchBar";
+import ReportBox from "./ReportBox";
 
 type SortOption = "updatedAt" | "createdAt";
 
 const ReportPage = () => {
   const [selectedSort, setSelectedSort] = useState<SortOption>("updatedAt");
   const [searchTitle, setSearchTitle] = useState("");
-  const [debouncedSearchTitle, setDebouncedSearchTitle] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const { data: reportsData } = useGetReports(clientId);
+  const { data: reportsData } = useGetReports();
   const { data: searchReportsData } = usePostSearchReports({
     clientId: clientId,
-    searchTitle: debouncedSearchTitle,
+    searchTitle: searchQuery,
   });
 
-  const activeReportsData = searchTitle.trim()
+  const activeReportsData = searchQuery.trim()
     ? searchReportsData
     : reportsData;
 
@@ -33,24 +32,20 @@ const ReportPage = () => {
     return 0;
   });
 
-  const handleDebounce = useMemo(
-    () =>
-      debounce((value: string) => {
-        setDebouncedSearchTitle(value);
-      }, 200),
-    [],
-  );
+  const handleSearch = () => {
+    if (!searchTitle.trim()) {
+      setSearchQuery("");
+    } else {
+      setSearchQuery(searchTitle);
+    }
+  };
 
   const handleChangeSearchTitle = (value: string) => {
     setSearchTitle(value);
-    handleDebounce(value);
+    if (!value.trim()) {
+      setSearchQuery("");
+    }
   };
-
-  useEffect(() => {
-    return () => {
-      handleDebounce.cancel();
-    };
-  }, [handleDebounce]);
 
   return (
     <div className="flex h-full flex-col bg-white pl-8 pt-5">
@@ -60,6 +55,7 @@ const ReportPage = () => {
           bgColor="neutral-100"
           value={searchTitle}
           onChange={handleChangeSearchTitle}
+          onSearch={handleSearch}
         />
         <div className="flex h-6 items-center gap-1">
           <DonerIcon className="h-4 w-4 scale-x-[-1]" />

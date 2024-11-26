@@ -15,6 +15,7 @@ const usePostSearchReports = ({
       }),
     select: (data) => data.result,
     placeholderData: keepPreviousData,
+    enabled: !!searchTitle,
   });
 };
 

@@ -1,12 +1,13 @@
 import { CloseIcon, SearchIcon } from "@assets/svgs";
 import cn from "@utils/cn";
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, KeyboardEvent } from "react";
 
 interface SearchBarProps {
   placeholder: string;
   bgColor: string;
   value: string;
   onChange: (value: string) => void;
+  onSearch: () => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -14,14 +15,20 @@ const SearchBar: React.FC<SearchBarProps> = ({
   bgColor,
   value,
   onChange,
+  onSearch,
 }) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
-  const hasText = value.trim().length > 0;
 
   const handleClear = () => {
     onChange("");
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSearch();
+    }
   };
 
   return (
@@ -34,13 +41,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <input
         value={value}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         className={cn(
           "w-[388px] text-md font-regular placeholder:text-md placeholder:font-regular focus:outline-none",
           `bg-${bgColor}`,
         )}
         placeholder={placeholder}
       />
-      {hasText && (
+      {value.trim() && (
         <CloseIcon
           type="button"
           onClick={handleClear}
@@ -48,7 +56,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
         />
       )}
       <SearchIcon
-        className={`${hasText ? "fill-neutral-700" : "fill-neutral-400"}`}
+        className={`${value.trim() ? "fill-neutral-700" : "fill-neutral-400"} cursor-pointer`}
+        onClick={onSearch}
       />
     </div>
   );

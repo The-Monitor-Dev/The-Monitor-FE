@@ -15,8 +15,8 @@ import {
   ReportResponse,
 } from "./types/reports";
 
-export const getReports = (clientId: number) => {
-  return authApiGet<ReportResponse[]>("/reports", { clientId });
+export const getReports = () => {
+  return authApiGet<ReportResponse[]>("/reports");
 };
 
 export const getReportDetails = ({ clientId, reportId }: ReportParams) => {

@@ -29,7 +29,7 @@ const MonitoringPage: React.FC = () => {
   const handleSelectCategory = (category: CategoryTypeEn | undefined) => {
     setSelectedCategory(category);
   };
-  const { data: keywordsData } = useGetKeywords(clientId);
+  const { data: keywordsData } = useGetKeywords();
 
   const [selectedKeyword, setSelectedKeyword] = useState<Keyword | undefined>();
   const handleSelectKeyword = (keyword: Keyword | undefined) => {

@@ -1,10 +1,10 @@
 import { getReports } from "@api/reportsAPI";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetReports = (clientId: number) => {
+const useGetReports = () => {
   return useQuery({
-    queryKey: ["reports", clientId],
-    queryFn: () => getReports(clientId),
+    queryKey: ["reports"],
+    queryFn: getReports,
     select: (data) => data.result,
   });
 };

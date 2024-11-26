@@ -1,4 +1,4 @@
-import { putEmails } from "@api/keywordsAPI";
+import { putEmails, putEmailsParams } from "@api/keywordsAPI";
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -6,7 +6,7 @@ const usePutEmails = () => {
   const toast = useToast();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ clientId, data }: { clientId: number; data: FormData }) =>
+    mutationFn: ({ clientId, data }: putEmailsParams) =>
       putEmails(clientId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["emails"] });

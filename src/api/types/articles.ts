@@ -28,6 +28,8 @@ export interface GetArticlesParams {
   page: number;
 }
 export interface GetArticlesByKeywordParams {
-  keyword: string | undefined;
+  keywordId: number | undefined;
+  clientId: number;
+  categoryType: CategoryTypeEn | undefined;
   page: number;
 }

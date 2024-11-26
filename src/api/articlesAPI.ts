@@ -18,11 +18,15 @@ export const getArticles = async ({
 };
 
 export const getArticlesByKeyword = async ({
-  keyword,
+  keywordId,
+  clientId,
+  categoryType,
   page,
 }: GetArticlesByKeywordParams) => {
   return authApiGet<GetArticlesResponse>("/articles/search", {
-    keyword,
+    keywordId,
+    clientId,
+    categoryType,
     page,
   });
 };

@@ -3,15 +3,18 @@ import { GetArticlesByKeywordParams } from "@api/types/articles";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const useGetArticlesByKeyword = ({
-  keyword,
+  keywordId,
+  clientId,
+  categoryType,
   page,
 }: GetArticlesByKeywordParams) => {
   return useQuery({
-    queryKey: ["articles", keyword, page],
-    queryFn: () => getArticlesByKeyword({ keyword, page }),
+    queryKey: ["articles", keywordId, clientId, categoryType, page],
+    queryFn: () =>
+      getArticlesByKeyword({ keywordId, clientId, categoryType, page }),
     select: (data) => data.result,
     placeholderData: keepPreviousData,
-    enabled: !!keyword,
+    enabled: !!keywordId,
   });
 };
 

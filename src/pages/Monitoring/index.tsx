@@ -101,7 +101,9 @@ const MonitoringPage: React.FC = () => {
     page,
   });
   const { data: articlesByKeyword } = useGetArticlesByKeyword({
-    keyword: selectedKeyword?.keywordName,
+    keywordId: selectedKeyword?.keywordId,
+    clientId: clientId,
+    categoryType: selectedKeyword?.categoryType,
     page,
   });
 

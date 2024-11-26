@@ -44,11 +44,11 @@ export interface PostReportArticleParams extends ReportParams {
   data: {
     categoryType: string;
     keyword: string;
-    articleTitle: string;
+    headLine: string;
     url: string;
     publishedDate: string;
-    publisherName: string;
-    reporterName: string;
+    media: string;
+    reporter: string;
   };
 }
 

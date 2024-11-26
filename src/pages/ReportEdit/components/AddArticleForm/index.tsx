@@ -9,11 +9,11 @@ import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type AddArticleFromData = {
-  articleTitle: string;
+  headLine: string;
   url: string;
   publishedDate: string;
-  publisherName: string;
-  reporterName: string;
+  media: string;
+  reporter: string;
 };
 
 interface AddArticleFormProps {
@@ -21,9 +21,10 @@ interface AddArticleFormProps {
 }
 
 const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
-  const { register, handleSubmit, watch } = useForm<AddArticleFromData>();
-  const [articleTitle, url, publishedDate] = watch([
-    "articleTitle",
+  const { register, handleSubmit, watch, reset } =
+    useForm<AddArticleFromData>();
+  const [headLine, url, publishedDate] = watch([
+    "headLine",
     "url",
     "publishedDate",
   ]);
@@ -62,28 +63,36 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
 
   const { mutate } = usePostReportArticle();
   const onSubmit: SubmitHandler<AddArticleFromData> = ({
-    articleTitle,
+    headLine,
     url,
     publishedDate,
-    publisherName,
-    reporterName,
+    media,
+    reporter,
   }) => {
-    mutate({
-      clientId,
-      reportId,
-      data: {
-        categoryType: krToEnCategoryMap[selectedCategory],
-        keyword: selectedKeyword,
-        articleTitle,
-        url,
-        publishedDate,
-        publisherName,
-        reporterName,
+    mutate(
+      {
+        clientId,
+        reportId,
+        data: {
+          categoryType: krToEnCategoryMap[selectedCategory],
+          keyword: selectedKeyword,
+          headLine,
+          url,
+          publishedDate,
+          media,
+          reporter,
+        },
       },
-    });
+      {
+        onSuccess: () => {
+          reset();
+          setSelectedCategory("자사");
+        },
+      },
+    );
   };
 
-  const isButtonDisabled = !articleTitle || !url || !publishedDate;
+  const isButtonDisabled = !headLine || !url || !publishedDate;
 
   return (
     <form
@@ -119,7 +128,7 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
             <label>헤드라인</label>
             <Input
               placeholder="기사제목을 입력해주세요."
-              {...register("articleTitle", { required: true })}
+              {...register("headLine", { required: true })}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -139,14 +148,11 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
           <div className="flex items-center gap-5">
             <div className="flex flex-col gap-2">
               <label>미디어</label>
-              <Input
-                placeholder="예) 가나일보"
-                {...register("publisherName")}
-              />
+              <Input placeholder="예) 가나일보" {...register("media")} />
             </div>
             <div className="flex flex-col gap-2">
               <label>기자</label>
-              <Input placeholder="예) 홍길동" {...register("reporterName")} />
+              <Input placeholder="예) 홍길동" {...register("reporter")} />
             </div>
           </div>
         </div>

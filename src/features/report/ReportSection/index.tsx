@@ -11,7 +11,6 @@ import { HexColorPicker } from "react-colorful";
 import DonerMenu from "../DonerMenu";
 import usePatchReportColor from "@api/hooks/reports/usePatchReportColor";
 import usePatchReportTitle from "@api/hooks/reports/usePatchReportTitle";
-import ArticleTable from "../ArticleTable";
 
 interface ReportSectionProps {
   initialTitle?: string;

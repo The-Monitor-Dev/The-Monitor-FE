@@ -27,7 +27,7 @@ interface AddModalProps {
 const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
   const [step, setStep] = useState(1);
   const methods = useForm<AddModalFormData>({ mode: "onChange" });
-  const { mutate } = usePostClient();
+  const { mutate, isPending } = usePostClient();
 
   const handleNextStep = () => {
     if (step < 3) {
@@ -114,7 +114,7 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
                       : "-translate-x-full"
                 }`}
               >
-                <Step3 />
+                <Step3 isPending={isPending} />
               </div>
             </div>
           </form>

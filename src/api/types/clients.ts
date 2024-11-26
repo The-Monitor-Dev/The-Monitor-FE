@@ -13,3 +13,10 @@ export interface putClientParams {
   clientId: number;
   data: FormData;
 }
+
+export interface SearchClientResponse {
+  clientId: number;
+  name: string;
+  managerName: string;
+  logoUrl: string;
+}

@@ -1,11 +1,11 @@
 import Button from "@components/Button";
 import { useState, useEffect } from "react";
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
-import useGetEmails from "@api/hooks/keywords/useGetEmails";
 import usePutkeywords from "@api/hooks/keywords/usePutKeyword";
-import usePutEmails from "@api/hooks/keywords/usePutEmails";
 import SearchKeywordsTab from "./SearchKeywordsTab";
 import MailTab from "./MailTab";
+import useGetEmails from "@api/hooks/emails/useGetEmails";
+import usePutEmails from "@api/hooks/emails/usePutEmails";
 
 const SettingPage = () => {
   const [selfKeywords, setSelfKeywords] = useState<string[]>([]);

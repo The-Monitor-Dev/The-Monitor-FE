@@ -1,4 +1,4 @@
-import { getEmails } from "@api/keywordsAPI";
+import { getEmails } from "@api/emailsAPI";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetEmails = (clientId: number) => {

@@ -1,14 +1,10 @@
 import { authApiGet, authApiPut } from "./apiUtils";
-import {
-  GetKeywordsResponse,
-  putKeywordsData,
-  PutKeywordsParams,
-} from "./types/keywords";
+import { GetKeywordsResponse, PutKeywordsParams } from "./types/keywords";
 
-export const getKeywords = async (clientId: number) => {
-  return authApiGet<GetKeywordsResponse>("/keywords", { clientId });
+export const getKeywords = async () => {
+  return authApiGet<GetKeywordsResponse>("/keywords");
 };
 
-export const putKeywords = async ({ clientId, data }: PutKeywordsParams) => {
-  return authApiPut<putKeywordsData>("/keywords", data, { clientId });
+export const putKeywords = async ({ data }: PutKeywordsParams) => {
+  return authApiPut("/keywords", data);
 };

@@ -7,7 +7,8 @@ import {
 import { useState, useRef, useEffect } from "react";
 import DeleteModal from "../DeleteModal";
 import EditModal from "../EditModal";
-import { Link } from "react-router-dom";
+import usePostSetClient from "@api/hooks/clients/usePostSetClient";
+import { useNavigate } from "react-router-dom";
 import routes from "@constants/routes";
 
 interface MonitoringCardProps {
@@ -23,6 +24,7 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
   logoUrl,
   clientId,
 }) => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -55,6 +57,15 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isMenuOpen]);
+
+  const { mutate } = usePostSetClient();
+  const handleClickCard = (clientId: number) => {
+    mutate(clientId, {
+      onSuccess: () => {
+        navigate(routes.monitoring);
+      },
+    });
+  };
 
   return (
     <div className="flex h-[274px] w-[253px] rounded bg-white">
@@ -92,8 +103,12 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
             </div>
           )}
         </div>
-        <Link to={routes.monitoring} className="flex flex-col">
-          <div className="flex justify-center border-b-1 border-neutral-200">
+        <button
+          type="button"
+          onClick={() => handleClickCard(clientId)}
+          className="flex flex-col"
+        >
+          <div className="flex w-full justify-center border-b-1 border-neutral-200">
             <img
               src={logoUrl}
               className="mb-10 mt-5 h-[72px] w-24 overflow-hidden rounded object-contain"
@@ -108,7 +123,7 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
               <p className="text-md font-semibold text-disable">{manager}</p>
             </div>
           </div>
-        </Link>
+        </button>
       </div>
       {isDeleteModalOpen && (
         <DeleteModal

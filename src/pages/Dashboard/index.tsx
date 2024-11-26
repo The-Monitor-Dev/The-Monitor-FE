@@ -68,16 +68,18 @@ const DashboardPage: React.FC = () => {
               <AddCircleFillIcon className="fill-primary-500" />
             </Button>
           </div>
-          <div className="grid grid-cols-4 gap-3">
-            {clientsData?.map((client) => (
-              <MonitoringCard
-                key={client.clientId}
-                clientId={client.clientId}
-                name={client.name}
-                manager={client.managerName}
-                logoUrl={client.logoUrl}
-              />
-            ))}
+          <div className="flex max-h-[calc(100vh-217px)] w-full justify-center overflow-y-auto">
+            <div className="pb-б grid w-[1048px] grid-cols-4 gap-3">
+              {clientsData?.map((client) => (
+                <MonitoringCard
+                  key={client.clientId}
+                  clientId={client.clientId}
+                  name={client.name}
+                  manager={client.managerName}
+                  logoUrl={client.logoUrl}
+                />
+              ))}
+            </div>
           </div>
         </>
       )}

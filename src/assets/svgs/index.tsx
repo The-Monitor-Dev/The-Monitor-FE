@@ -48,3 +48,4 @@ export { default as ArrowNextFillIcon } from "./arrowNextFill.svg?react";
 export { default as LightBulbIcon } from "./lightBulb.svg?react";
 export { default as UnlimitedIcon } from "./unlimited.svg?react";
 export { default as BarChartIcon } from "./barChart.svg?react";
+export { default as grayLogoIcon } from "./grayLogo.svg?react";

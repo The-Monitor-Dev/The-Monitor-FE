@@ -22,6 +22,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import routes from "@constants/routes";
+import Footer from "@components/Footer";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -192,6 +193,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

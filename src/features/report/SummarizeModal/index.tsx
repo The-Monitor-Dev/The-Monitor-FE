@@ -1,14 +1,29 @@
+import usePatchReportArticleSummary from "@api/hooks/reports/usePatchReportArticleSummary";
 import Button from "@components/Button";
 import { ChangeEvent, useState } from "react";
 
 interface SummarizeModalProps {
+  reportId: number;
+  reportArticleId: number;
   onClose: () => void;
 }
 
-const SummarizeModal: React.FC<SummarizeModalProps> = ({ onClose }) => {
+const SummarizeModal: React.FC<SummarizeModalProps> = ({
+  onClose,
+  reportId,
+  reportArticleId,
+}) => {
   const [text, setText] = useState("");
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
+  };
+
+  const { mutate } = usePatchReportArticleSummary();
+
+  const handleSave = () => {
+    mutate({ reportId, reportArticleId, data: { summary: text } });
+
+    onClose();
   };
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-65">
@@ -34,7 +49,11 @@ const SummarizeModal: React.FC<SummarizeModalProps> = ({ onClose }) => {
           >
             취소
           </Button>
-          <Button style="filled" className="px-10 py-2 text-sm font-semibold">
+          <Button
+            style="filled"
+            onClick={handleSave}
+            className="px-10 py-2 text-sm font-semibold"
+          >
             적용
           </Button>
         </div>

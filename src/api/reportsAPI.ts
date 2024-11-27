@@ -5,12 +5,18 @@ import {
   authApiPost,
 } from "./apiUtils";
 import {
+  DeleteReportArticleCategoryPrams,
   DeleteReportArticleParams,
+  GetReportArticleCategoriesResponse,
+  GetReportArticlesOptionsResponse,
   GetReportDetailsResponse,
+  PatchReportArticleCategoryParams,
+  PatchReportArticlesOptionsParams,
   PatchReportArticleSummaryParams,
   PatchReportColorParams,
   PatchReportLogoParams,
   PatchReportTitleParams,
+  PostReportArticleCategoryParams,
   PostReportArticleParams,
   PostReportParams,
   ReportParams,
@@ -25,6 +31,21 @@ export const getReportDetails = ({ reportId }: ReportParams) => {
   return authApiGet<GetReportDetailsResponse>("/reports/details", {
     reportId,
   });
+};
+
+export const getReportCategories = ({ reportId }: ReportParams) => {
+  return authApiGet<GetReportArticleCategoriesResponse>("/reports/categories", {
+    reportId,
+  });
+};
+
+export const getReportArticlesOptions = ({ reportId }: ReportParams) => {
+  return authApiGet<GetReportArticlesOptionsResponse>(
+    "/reports/articles/options",
+    {
+      reportId,
+    },
+  );
 };
 
 export const postSearchReports = (searchTitle: string) => {
@@ -50,6 +71,15 @@ export const postReportArticle = ({
   data,
 }: PostReportArticleParams) => {
   return authApiPost("/reports/articles/update", data, {
+    reportId,
+  });
+};
+
+export const postReportArticleCategory = ({
+  reportId,
+  data,
+}: PostReportArticleCategoryParams) => {
+  return authApiPost("/reports/category", data, {
     reportId,
   });
 };
@@ -98,6 +128,25 @@ export const patchReportArticleSummary = ({
   });
 };
 
+export const patchReportArticleCategory = ({
+  reportId,
+  reportArticleId,
+  newCategoryId,
+}: PatchReportArticleCategoryParams) => {
+  return authApiPatch("/reports/articles/category", undefined, {
+    reportId,
+    reportArticleId,
+    newCategoryId,
+  });
+};
+
+export const patchReportArticlesOptions = ({
+  reportId,
+  data,
+}: PatchReportArticlesOptionsParams) => {
+  return authApiPatch("/reports/articles/options", data, { reportId });
+};
+
 export const deleteReportArticle = ({
   reportId,
   reportArticleId,
@@ -105,5 +154,15 @@ export const deleteReportArticle = ({
   return authApiDelete("/reports/articles/delete", {
     reportId,
     reportArticleId,
+  });
+};
+
+export const deleteReportArticleCategory = ({
+  reportId,
+  categoryId,
+}: DeleteReportArticleCategoryPrams) => {
+  return authApiPatch("/reports/category/delete", undefined, {
+    reportId,
+    categoryId,
   });
 };

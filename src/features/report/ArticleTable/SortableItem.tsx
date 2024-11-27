@@ -8,25 +8,32 @@ import {
 } from "@assets/svgs";
 import { useState } from "react";
 import SummarizeModal from "../SummarizeModal";
-
-interface Row {
-  // id: number;
-  publishedDate: string;
-  // keyword: string;
-  headLine: string;
-  url: string;
-  media: string;
-  reporter: string;
-  summary: string;
-}
+import { ReportArticle } from "@api/types/reports";
+import useDeleteReportArticle from "@api/hooks/reports/useDeleteReportArticle";
+import CategorySelectModal from "./CategorySelectModal";
+import { CategoryTypeEn } from "types/category";
 
 interface SortableItemProps {
+  reportId: number;
   idx: number;
   id: number;
-  row: Row;
+  article: ReportArticle;
+  categoryType: CategoryTypeEn;
+  articleCategoryId: number;
+  media: boolean | undefined;
+  reporter: boolean | undefined;
 }
 
-const SortableItem: React.FC<SortableItemProps> = ({ idx, id, row }) => {
+const SortableItem: React.FC<SortableItemProps> = ({
+  idx,
+  id,
+  article,
+  reportId,
+  categoryType,
+  articleCategoryId,
+  media,
+  reporter,
+}) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -41,6 +48,18 @@ const SortableItem: React.FC<SortableItemProps> = ({ idx, id, row }) => {
     setIsSummarizeModalOpen(false);
   };
 
+  const { mutate: deleteArticle } = useDeleteReportArticle();
+
+  const handleDeleteArticle = () => {
+    deleteArticle({ reportId, reportArticleId: article.reportArticleId });
+  };
+
+  const [isCategorySelectModalOpen, setIsCategorySelectModalOpen] =
+    useState(false);
+
+  const handleCategorySelectModalClose = () => {
+    setIsCategorySelectModalOpen(false);
+  };
   return (
     <>
       <tr
@@ -52,20 +71,35 @@ const SortableItem: React.FC<SortableItemProps> = ({ idx, id, row }) => {
         <td className="w-10 border-r border-neutral-200 p-3 py-3 text-disable">
           {idx + 1}
         </td>
-        <td className="border-r border-neutral-200 p-3">{row.publishedDate}</td>
-        <td className="border-r border-neutral-200 p-3">{}</td>
-        <td className="border-r border-neutral-200 p-3 text-left text-base-dark underline">
-          <a
-            href={row.url.startsWith("http") ? row.url : `https://${row.url}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-primary-500"
-          >
-            {row.headLine}
-          </a>
+        <td className="border-r border-neutral-200 p-3">
+          {article.publishedDate}
         </td>
-        <td className="border-r border-neutral-200 p-3">{row.media}</td>
-        <td className="border-r border-neutral-200 p-3">{row.reporter}</td>
+        <td className="border-r border-neutral-200 p-3">{article.keyword}</td>
+        <td className="border-r border-neutral-200 p-3 text-left">
+          <div className="flex flex-col">
+            <a
+              href={
+                article.url.startsWith("http")
+                  ? article.url
+                  : `https://${article.url}`
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-base-dark underline hover:text-primary-500"
+            >
+              {article.headLine}
+            </a>
+            {article.summary && (
+              <span className="text-body2">{article.summary}</span>
+            )}
+          </div>
+        </td>
+        <td className="border-r border-neutral-200 p-3">
+          {media && article.media}
+        </td>
+        <td className="border-r border-neutral-200 p-3">
+          {reporter && article.reporter}
+        </td>
         <td className="flex justify-center p-3">
           <button
             type="button"
@@ -79,12 +113,14 @@ const SortableItem: React.FC<SortableItemProps> = ({ idx, id, row }) => {
           </button>
           <button
             type="button"
+            onClick={handleDeleteArticle}
             className="flex h-6 w-6 items-center justify-center"
           >
             <DeleteIcon className="h-4 w-4 fill-neutral-500" />
           </button>
           <button
             type="button"
+            onClick={() => setIsCategorySelectModalOpen(true)}
             className="flex h-6 w-6 items-center justify-center"
           >
             <DashboardIcon className="h-4 w-4" />
@@ -98,7 +134,20 @@ const SortableItem: React.FC<SortableItemProps> = ({ idx, id, row }) => {
         </div>
       </tr>
       {isSummarizeModalOpen && (
-        <SummarizeModal onClose={handleSummarizeModalClose} />
+        <SummarizeModal
+          reportId={reportId}
+          reportArticleId={article.reportArticleId}
+          onClose={handleSummarizeModalClose}
+        />
+      )}
+      {isCategorySelectModalOpen && (
+        <CategorySelectModal
+          reportId={reportId}
+          reportArticleId={article.reportArticleId}
+          categoryType={categoryType}
+          onClose={handleCategorySelectModalClose}
+          articleCategoryId={articleCategoryId}
+        />
       )}
     </>
   );

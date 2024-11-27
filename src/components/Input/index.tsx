@@ -7,17 +7,18 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const style =
-  "h-14 rounded bg-surface-primary w-full px-4 text-md font-regular placeholder:text-disable focus:outline focus:outline-1";
+  "h-14 rounded w-full px-4 text-md font-regular focus:outline focus:outline-1 placeholder:text-disable";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, isInvalid, ...props }, ref) => {
+  ({ className, type, isInvalid, disabled, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const inputStyle = twMerge(
       style,
-      isInvalid
-        ? "outline outline-1 outline-red-500"
-        : "focus:outline-primary-500",
+      disabled
+        ? "bg-surface-disable "
+        : "bg-surface-primary focus:outline-primary-500",
+      isInvalid ? "outline outline-1 outline-red-500" : "",
     );
 
     const hideEdgePasswordIcon = `
@@ -35,9 +36,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             type === "password" ? (showPassword ? "text" : "password") : type
           }
           className={inputStyle}
+          disabled={disabled}
           {...props}
         />
         {type === "password" &&
+          !disabled &&
           (showPassword ? (
             <VisibilityOnIcon
               onClick={() => setShowPassword((prev) => !prev)}
@@ -51,7 +54,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ))}
         {isInvalid && (
           <ErrorIcon
-            className={`absolute ${type === "password" ? "right-14" : "right-6"} top-1/2 -translate-y-1/2 transform`}
+            className={`absolute ${
+              type === "password" && !disabled ? "right-14" : "right-6"
+            } top-1/2 -translate-y-1/2 transform`}
           />
         )}
       </div>

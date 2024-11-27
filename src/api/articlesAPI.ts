@@ -6,12 +6,10 @@ import {
 } from "./types/articles";
 
 export const getArticles = async ({
-  clientId,
   categoryType,
   page,
 }: GetArticlesParams) => {
   return authApiGet<GetArticlesResponse>("/articles", {
-    clientId,
     categoryType,
     page,
   });
@@ -19,13 +17,11 @@ export const getArticles = async ({
 
 export const getArticlesByKeyword = async ({
   keywordId,
-  clientId,
   categoryType,
   page,
 }: GetArticlesByKeywordParams) => {
-  return authApiGet<GetArticlesResponse>("/articles/search", {
+  return authApiGet<GetArticlesResponse>("/articles/keyword", {
     keywordId,
-    clientId,
     categoryType,
     page,
   });

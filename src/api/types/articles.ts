@@ -23,13 +23,11 @@ export interface GetArticlesResponse {
 }
 
 export interface GetArticlesParams {
-  clientId: number;
   categoryType: CategoryTypeEn | undefined;
   page: number;
 }
 export interface GetArticlesByKeywordParams {
   keywordId: number | undefined;
-  clientId: number;
   categoryType: CategoryTypeEn | undefined;
   page: number;
 }

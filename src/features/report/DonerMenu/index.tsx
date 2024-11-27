@@ -1,18 +1,44 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Checkbox, useOutsideClick } from "@chakra-ui/react";
 import Button from "@components/Button";
+import useGetReportArticlesOptions from "@api/hooks/reports/useGetReportArticlesOptions";
+import usePatchReportArticlesOptions from "@api/hooks/reports/usePatchReportArticlesOptions";
 
 interface DonerMenuProps {
+  reportId: number;
   onClose: () => void;
 }
 
-const DonerMenu: React.FC<DonerMenuProps> = ({ onClose }) => {
+const DonerMenu: React.FC<DonerMenuProps> = ({ reportId, onClose }) => {
   const donerRef = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick({
     ref: donerRef,
     handler: onClose,
   });
+
+  const { data } = useGetReportArticlesOptions({ reportId });
+  const { mutate: patchOptions } = usePatchReportArticlesOptions();
+
+  const [options, setOptions] = useState({
+    media: data?.media || false,
+    reporter: data?.reporter || false,
+  });
+
+  const handleCheckboxChange = (field: keyof typeof options) => {
+    setOptions((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
+  const handleApply = () => {
+    patchOptions({
+      reportId,
+      data: options,
+    });
+    onClose();
+  };
 
   return (
     <div
@@ -26,6 +52,8 @@ const DonerMenu: React.FC<DonerMenuProps> = ({ onClose }) => {
         <div className="flex items-center justify-between">
           <div>미디어</div>
           <Checkbox
+            isChecked={options.media}
+            onChange={() => handleCheckboxChange("media")}
             borderColor="#A3A3A3"
             sx={{
               "& .chakra-checkbox__control": {
@@ -49,6 +77,8 @@ const DonerMenu: React.FC<DonerMenuProps> = ({ onClose }) => {
         <div className="flex items-center justify-between">
           <div>기자</div>
           <Checkbox
+            isChecked={options.reporter}
+            onChange={() => handleCheckboxChange("reporter")}
             borderColor="#A3A3A3"
             sx={{
               "& .chakra-checkbox__control": {
@@ -71,7 +101,11 @@ const DonerMenu: React.FC<DonerMenuProps> = ({ onClose }) => {
         </div>
       </div>
       <div className="pb-3 pt-2">
-        <Button style="filled" className="w-[120px] rounded-[2px] py-1 text-sm">
+        <Button
+          style="filled"
+          className="w-[120px] rounded-[2px] py-1 text-sm"
+          onClick={handleApply}
+        >
           적용하기
         </Button>
       </div>

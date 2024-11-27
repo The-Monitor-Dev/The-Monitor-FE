@@ -4,6 +4,8 @@ import Step1 from "./components/Step1";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import usePostClient from "@api/hooks/clients/usePostClient";
 import CancelModal from "@components/CancelModal";
+import Step2 from "./components/Step2";
+import Step3 from "./components/Step3";
 
 type AddModalFormData = {
   companyName: string;

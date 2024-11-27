@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DonerIcon } from "@assets/svgs";
 import { useOutsideClick } from "@chakra-ui/react";
-import DonerMenu from "@features/report/DonerMenu";
 import { clientId } from "@constants/clientId";
 import useGetReportDetails from "@api/hooks/reports/useGetReportDetails";
-import LogoUploader from "./LogoUploader";
-import TitleEditor from "./TitleEditor";
-import ColorPicker from "./ColorPicker";
+import LogoUploader from "./components/LogoUploader";
+import TitleEditor from "./components/TitleEditor";
+import ColorPicker from "./components/ColorPicker";
 import ArticleTable from "@features/report/ArticleTable";
 import { CategoryTypeEn } from "types/category";
 import { ReportCategory } from "@api/types/reports";
+import DonerMenu from "./components/DonerMenu";
 
 interface ReportEditSectionProps {
   reportId: number;

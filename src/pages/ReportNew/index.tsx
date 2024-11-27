@@ -9,6 +9,8 @@ const ReportNewPage: React.FC = () => {
   const toast = useToast();
   const [title, setTitle] = useState("보고서 제목");
   const [color, setColor] = useState("#FFFFFF");
+  const [media, setMedia] = useState(true);
+  const [reporter, setReporter] = useState(true);
   const [logo, setLogo] = useState<string | null>(null);
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const { mutate: postReport } = usePostReport();
@@ -33,6 +35,8 @@ const ReportNewPage: React.FC = () => {
       data: {
         reportTitle: title,
         color,
+        media,
+        reporter,
         articles: {
           SELF: [],
           COMPETITOR: [],
@@ -63,6 +67,10 @@ const ReportNewPage: React.FC = () => {
             onChangeLogo={(logoUrl: string | null, file?: File) =>
               handleChangeLogo(logoUrl, file)
             }
+            media={media}
+            onChangeMedia={setMedia}
+            reporter={reporter}
+            onChangeReporter={setReporter}
           />
           <AddNews />
         </div>

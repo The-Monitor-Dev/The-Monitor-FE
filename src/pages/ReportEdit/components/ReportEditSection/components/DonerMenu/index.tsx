@@ -1,22 +1,15 @@
 import React, { useRef, useState } from "react";
 import { Checkbox, useOutsideClick } from "@chakra-ui/react";
 import Button from "@components/Button";
+import useGetReportArticlesOptions from "@api/hooks/reports/useGetReportArticlesOptions";
+import usePatchReportArticlesOptions from "@api/hooks/reports/usePatchReportArticlesOptions";
 
 interface DonerMenuProps {
-  media: boolean;
-  onChangeMedia: (value: boolean) => void;
-  reporter: boolean;
-  onChangeReporter: (value: boolean) => void;
+  reportId: number;
   onClose: () => void;
 }
 
-const DonerMenu: React.FC<DonerMenuProps> = ({
-  media,
-  onChangeMedia,
-  reporter,
-  onChangeReporter,
-  onClose,
-}) => {
+const DonerMenu: React.FC<DonerMenuProps> = ({ reportId, onClose }) => {
   const donerRef = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick({
@@ -24,12 +17,26 @@ const DonerMenu: React.FC<DonerMenuProps> = ({
     handler: onClose,
   });
 
-  const [localMedia, setLocalMedia] = useState(media);
-  const [localReporter, setLocalReporter] = useState(reporter);
+  const { data } = useGetReportArticlesOptions({ reportId });
+  const { mutate: patchOptions } = usePatchReportArticlesOptions();
+
+  const [options, setOptions] = useState({
+    media: data?.media || false,
+    reporter: data?.reporter || false,
+  });
+
+  const handleCheckboxChange = (field: keyof typeof options) => {
+    setOptions((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
 
   const handleApply = () => {
-    onChangeMedia(localMedia);
-    onChangeReporter(localReporter);
+    patchOptions({
+      reportId,
+      data: options,
+    });
     onClose();
   };
 
@@ -45,8 +52,8 @@ const DonerMenu: React.FC<DonerMenuProps> = ({
         <div className="flex items-center justify-between">
           <div>미디어</div>
           <Checkbox
-            isChecked={localMedia}
-            onChange={() => setLocalMedia(!localMedia)}
+            isChecked={options.media}
+            onChange={() => handleCheckboxChange("media")}
             borderColor="#A3A3A3"
             sx={{
               "& .chakra-checkbox__control": {
@@ -70,8 +77,8 @@ const DonerMenu: React.FC<DonerMenuProps> = ({
         <div className="flex items-center justify-between">
           <div>기자</div>
           <Checkbox
-            isChecked={localReporter}
-            onChange={() => setLocalReporter(!localReporter)}
+            isChecked={options.reporter}
+            onChange={() => handleCheckboxChange("reporter")}
             borderColor="#A3A3A3"
             sx={{
               "& .chakra-checkbox__control": {

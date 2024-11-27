@@ -16,7 +16,7 @@ import {
   UnlimitedIcon,
 } from "@assets/svgs";
 import Button from "@components/Button";
-import Badge from "./components/Badge";
+import Badge from "./Badge";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -54,10 +54,10 @@ const LandingPage = () => {
         style={{ backgroundImage: `url(${TestimonialsImage})` }}
       >
         <div className="mt-[114px] w-[1280px] pl-[120px]">
-          <h1 className="text-heading1 mb-[9px] font-bold text-white">
+          <h1 className="mb-[9px] text-heading1 font-bold text-white">
             더 스마트하게. <br /> 더모니터와 함께.
           </h1>
-          <p className="text-heading4 mb-[60px] font-regular text-white">
+          <p className="mb-[60px] text-heading4 font-regular text-white">
             뉴스 모니터링의 모든 것
           </p>
           <Button
@@ -77,7 +77,7 @@ const LandingPage = () => {
         >
           <div>
             <Badge icon={<UnlimitedIcon />} label="고객사 개별 관리" />
-            <h2 className="text-heading3 mb-4 mt-5 font-semibold text-title">
+            <h2 className="mb-4 mt-5 text-heading3 font-semibold text-title">
               번거로운 고객사 모니터링 관리, <br />
               하나의 워크스페이스에서.
             </h2>
@@ -100,7 +100,7 @@ const LandingPage = () => {
               icon={<ClockIcon className="h-6 w-6 fill-primary-500" />}
               label="빠른 결과물 산출"
             />
-            <h2 className="text-heading3 mb-4 mt-6 font-semibold text-title">
+            <h2 className="mb-4 mt-6 text-heading3 font-semibold text-title">
               검색부터 보고서까지
               <br />단 20분만에!
             </h2>
@@ -115,7 +115,7 @@ const LandingPage = () => {
         >
           <div>
             <Badge icon={<BarChartIcon />} label="성과 측정" />
-            <h2 className="text-heading3 mb-4 mt-5 font-semibold text-title">
+            <h2 className="mb-4 mt-5 text-heading3 font-semibold text-title">
               데일리 보고서를 기반으로
               <br />
               자동으로 성과를 측정해요
@@ -151,7 +151,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div
-          className="bg-gradient flex flex-col items-center justify-center pb-[171px]"
+          className="flex flex-col items-center justify-center bg-gradient pb-[171px]"
           data-aos="fade-up"
         >
           <div className="mb-[74px] flex flex-col items-center">
@@ -169,7 +169,7 @@ const LandingPage = () => {
               </div>
               <img
                 src={Function1Image}
-                className="shadow-landing h-[318px] w-[300px]"
+                className="h-[318px] w-[300px] shadow-landing"
               />
             </div>
             <div className="flex flex-col items-center justify-center gap-5 text-lg font-bold">
@@ -178,7 +178,7 @@ const LandingPage = () => {
               </div>
               <img
                 src={Function2Image}
-                className="shadow-landing h-[318px] w-[300px]"
+                className="h-[318px] w-[300px] shadow-landing"
               />
             </div>
             <div className="flex flex-col items-center justify-center gap-5">
@@ -187,7 +187,7 @@ const LandingPage = () => {
               </div>
               <img
                 src={Function3Image}
-                className="shadow-landing h-[318px] w-[300px]"
+                className="h-[318px] w-[300px] shadow-landing"
               />
             </div>
           </div>

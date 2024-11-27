@@ -1,7 +1,6 @@
 import { useState } from "react";
 import useGetReports from "@api/hooks/reports/useGetReports";
 import usePostSearchReports from "@api/hooks/reports/usePostSearchReports";
-import { clientId } from "@constants/clientId";
 import { DonerIcon } from "@assets/svgs";
 import SearchBar from "@components/SearchBar";
 import ReportBox from "./ReportBox";
@@ -14,10 +13,7 @@ const ReportPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: reportsData } = useGetReports();
-  const { data: searchReportsData } = usePostSearchReports({
-    clientId: clientId,
-    searchTitle: searchQuery,
-  });
+  const { data: searchReportsData } = usePostSearchReports(searchQuery);
 
   const activeReportsData = searchQuery.trim()
     ? searchReportsData

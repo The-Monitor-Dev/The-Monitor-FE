@@ -83,6 +83,8 @@ export interface PostReportParams {
   data: {
     reportTitle: string;
     color: string;
+    media: boolean;
+    reporter: boolean;
     articles: {
       SELF: PostReportCategory[];
       COMPETITOR: PostReportCategory[];

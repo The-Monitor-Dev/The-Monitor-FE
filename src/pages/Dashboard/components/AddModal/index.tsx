@@ -1,10 +1,10 @@
 import { ArrowBeforeThick, CloseIcon } from "@assets/svgs";
 import { useState } from "react";
-import Step1 from "./Step1";
-import Step2 from "./Step2";
-import Step3 from "./Step3";
+import Step1 from "./components/Step1";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import usePostClient from "@api/hooks/clients/usePostClient";
+import Step2 from "./components/Step2";
+import Step3 from "./components/Step3";
 
 type AddModalFormData = {
   companyName: string;

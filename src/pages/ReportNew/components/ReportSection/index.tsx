@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { DonerIcon } from "@assets/svgs";
 import { useOutsideClick } from "@chakra-ui/react";
-import LogoUploader from "./LogoUploader";
-import ColorPicker from "./ColorPicker";
-import TitleEditor from "./TitleEditor";
+import LogoUploader from "./components/LogoUploader";
+import ColorPicker from "./components/ColorPicker";
+import TitleEditor from "./components/TitleEditor";
 import DonerMenu from "@features/report/DonerMenu";
 
 interface ReportSectionProps {
@@ -13,6 +13,10 @@ interface ReportSectionProps {
   onChangeColor: (color: string) => void;
   logo: string | null;
   onChangeLogo: (logo: string | null, file?: File) => void;
+  media: boolean;
+  onChangeMedia: (value: boolean) => void;
+  reporter: boolean;
+  onChangeReporter: (value: boolean) => void;
 }
 
 const ReportSection: React.FC<ReportSectionProps> = ({
@@ -22,6 +26,10 @@ const ReportSection: React.FC<ReportSectionProps> = ({
   onChangeColor,
   logo,
   onChangeLogo,
+  media,
+  onChangeMedia,
+  reporter,
+  onChangeReporter,
 }) => {
   const [isDonerOpen, setIsDonerOpen] = useState(false);
   const donerRef = useRef<HTMLDivElement | null>(null);
@@ -47,7 +55,15 @@ const ReportSection: React.FC<ReportSectionProps> = ({
             onClick={() => setIsDonerOpen((prev) => !prev)}
             className="cursor-pointer rounded-[2px] hover:bg-neutral-100"
           />
-          {isDonerOpen && <DonerMenu onClose={() => setIsDonerOpen(false)} />}
+          {isDonerOpen && (
+            <DonerMenu
+              onClose={() => setIsDonerOpen(false)}
+              media={media}
+              onChangeMedia={onChangeMedia}
+              reporter={reporter}
+              onChangeReporter={onChangeReporter}
+            />
+          )}
         </div>
       </div>
       <div className="flex flex-col pl-9">

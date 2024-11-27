@@ -65,7 +65,7 @@ const LandingPage = () => {
           className="flex items-center justify-center gap-[108px]"
           data-aos="fade-up"
         >
-          <div className="flex flex-col">
+          <div>
             <Badge icon={<UnlimitedIcon />} label="고객사 개별 관리" />
             <h2 className="text-heading3 mb-4 mt-5 font-semibold text-title">
               번거로운 고객사 모니터링 관리, <br />
@@ -85,7 +85,7 @@ const LandingPage = () => {
           data-aos="fade-up"
         >
           <img src={OutputImage} className="h-[409px] w-[566px]" />
-          <div className="flex flex-col">
+          <div>
             <Badge
               icon={<ClockIcon className="h-6 w-6 fill-primary-500" />}
               label="빠른 결과물 산출"
@@ -103,7 +103,7 @@ const LandingPage = () => {
           className="flex items-center justify-center gap-[104px]"
           data-aos="fade-up"
         >
-          <div className="flex flex-col">
+          <div>
             <Badge icon={<BarChartIcon />} label="성과 측정" />
             <h2 className="text-heading3 mb-4 mt-5 font-semibold text-title">
               데일리 보고서를 기반으로
@@ -128,7 +128,7 @@ const LandingPage = () => {
             src={InsightsImage}
             className="mb-[101px] mt-[93px] h-[451px] w-[420px]"
           />
-          <div className="flex flex-col">
+          <div>
             <Badge icon={<LightBulbIcon />} label="인사이트" />
             <h2 className="mb-4 mt-6 text-title">
               이슈, 트렌드 분석까지

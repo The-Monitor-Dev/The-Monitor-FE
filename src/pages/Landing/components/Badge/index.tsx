@@ -7,9 +7,9 @@ interface BadgeProps {
 
 const Badge: React.FC<BadgeProps> = ({ icon, label }) => {
   return (
-    <div className="flex gap-2 rounded-[32px] bg-surface-secondary py-2 pl-4 pr-5 text-lg font-semibold text-primary-500">
-      {icon}
-      <p>{label}</p>
+    <div className="inline-flex w-auto items-center gap-2 rounded-[32px] bg-surface-secondary px-4 py-2 text-lg font-semibold text-primary-500">
+      <span className="flex-shrink-0">{icon}</span>
+      <span>{label}</span>
     </div>
   );
 };

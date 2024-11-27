@@ -1,4 +1,4 @@
-import { Keyword } from "@api/keywordsAPI";
+import { Keyword } from "@api/types/keywords";
 import { CategoryTypeEn, CategoryTypeKr } from "types/category";
 
 interface CategoryProps {

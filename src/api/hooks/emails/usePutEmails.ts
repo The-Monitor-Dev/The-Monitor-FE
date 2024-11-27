@@ -1,14 +1,14 @@
 import { putEmails } from "@api/emailsAPI";
-import { putEmailsParams } from "@api/types/emails";
+import { PutEmailsParams } from "@api/types/emails";
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const usePutEmails = () => {
   const toast = useToast();
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: ({ clientId, data }: putEmailsParams) =>
-      putEmails(clientId, data),
+    mutationFn: (params: PutEmailsParams) => putEmails(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["emails"] });
       toast({

@@ -1,10 +1,10 @@
 import { getEmails } from "@api/emailsAPI";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetEmails = (clientId: number) => {
+const useGetEmails = () => {
   return useQuery({
-    queryKey: ["emails", clientId],
-    queryFn: () => getEmails(clientId),
+    queryKey: ["emails"],
+    queryFn: getEmails,
     select: (data) => data.result,
   });
 };

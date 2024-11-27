@@ -49,6 +49,9 @@ export default {
       },
       fontSize: {
         headingLarge: ["44px", "140%"],
+        heading1: ["60px", "150%"],
+        heading3: ["36px", "150%"],
+        heading4: ["30px", "150%"],
         "4xl": ["28px", "150%"],
         "3xl": ["24px", "150%"],
         "2xl": ["22px", "150%"],
@@ -67,6 +70,9 @@ export default {
       boxShadow: {
         form: "2px 2px 20px 0px rgba(0, 49, 110, 0.15)",
         main: "0px 0px 8px 0px rgba(0, 49, 110, 0.15)",
+      },
+      backgroundImage: {
+        gradient: "linear-gradient(0deg, #DEE8FF 0%, #FFF 83.25%)",
       },
     },
   },

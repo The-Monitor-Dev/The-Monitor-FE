@@ -41,7 +41,7 @@ const ReportBox: React.FC<ReportBoxProps> = ({
           <span className="text-lg font-semibold text-title">{title}</span>
           <div className="flex items-center gap-2 text-md font-regular text-body3">
             <div className="flex items-center gap-1">
-              <ClockIcon />
+              <ClockIcon className="fill-neutral-400" />
               {convertUtcToKst(createdAt)}
             </div>
             {isEdited && (

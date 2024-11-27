@@ -48,7 +48,7 @@ const ArticleBox: React.FC<ArticleBoxProps> = ({
             <div>{reporterName}</div>
           </div>
           <div className="flex items-center gap-[2px]">
-            <ClockIcon />
+            <ClockIcon className="fill-neutral-400" />
             <div>{publishDate.slice(0, 10)}</div>
           </div>
         </div>

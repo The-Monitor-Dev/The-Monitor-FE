@@ -51,7 +51,7 @@ const AddNews: React.FC = () => {
                     <div className="font-regular">임유정 기자</div>
                   </div>
                   <div className="flex items-center gap-[2px]">
-                    <ClockIcon />
+                    <ClockIcon className="fill-neutral-400" />
                     <div className="font-regular">2024. 10. 04</div>
                   </div>
                 </div>

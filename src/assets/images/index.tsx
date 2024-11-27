@@ -8,3 +8,4 @@ export { default as ClientManagementImage } from "./clientManagement.webp";
 export { default as InsightsImage } from "./insights.webp";
 export { default as OutputImage } from "./output.webp";
 export { default as PerformanceImage } from "./performance.webp";
+export { default as CopyrightIcon } from "./copyright.webp";

@@ -8,6 +8,8 @@ import LogoUploader from "./LogoUploader";
 import TitleEditor from "./TitleEditor";
 import ColorPicker from "./ColorPicker";
 import ArticleTable from "@features/report/ArticleTable";
+import { CategoryTypeEn } from "types/category";
+import { ReportCategory } from "@api/types/reports";
 
 interface ReportEditSectionProps {
   reportId: number;
@@ -60,19 +62,29 @@ const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
             onClick={() => setIsDonerOpen((prev) => !prev)}
             className="cursor-pointer rounded-[2px] hover:bg-neutral-100"
           />
-          {isDonerOpen && <DonerMenu onClose={() => setIsDonerOpen(false)} />}
+          {isDonerOpen && (
+            <DonerMenu
+              reportId={reportId}
+              onClose={() => setIsDonerOpen(false)}
+            />
+          )}
         </div>
       </div>
       <div className="flex flex-col gap-3 pl-9">
         {reportDetail?.articles[0] &&
-          Object.entries(reportDetail?.articles[0]).map(
-            ([categoryType, categories]) => (
-              <ArticleTable
-                tableCategory={categoryType}
-                categories={categories}
-              />
-            ),
-          )}
+          (
+            Object.entries(reportDetail.articles[0]) as [
+              CategoryTypeEn,
+              ReportCategory[],
+            ][]
+          ).map(([categoryType, categories]) => (
+            <ArticleTable
+              key={reportId}
+              reportId={reportId}
+              tableCategory={categoryType}
+              categories={categories}
+            />
+          ))}
       </div>
     </div>
   );

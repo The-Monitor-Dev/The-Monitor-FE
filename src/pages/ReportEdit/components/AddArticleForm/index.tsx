@@ -1,4 +1,5 @@
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
+import useGetReportArticlesOptions from "@api/hooks/reports/useGetReportArticlesOptions";
 import usePostReportArticle from "@api/hooks/reports/usePostReportArticle";
 import Button from "@components/Button";
 import Dropdown from "@components/Dropdown";
@@ -25,14 +26,14 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
       headLine: "제목",
       url: "www.naver.com",
       publishedDate: "2024.11.03",
-      media: "미디어",
-      reporter: "기자",
     },
   });
-  const [headLine, url, publishedDate] = watch([
+  const [headLine, url, publishedDate, media, reporter] = watch([
     "headLine",
     "url",
     "publishedDate",
+    "media",
+    "reporter",
   ]);
 
   const categoryOptions = ["자사", "경쟁사", "업계"];
@@ -96,7 +97,14 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
     );
   };
 
-  const isButtonDisabled = !headLine || !url || !publishedDate;
+  const { data: options } = useGetReportArticlesOptions({ reportId });
+
+  const isButtonDisabled =
+    !headLine ||
+    !url ||
+    !publishedDate ||
+    (options?.media ? !media : false) ||
+    (options?.reporter ? !reporter : false);
 
   return (
     <form
@@ -152,11 +160,19 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
           <div className="flex items-center gap-5">
             <div className="flex flex-col gap-2">
               <label>미디어</label>
-              <Input placeholder="예) 가나일보" {...register("media")} />
+              <Input
+                disabled={!options?.media}
+                placeholder={`${!options?.media ? "-" : "예) 가나일보"}`}
+                {...register("media")}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <label>기자</label>
-              <Input placeholder="예) 홍길동" {...register("reporter")} />
+              <Input
+                disabled={!options?.reporter}
+                placeholder={`${!options?.reporter ? "-" : "예) 홍길동"}`}
+                {...register("reporter")}
+              />
             </div>
           </div>
         </div>

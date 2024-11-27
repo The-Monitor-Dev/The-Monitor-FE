@@ -15,7 +15,7 @@ interface ReportArticle {
   summary: string;
 }
 
-interface ReportCategory {
+export interface ReportCategory {
   reportCategoryId: number;
   reportCategoryName: string;
   reportCategoryDescription: string;
@@ -26,35 +26,49 @@ export interface GetReportDetailsResponse {
   title: string;
   color: string;
   logo: string;
-  articles: {
-    SELF: ReportCategory[];
-    COMPETITOR: ReportCategory[];
-    INDUSTRY: ReportCategory[];
-  };
+  articles: [
+    {
+      SELF: ReportCategory[];
+      COMPETITOR: ReportCategory[];
+      INDUSTRY: ReportCategory[];
+    },
+  ];
 }
 
 // Params
-
-export interface PostSearchReportsParams {
-  clientId: number;
-  searchTitle: string;
+export interface ReportParams {
+  reportId: number;
 }
 
 export interface PostReportArticleParams extends ReportParams {
   data: {
     categoryType: string;
     keyword: string;
-    articleTitle: string;
+    headLine: string;
     url: string;
     publishedDate: string;
-    publisherName: string;
-    reporterName: string;
+    media: string;
+    reporter: string;
   };
 }
 
-export interface ReportParams {
-  clientId: number;
-  reportId: number;
+interface PostReportCategory {
+  reportCategoryName: string;
+  reportCategoryDescription: string;
+  articleId: number[];
+}
+
+export interface PostReportParams {
+  data: {
+    reportTitle: string;
+    color: string;
+    articles: {
+      SELF: PostReportCategory[];
+      COMPETITOR: PostReportCategory[];
+      INDUSTRY: PostReportCategory[];
+    };
+  };
+  logo: File | null;
 }
 
 export interface PatchReportTitleParams extends ReportParams {
@@ -69,4 +83,15 @@ export interface PatchReportColorParams extends ReportParams {
 }
 export interface PatchReportLogoParams extends ReportParams {
   logo: File;
+}
+
+export interface PatchReportArticleSummaryParams extends ReportParams {
+  reportArticleId: number;
+  data: {
+    summary: string;
+  };
+}
+
+export interface DeleteReportArticleParams extends ReportParams {
+  reportArticleId: number;
 }

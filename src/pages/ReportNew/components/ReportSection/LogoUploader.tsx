@@ -1,45 +1,30 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { AddCircleThinIcon, CloseIcon } from "@assets/svgs";
-import usePatchReportLogo from "@api/hooks/reports/usePatchReportLogo";
 
 interface LogoUploaderProps {
-  clientId: number;
-  reportId: number;
-  initialLogo?: string | null;
+  logo: string | null;
+  onChangeLogo: (logo: string | null, file?: File) => void;
 }
 
-const LogoUploader: React.FC<LogoUploaderProps> = ({
-  reportId,
-  initialLogo,
-}) => {
-  const [image, setImage] = useState<string | null>(initialLogo || null);
-  const { mutate: updateLogo } = usePatchReportLogo();
-
-  useEffect(() => {
-    if (initialLogo) {
-      setImage(initialLogo);
-    }
-  }, [initialLogo]);
-
+const LogoUploader: React.FC<LogoUploaderProps> = ({ logo, onChangeLogo }) => {
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
-      updateLogo({ reportId, logo: file });
+      onChangeLogo(imageUrl, file);
     }
   };
 
   const removeImage = () => {
-    setImage(null);
+    onChangeLogo(null);
   };
 
   return (
     <div className="relative h-[72px] w-24">
-      {image ? (
+      {logo ? (
         <div className="relative">
           <img
-            src={image}
+            src={logo}
             alt="logo"
             className="h-[72px] w-24 rounded object-contain"
           />
@@ -54,7 +39,7 @@ const LogoUploader: React.FC<LogoUploaderProps> = ({
         <label className="flex h-full w-full cursor-pointer items-center justify-center rounded bg-surface-primary">
           <input
             type="file"
-            accept="image/png, image/jpeg"
+            accept="image/*"
             className="hidden"
             onChange={handleImageChange}
           />

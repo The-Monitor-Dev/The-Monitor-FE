@@ -14,35 +14,41 @@ import {
 } from "@dnd-kit/sortable";
 import { useState } from "react";
 import SortableItem from "./SortableItem";
+import { ReportCategory } from "@api/types/reports";
+import { enToKrCategoryMap } from "@constants/category";
 
 interface Row {
-  id: string;
+  id: number;
   date: string;
   keyword: string;
-  headline: string;
+  headLine: string;
   media: string;
   reporter: string;
 }
 
 interface ArticleTableProps {
   tableCategory: string;
+  categories: ReportCategory[];
 }
 
-const ArticleTable: React.FC<ArticleTableProps> = ({ tableCategory }) => {
+const ArticleTable: React.FC<ArticleTableProps> = ({
+  tableCategory,
+  categories,
+}) => {
   const [rows, setRows] = useState<Row[]>([
     {
-      id: "1",
+      id: 1,
       date: "2024.11.01",
       keyword: "한솥",
-      headline: "한솥도시락 출시",
+      headLine: "한솥도시락 출시",
       media: "데일리단",
       reporter: "임유정",
     },
     {
-      id: "2",
+      id: 2,
       date: "2024.11.01",
       keyword: "한솥",
-      headline: "새로운 메뉴",
+      headLine: "새로운 메뉴",
       media: "뉴스미디어",
       reporter: "김철수",
     },
@@ -72,7 +78,7 @@ const ArticleTable: React.FC<ArticleTableProps> = ({ tableCategory }) => {
   return (
     <div className="flex flex-col">
       <div className="py-3 pl-1 text-xl font-semibold text-title">
-        {tableCategory}
+        {enToKrCategoryMap[tableCategory]}
       </div>
       <DndContext
         sensors={sensors}
@@ -117,9 +123,14 @@ const ArticleTable: React.FC<ArticleTableProps> = ({ tableCategory }) => {
                   </button>
                 </td>
               </tr>
-              {rows.map((row, idx) => (
+              {Object.values(categories).map((category) =>
+                category.reportArticlesResponses.map((article, idx) => (
+                  <SortableItem idx={idx} id={idx} row={article} />
+                )),
+              )}
+              {/* {rows.map((row, idx) => (
                 <SortableItem key={row.id} idx={idx} id={row.id} row={row} />
-              ))}
+              ))} */}
             </tbody>
           </table>
         </SortableContext>

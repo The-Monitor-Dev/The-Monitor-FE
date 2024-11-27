@@ -1,35 +1,23 @@
-import React, { KeyboardEvent, useRef, useState } from "react";
-import { HexColorPicker } from "react-colorful";
+import { useRef, useState, KeyboardEvent } from "react";
 import { useOutsideClick } from "@chakra-ui/react";
-import usePatchReportColor from "@api/hooks/reports/usePatchReportColor";
+import { HexColorPicker } from "react-colorful";
 
 interface ColorPickerProps {
-  reportId: number;
   color: string;
   onChangeColor: (color: string) => void;
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({
-  reportId,
-  color,
-  onChangeColor,
-}) => {
+const ColorPicker: React.FC<ColorPickerProps> = ({ color, onChangeColor }) => {
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [isColorEditing, setIsColorEditing] = useState(false);
 
   const colorPickerRef = useRef<HTMLDivElement | null>(null);
   const colorInputRef = useRef<HTMLInputElement>(null);
-  const { mutate: updateColor } = usePatchReportColor();
-
-  const handleMutateColor = () => {
-    updateColor({ reportId, data: { color } });
-  };
 
   useOutsideClick({
     ref: colorPickerRef,
     handler: () => {
       setIsColorPickerOpen(false);
-      handleMutateColor();
     },
   });
 
@@ -41,10 +29,9 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const handleColorBlur = () => {
     if (/^#[0-9A-F]{6}$/i.test(color)) {
       setIsColorEditing(false);
-      handleMutateColor();
     } else {
       alert("유효한 HEX 색상 코드를 입력하세요.");
-      onChangeColor("#FFFFFF");
+      onChangeColor("#ffffff");
     }
   };
 

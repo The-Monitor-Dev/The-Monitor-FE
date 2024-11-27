@@ -10,17 +10,19 @@ import { useState } from "react";
 import SummarizeModal from "../SummarizeModal";
 
 interface Row {
-  id: string;
-  date: string;
-  keyword: string;
-  headline: string;
+  // id: number;
+  publishedDate: string;
+  // keyword: string;
+  headLine: string;
+  url: string;
   media: string;
   reporter: string;
+  summary: string;
 }
 
 interface SortableItemProps {
   idx: number;
-  id: string;
+  id: number;
   row: Row;
 }
 
@@ -50,10 +52,17 @@ const SortableItem: React.FC<SortableItemProps> = ({ idx, id, row }) => {
         <td className="w-10 border-r border-neutral-200 p-3 py-3 text-disable">
           {idx + 1}
         </td>
-        <td className="border-r border-neutral-200 p-3">{row.date}</td>
-        <td className="border-r border-neutral-200 p-3">{row.keyword}</td>
+        <td className="border-r border-neutral-200 p-3">{row.publishedDate}</td>
+        <td className="border-r border-neutral-200 p-3">{}</td>
         <td className="border-r border-neutral-200 p-3 text-left text-base-dark underline">
-          {row.headline}
+          <a
+            href={row.url.startsWith("http") ? row.url : `https://${row.url}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-primary-500"
+          >
+            {row.headLine}
+          </a>
         </td>
         <td className="border-r border-neutral-200 p-3">{row.media}</td>
         <td className="border-r border-neutral-200 p-3">{row.reporter}</td>

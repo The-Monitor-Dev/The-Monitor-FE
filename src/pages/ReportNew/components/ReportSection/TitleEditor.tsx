@@ -1,23 +1,13 @@
-import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
-import usePatchReportTitle from "@api/hooks/reports/usePatchReportTitle";
+import { useRef, useState, KeyboardEvent } from "react";
 
 interface TitleEditorProps {
-  reportId: number;
-  initialTitle: string | undefined;
+  title: string;
+  onChangeTitle: (title: string) => void;
 }
 
-const TitleEditor: React.FC<TitleEditorProps> = ({
-  reportId,
-  initialTitle,
-}) => {
+const TitleEditor: React.FC<TitleEditorProps> = ({ title, onChangeTitle }) => {
   const [isTitleEditing, setIsTitleEditing] = useState(false);
-  const [title, setTitle] = useState(initialTitle);
   const titleInputRef = useRef<HTMLInputElement>(null);
-  const { mutate: updateTitle } = usePatchReportTitle();
-
-  useEffect(() => {
-    setTitle(initialTitle);
-  }, [initialTitle]);
 
   const handleTitleClick = () => {
     setIsTitleEditing(true);
@@ -26,9 +16,6 @@ const TitleEditor: React.FC<TitleEditorProps> = ({
 
   const handleTitleBlur = () => {
     setIsTitleEditing(false);
-    if (title && title !== initialTitle) {
-      updateTitle({ reportId, data: { title } });
-    }
   };
 
   const handleTitleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -41,7 +28,7 @@ const TitleEditor: React.FC<TitleEditorProps> = ({
     <input
       ref={titleInputRef}
       value={title}
-      onChange={(e) => setTitle(e.target.value)}
+      onChange={(e) => onChangeTitle(e.target.value)}
       onBlur={handleTitleBlur}
       onKeyDown={handleTitleKeyDown}
       className="flex-grow px-5 py-3 text-3xl font-semibold text-title outline-1 outline-primary-500"

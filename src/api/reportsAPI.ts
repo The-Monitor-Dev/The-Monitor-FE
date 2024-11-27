@@ -5,12 +5,14 @@ import {
   authApiPost,
 } from "./apiUtils";
 import {
+  DeleteReportArticleParams,
   GetReportDetailsResponse,
+  PatchReportArticleSummaryParams,
   PatchReportColorParams,
   PatchReportLogoParams,
   PatchReportTitleParams,
   PostReportArticleParams,
-  PostSearchReportsParams,
+  PostReportParams,
   ReportParams,
   ReportResponse,
 } from "./types/reports";
@@ -19,78 +21,89 @@ export const getReports = () => {
   return authApiGet<ReportResponse[]>("/reports");
 };
 
-export const getReportDetails = ({ clientId, reportId }: ReportParams) => {
+export const getReportDetails = ({ reportId }: ReportParams) => {
   return authApiGet<GetReportDetailsResponse>("/reports/details", {
-    clientId,
     reportId,
   });
 };
 
-export const postSearchReports = ({
-  clientId,
-  searchTitle,
-}: PostSearchReportsParams) => {
-  return authApiPost<ReportResponse[]>(
-    "/reports/search",
-    {
-      searchTitle,
-    },
-    {
-      clientId,
-    },
-  );
+export const postSearchReports = (searchTitle: string) => {
+  return authApiPost<ReportResponse[]>("/reports/search", {
+    searchTitle,
+  });
+};
+
+export const postReport = ({ data, logo }: PostReportParams) => {
+  const formData = new FormData();
+
+  formData.append("data", JSON.stringify(data));
+
+  if (logo) {
+    formData.append("logo", logo);
+  }
+
+  return authApiPost("/reports", formData);
 };
 
 export const postReportArticle = ({
-  clientId,
   reportId,
   data,
 }: PostReportArticleParams) => {
-  return authApiPost("reports/articles/update", data, {
-    clientId,
+  return authApiPost("/reports/articles/update", data, {
     reportId,
   });
 };
 
-export const deleteReport = ({ clientId, reportId }: ReportParams) => {
+export const deleteReport = ({ reportId }: ReportParams) => {
   return authApiDelete("/reports", {
-    clientId,
     reportId,
   });
 };
 
 export const patchReportTitle = ({
-  clientId,
   reportId,
   data,
 }: PatchReportTitleParams) => {
   return authApiPatch("/reports/title", data, {
-    clientId,
     reportId,
   });
 };
 
 export const patchReportColor = ({
-  clientId,
   reportId,
   data,
 }: PatchReportColorParams) => {
   return authApiPatch("/reports/color", data, {
-    clientId,
     reportId,
   });
 };
 
-export const patchReportLogo = ({
-  clientId,
-  reportId,
-  logo,
-}: PatchReportLogoParams) => {
+export const patchReportLogo = ({ reportId, logo }: PatchReportLogoParams) => {
   const formData = new FormData();
   formData.append("logo", logo);
 
   return authApiPatch("/reports/logo", formData, {
-    clientId,
     reportId,
+  });
+};
+
+export const patchReportArticleSummary = ({
+  reportId,
+  reportArticleId,
+  data,
+}: PatchReportArticleSummaryParams) => {
+  return authApiPatch("/reports/articles/summary", data, {
+    reportId,
+    reportArticleId,
+  });
+};
+
+export const deleteReportArticle = ({
+  reportId,
+  reportArticleId,
+}: DeleteReportArticleParams) => {
+  return authApiDelete("/reports/articles/delete", {
+    reportId,
+    reportArticleId,
   });
 };

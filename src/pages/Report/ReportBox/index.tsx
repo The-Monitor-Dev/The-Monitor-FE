@@ -5,7 +5,6 @@ import convertUtcToKst from "@utils/convertUtcToKst";
 import { useState } from "react";
 import CancelModal from "@components/CancelModal";
 import useDeleteReport from "@api/hooks/reports/useDeleteReport";
-import { clientId } from "@constants/clientId";
 
 interface ReportBoxProps {
   reportId: number;
@@ -32,7 +31,7 @@ const ReportBox: React.FC<ReportBoxProps> = ({
   };
 
   const handleDeleteModalClose = () => {
-    mutate({ clientId: clientId, reportId });
+    mutate({ reportId });
     setIsDeleteModalOpen(false);
   };
   return (

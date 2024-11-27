@@ -70,7 +70,7 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
   return (
     <div className="flex h-[274px] w-[253px] rounded bg-white">
       <div className="flex w-full flex-col">
-        <div className="relative flex justify-end px-3 py-2">
+        <div ref={menuRef} className="relative flex justify-end px-3 py-2">
           <button
             type="button"
             className={`rounded-sm p-[6px] ${isMenuOpen ? "bg-neutral-100" : "hover:bg-neutral-100"}`}
@@ -79,10 +79,7 @@ const MonitoringCard: React.FC<MonitoringCardProps> = ({
             <MoreHorizIcon />
           </button>
           {isMenuOpen && (
-            <div
-              ref={menuRef}
-              className="absolute left-[204px] top-[52px] rounded border border-neutral-200 bg-white"
-            >
+            <div className="absolute left-[204px] top-[52px] z-50 rounded border border-neutral-200 bg-white">
               <button
                 type="button"
                 className="flex w-32 px-5 py-2 text-md font-medium hover:bg-neutral-100"

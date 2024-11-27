@@ -48,4 +48,7 @@ export { default as ArrowNextFillIcon } from "./arrowNextFill.svg?react";
 export { default as LightBulbIcon } from "./lightBulb.svg?react";
 export { default as UnlimitedIcon } from "./unlimited.svg?react";
 export { default as BarChartIcon } from "./barChart.svg?react";
-export { default as grayLogoIcon } from "./grayLogo.svg?react";
+export { default as GrayLogoIcon } from "./grayLogo.svg?react";
+export { default as InstagramIcon } from "./instagram.svg?react";
+export { default as BlogIcon } from "./blog.svg?react";
+export { default as YoutubeIcon } from "./youtube.svg?react";

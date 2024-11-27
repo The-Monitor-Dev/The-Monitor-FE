@@ -2,7 +2,8 @@ import { authApiDelete, authApiGet, authApiPost, authApiPut } from "./apiUtils";
 import {
   Client,
   GetClientInfo,
-  putClientParams,
+  PostClientParams,
+  PutClientParams,
   SearchClientResponse,
 } from "./types/clients";
 
@@ -10,8 +11,16 @@ export const getClients = async () => {
   return authApiGet<Client[]>("/clients");
 };
 
-export const postClient = async (data: FormData) => {
-  return authApiPost("/clients", data);
+export const postClient = async ({ data, logo }: PostClientParams) => {
+  const formData = new FormData();
+
+  formData.append("clientRequest", JSON.stringify(data));
+
+  if (logo) {
+    formData.append("logo", logo);
+  }
+
+  return authApiPost("/clients", formData);
 };
 
 export const getClientInfo = async (clientId: number) => {
@@ -24,8 +33,16 @@ export const deleteClient = (clientId: number) => {
   });
 };
 
-export const putClient = ({ clientId, data }: putClientParams) => {
-  return authApiPut(`/clients/update`, data, { clientId });
+export const putClient = ({ clientId, data, logo }: PutClientParams) => {
+  const formData = new FormData();
+
+  formData.append("clientData", JSON.stringify(data));
+
+  if (logo) {
+    formData.append("logo", logo);
+  }
+
+  return authApiPut(`/clients/update`, formData, { clientId });
 };
 
 export const postSearchClient = (searchText: string) => {

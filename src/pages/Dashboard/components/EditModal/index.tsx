@@ -44,19 +44,12 @@ const EditModal: React.FC<EditModalProps> = ({
   };
 
   const handleSave = () => {
-    const formData = new FormData();
-
     const clientData = {
       name: clientName,
       managerName: clientManager,
     };
-    formData.append("clientData", JSON.stringify(clientData));
 
-    if (selectedFile) {
-      formData.append("logo", selectedFile);
-    }
-
-    mutate({ clientId: clientId, data: formData });
+    mutate({ clientId: clientId, data: clientData, logo: selectedFile });
 
     onClose();
   };

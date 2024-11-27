@@ -1,5 +1,6 @@
 import useDeleteClient from "@api/hooks/clients/useDeleteClient";
 import { CloseIcon, ErrorIcon } from "@assets/svgs";
+import { useToast } from "@chakra-ui/react";
 import Input from "@components/Input";
 import { useState } from "react";
 
@@ -14,6 +15,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   onClose,
   name,
 }) => {
+  const toast = useToast();
   const [clientName, setClientName] = useState<string>("");
   const [error, setError] = useState<string>("");
 
@@ -28,14 +30,17 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     }
   };
 
-  const handleModalClose = () => {
-    onClose();
-  };
-
   const handleDelete = () => {
     if (clientName === name) {
-      mutate(clientId);
-      handleModalClose();
+      mutate(clientId, {
+        onSuccess: () => {
+          toast({
+            title: `${name} 고객사가 삭제되었습니다.`,
+            status: "success",
+          });
+          onClose();
+        },
+      });
     } else {
       setError("*해당하는 고객사가 존재하지 않습니다.");
     }
@@ -47,7 +52,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
         <CloseIcon
           type="button"
           className="absolute right-5 top-5 cursor-pointer fill-neutral-700"
-          onClick={handleModalClose}
+          onClick={onClose}
         />
         <div className="flex w-full justify-center">
           <ErrorIcon className="h-[52px] w-[52px]" />
@@ -88,7 +93,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
           <button
             type="button"
             className="w-[111px] rounded border border-error-500 py-2 text-lg font-semibold text-error-500"
-            onClick={handleModalClose}
+            onClick={onClose}
           >
             취소하기
           </button>

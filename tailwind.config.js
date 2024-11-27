@@ -70,6 +70,7 @@ export default {
       boxShadow: {
         form: "2px 2px 20px 0px rgba(0, 49, 110, 0.15)",
         main: "0px 0px 8px 0px rgba(0, 49, 110, 0.15)",
+        landing: "0px 0px 80px 0px rgba(145, 158, 171, 0.16)",
       },
       backgroundImage: {
         gradient: "linear-gradient(0deg, #DEE8FF 0%, #FFF 83.25%)",

@@ -9,9 +9,29 @@ export interface Client {
   managerName: string;
   logoUrl: string;
 }
-export interface putClientParams {
+
+export interface PostClientParams {
+  data: {
+    name: string;
+    manager_name: string;
+    category_keywords: {
+      SELF: string[];
+      COMPETITOR: string[];
+      INDUSTRY: string[];
+    };
+    recipient_emails: string[];
+    cc_emails: string[];
+  };
+  logo: File | null;
+}
+
+export interface PutClientParams {
   clientId: number;
-  data: FormData;
+  data: {
+    name: string;
+    managerName: string;
+  };
+  logo: File | null;
 }
 
 export interface SearchClientResponse {

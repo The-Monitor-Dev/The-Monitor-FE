@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import routes from "@constants/routes";
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
 import Category from "./components/Category";
-import useGetArticlesByKeyword from "@api/hooks/articles/useGetArticlesByKeyword";
+// import useGetArticlesByKeyword from "@api/hooks/articles/useGetArticlesByKeyword";
 import ArticleBox from "./components/ArticleBox";
 import Pagination from "./components/Pagination";
 import useGetArticles from "@api/hooks/articles/useGetArticles";
@@ -100,18 +100,19 @@ const MonitoringPage: React.FC = () => {
     categoryType: selectedCategory,
     page,
   });
-  const { data: articlesByKeyword } = useGetArticlesByKeyword({
-    keywordId: selectedKeyword?.keywordId,
-    clientId: clientId,
-    categoryType: selectedKeyword?.categoryType,
-    page,
-  });
+  // const { data: articlesByKeyword } = useGetArticlesByKeyword({
+  //   keywordId: selectedKeyword?.keywordId,
+  //   clientId: clientId,
+  //   categoryType: selectedKeyword?.categoryType,
+  //   page,
+  // });
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
-  const articlesToDisplay = selectedCategory ? articles : articlesByKeyword;
+  // const articlesToDisplay = selectedCategory ? articles : articlesByKeyword;
+  const articlesToDisplay = articles;
 
   const totalCount = Math.min(articlesToDisplay?.totalCount || 0, 100);
 

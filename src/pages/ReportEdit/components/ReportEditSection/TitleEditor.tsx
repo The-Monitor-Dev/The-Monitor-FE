@@ -1,6 +1,5 @@
 import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
 import usePatchReportTitle from "@api/hooks/reports/usePatchReportTitle";
-import { clientId } from "@constants/clientId";
 
 interface TitleEditorProps {
   reportId: number;
@@ -28,7 +27,7 @@ const TitleEditor: React.FC<TitleEditorProps> = ({
   const handleTitleBlur = () => {
     setIsTitleEditing(false);
     if (title && title !== initialTitle) {
-      updateTitle({ clientId: clientId, reportId, data: { title } });
+      updateTitle({ reportId, data: { title } });
     }
   };
 

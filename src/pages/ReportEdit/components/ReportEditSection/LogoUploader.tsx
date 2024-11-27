@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { AddCircleThinIcon, CloseIcon } from "@assets/svgs";
 import usePatchReportLogo from "@api/hooks/reports/usePatchReportLogo";
-import { clientId } from "@constants/clientId";
 
 interface LogoUploaderProps {
   clientId: number;
@@ -27,7 +26,7 @@ const LogoUploader: React.FC<LogoUploaderProps> = ({
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImage(imageUrl);
-      updateLogo({ clientId: clientId, reportId, logo: file });
+      updateLogo({ reportId, logo: file });
     }
   };
 

@@ -2,7 +2,6 @@ import React, { KeyboardEvent, useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useOutsideClick } from "@chakra-ui/react";
 import usePatchReportColor from "@api/hooks/reports/usePatchReportColor";
-import { clientId } from "@constants/clientId";
 
 interface ColorPickerProps {
   reportId: number;
@@ -23,7 +22,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const { mutate: updateColor } = usePatchReportColor();
 
   const handleMutateColor = () => {
-    updateColor({ clientId: clientId, reportId, data: { color } });
+    updateColor({ reportId, data: { color } });
   };
 
   useOutsideClick({

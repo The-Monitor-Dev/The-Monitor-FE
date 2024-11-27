@@ -15,8 +15,7 @@ interface ReportEditSectionProps {
 
 const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
   const { data: reportDetail } = useGetReportDetails({
-    clientId: clientId,
-    reportId: reportId,
+    reportId,
   });
 
   const [color, setColor] = useState("#FFFFFF");
@@ -35,8 +34,6 @@ const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
     ref: donerRef,
     handler: () => setIsDonerOpen(false),
   });
-
-  const categories = ["자사", "경쟁사", "업계"];
 
   return (
     <div className="flex w-[852px] flex-col bg-white px-8 pt-5">
@@ -67,9 +64,15 @@ const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
         </div>
       </div>
       <div className="flex flex-col gap-3 pl-9">
-        {categories.map((category) => (
-          <ArticleTable tableCategory={category} />
-        ))}
+        {reportDetail?.articles[0] &&
+          Object.entries(reportDetail?.articles[0]).map(
+            ([categoryType, categories]) => (
+              <ArticleTable
+                tableCategory={categoryType}
+                categories={categories}
+              />
+            ),
+          )}
       </div>
     </div>
   );

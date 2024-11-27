@@ -4,7 +4,6 @@ import Button from "@components/Button";
 import Dropdown from "@components/Dropdown";
 import Input from "@components/Input";
 import { krToEnCategoryMap } from "@constants/category";
-import { clientId } from "@constants/clientId";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -21,8 +20,15 @@ interface AddArticleFormProps {
 }
 
 const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
-  const { register, handleSubmit, watch, reset } =
-    useForm<AddArticleFromData>();
+  const { register, handleSubmit, watch, reset } = useForm<AddArticleFromData>({
+    defaultValues: {
+      headLine: "제목",
+      url: "www.naver.com",
+      publishedDate: "2024.11.03",
+      media: "미디어",
+      reporter: "기자",
+    },
+  });
   const [headLine, url, publishedDate] = watch([
     "headLine",
     "url",
@@ -35,7 +41,7 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
     setSelectedCategory(category);
   };
 
-  const { data: keywordsData } = useGetKeywords(clientId);
+  const { data: keywordsData } = useGetKeywords();
   const [keywordsOptions, setKeywordsOptions] = useState<string[]>([]);
   const [selectedKeyword, setSelectedKeyword] = useState("");
 
@@ -71,7 +77,6 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
   }) => {
     mutate(
       {
-        clientId,
         reportId,
         data: {
           categoryType: krToEnCategoryMap[selectedCategory],
@@ -86,7 +91,6 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
       {
         onSuccess: () => {
           reset();
-          setSelectedCategory("자사");
         },
       },
     );

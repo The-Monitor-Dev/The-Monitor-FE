@@ -8,7 +8,8 @@ const routes = {
   report: "/report",
   reportNew: "/report/new",
   reportEdit: "/report/edit",
-  setting: "/setting",
+  settingKeyword: "/setting/keyword",
+  settingEmail: "/setting/email",
 } as const;
 
 export default routes;

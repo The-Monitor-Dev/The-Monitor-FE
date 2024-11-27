@@ -7,10 +7,11 @@ import FindPasswordPage from "@pages/FindPassword";
 import DashboardPage from "@pages/Dashboard";
 import MonitoringPage from "@pages/Monitoring";
 import ReportPage from "@pages/Report";
-import SettingPage from "@pages/Setting";
 import NotFound from "@pages/NotFound";
 import ReportNewPage from "@pages/ReportNew";
 import ReportEditPage from "@pages/ReportEdit";
+import SettingKeywordPage from "@pages/SettingKeyword";
+import SettingEmailPage from "@pages/SettingEmail";
 
 const router = createBrowserRouter([
   {
@@ -49,9 +50,14 @@ const router = createBrowserRouter([
         path: `${routes.reportEdit}/:reportId`,
         element: <ReportEditPage />,
       },
+
       {
-        path: routes.setting,
-        element: <SettingPage />,
+        path: routes.settingKeyword,
+        element: <SettingKeywordPage />,
+      },
+      {
+        path: routes.settingEmail,
+        element: <SettingEmailPage />,
       },
       {
         path: "/*",

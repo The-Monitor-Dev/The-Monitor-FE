@@ -6,7 +6,7 @@ export interface ReportResponse {
   createdAt: string;
   updatedAt: string;
 }
-interface ReportArticle {
+export interface ReportArticle {
   reportArticleId: number;
   keyword: string;
   publishedDate: string;
@@ -22,6 +22,7 @@ export interface ReportCategory {
   reportCategoryName: string;
   reportCategoryDescription: string;
   reportArticlesResponses: ReportArticle[];
+  default: boolean;
 }
 
 export interface GetReportDetailsResponse {
@@ -35,6 +36,24 @@ export interface GetReportDetailsResponse {
       INDUSTRY: ReportCategory[];
     },
   ];
+}
+
+interface ReportCategoryInfo {
+  reportCategoryId: number;
+  reportCategoryName: string;
+  reportCategoryDescription: string;
+  isDefault: string;
+}
+
+export interface GetReportArticleCategoriesResponse {
+  SELF: ReportCategoryInfo[];
+  COMPETITOR: ReportCategoryInfo[];
+  INDUSTRY: ReportCategoryInfo[];
+}
+
+export interface GetReportArticlesOptionsResponse {
+  media: boolean;
+  reporter: boolean;
 }
 
 // Params
@@ -73,6 +92,14 @@ export interface PostReportParams {
   logo: File | null;
 }
 
+export interface PostReportArticleCategoryParams extends ReportParams {
+  data: {
+    reportCategoryName: string;
+    reportCategoryDescription: string;
+    reportCategoryType: string;
+  };
+}
+
 export interface PatchReportTitleParams extends ReportParams {
   data: {
     title: string;
@@ -94,6 +121,22 @@ export interface PatchReportArticleSummaryParams extends ReportParams {
   };
 }
 
+export interface PatchReportArticleCategoryParams extends ReportParams {
+  reportArticleId: number;
+  newCategoryId: number;
+}
+
+export interface PatchReportArticlesOptionsParams extends ReportParams {
+  data: {
+    media: boolean;
+    reporter: boolean;
+  };
+}
+
 export interface DeleteReportArticleParams extends ReportParams {
   reportArticleId: number;
+}
+
+export interface DeleteReportArticleCategoryPrams extends ReportParams {
+  categoryId: number;
 }

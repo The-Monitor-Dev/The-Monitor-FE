@@ -56,7 +56,7 @@ const DashboardPage: React.FC = () => {
         <ClientNotFound handleAddModalOpen={handleAddModalOpen} />
       ) : (
         <>
-          <div className="mb-4 mt-[63px] flex w-[1048px] justify-between">
+          <div className="mb-[42px] mt-[63px] flex w-[1048px] justify-between">
             <SearchBar
               value={searchText}
               onChange={handleChangeSearchText}

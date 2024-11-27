@@ -136,7 +136,7 @@ const LandingPage = () => {
         >
           <img
             src={InsightsImage}
-            className="mb-[101px] mt-[93px] h-[451px] w-[420px]"
+            className="mb-[101px] mt-[93px] h-[406px] w-[400px]"
           />
           <div>
             <Badge icon={<LightBulbIcon />} label="인사이트" />

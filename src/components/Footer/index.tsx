@@ -1,3 +1,4 @@
+import { CopyrightIcon } from "@assets/images";
 import {
   BlogIcon,
   GrayLogoIcon,
@@ -54,9 +55,10 @@ const Footer = () => {
                 <YoutubeIcon />
               </div>
             </div>
-            <div>
-              <p className="text-sm font-medium text-title">
-                © The Monitor. All rights reserved
+            <div className="flex items-center gap-1">
+              <img src={CopyrightIcon} className="h-4 w-4" />
+              <p className="text-sm font-medium text-body3">
+                The Monitor. All rights reserved
               </p>
             </div>
           </div>

@@ -20,8 +20,12 @@ import Badge from "./components/Badge";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import routes from "@constants/routes";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -38,6 +42,10 @@ const LandingPage = () => {
     };
   }, []);
 
+  const handleClick = () => {
+    navigate(routes.signUp);
+  };
+
   return (
     <div className="flex w-full flex-col items-center bg-white">
       <div
@@ -52,6 +60,7 @@ const LandingPage = () => {
             뉴스 모니터링의 모든 것
           </p>
           <Button
+            onClick={handleClick}
             className="flex items-center py-4 pl-8 pr-5 text-white"
             style="filled"
           >

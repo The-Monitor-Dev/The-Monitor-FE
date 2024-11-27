@@ -17,8 +17,27 @@ import {
 } from "@assets/svgs";
 import Button from "@components/Button";
 import Badge from "./components/Badge";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 const LandingPage = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+    });
+
+    const handleScroll = () => {
+      AOS.refresh();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className="flex w-full flex-col items-center bg-white">
       <div
@@ -42,7 +61,10 @@ const LandingPage = () => {
         </div>
       </div>
       <div className="w-[1280px]">
-        <div className="flex items-center justify-center gap-[108px]">
+        <div
+          className="flex items-center justify-center gap-[108px]"
+          data-aos="fade-up"
+        >
           <div className="flex flex-col">
             <Badge icon={<UnlimitedIcon />} label="고객사 개별 관리" />
             <h2 className="text-heading3 mb-4 mt-5 font-semibold text-title">
@@ -58,7 +80,10 @@ const LandingPage = () => {
             className="mb-[33px] mt-[97px] h-[470px] w-[443px]"
           />
         </div>
-        <div className="flex justify-center gap-[185px] px-[120px] pb-[95px] pt-24">
+        <div
+          className="flex justify-center gap-[185px] px-[120px] pb-[95px] pt-24"
+          data-aos="fade-up"
+        >
           <img src={OutputImage} className="h-[409px] w-[566px]" />
           <div className="flex flex-col">
             <Badge
@@ -74,7 +99,10 @@ const LandingPage = () => {
             </p>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-[104px]">
+        <div
+          className="flex items-center justify-center gap-[104px]"
+          data-aos="fade-up"
+        >
           <div className="flex flex-col">
             <Badge icon={<BarChartIcon />} label="성과 측정" />
             <h2 className="text-heading3 mb-4 mt-5 font-semibold text-title">
@@ -92,7 +120,10 @@ const LandingPage = () => {
             className="mb-[72px] mt-[135px] h-[393px] w-[576px]"
           />
         </div>
-        <div className="flex items-center justify-center gap-[313px]">
+        <div
+          className="flex items-center justify-center gap-[313px]"
+          data-aos="fade-up"
+        >
           <img
             src={InsightsImage}
             className="mb-[101px] mt-[93px] h-[451px] w-[420px]"
@@ -109,7 +140,10 @@ const LandingPage = () => {
             </p>
           </div>
         </div>
-        <div className="bg-gradient flex flex-col items-center justify-center pb-[171px]">
+        <div
+          className="bg-gradient flex flex-col items-center justify-center pb-[171px]"
+          data-aos="fade-up"
+        >
           <div className="mb-[74px] flex flex-col items-center">
             <p className="mt-[111px] text-xl font-medium text-body2">
               더 모니터의 기능을 만나보세요

@@ -2,7 +2,6 @@ import usePostSendEmail from "@api/hooks/emails/usePostSendEmail";
 import { CloseIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import Input from "@components/Input";
-import { clientId } from "@constants/clientId";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface SendEmailModalProps {
@@ -20,7 +19,6 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
   const { mutate } = usePostSendEmail();
   const onSubmit: SubmitHandler<SendEmailFormData> = ({ subject, content }) => {
     mutate({
-      clientId: clientId,
       subject,
       content,
     });

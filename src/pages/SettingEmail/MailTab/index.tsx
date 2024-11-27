@@ -1,4 +1,4 @@
-import KeywordList from "../KeywordList";
+import KeywordList from "@features/setting/KeywordList";
 
 interface MailTabProps {
   recipientEmails: string[];

@@ -54,19 +54,14 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
       cc_emails: data.referenceEmails ?? [],
     };
 
-    const formData = new FormData();
-
-    formData.append("clientRequest", JSON.stringify(clientData));
-
-    if (data.logoFile) {
-      formData.append("logo", data.logoFile);
-    }
-
-    mutate(formData, {
-      onSuccess: () => {
-        onSubmit();
+    mutate(
+      { data: clientData, logo: data.logoFile },
+      {
+        onSuccess: () => {
+          onSubmit();
+        },
       },
-    });
+    );
   };
 
   return (

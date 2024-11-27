@@ -36,7 +36,7 @@ export const postSearchReports = (searchTitle: string) => {
 export const postReport = ({ data, logo }: PostReportParams) => {
   const formData = new FormData();
 
-  formData.append("data", JSON.stringify(data));
+  formData.append("request", JSON.stringify(data));
 
   if (logo) {
     formData.append("logo", logo);

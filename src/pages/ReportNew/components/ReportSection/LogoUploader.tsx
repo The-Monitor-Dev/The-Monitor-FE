@@ -39,7 +39,7 @@ const LogoUploader: React.FC<LogoUploaderProps> = ({ logo, onChangeLogo }) => {
         <label className="flex h-full w-full cursor-pointer items-center justify-center rounded bg-surface-primary">
           <input
             type="file"
-            accept="image/*"
+            accept="image/png, image/jpeg"
             className="hidden"
             onChange={handleImageChange}
           />

@@ -1,27 +1,29 @@
 import { authApiGet, authApiPost, authApiPut } from "./apiUtils";
-import { GetEmailsResponse, PostSendEmailParams } from "./types/emails";
+import {
+  GetEmailsResponse,
+  PostSendEmailParams,
+  PutEmailsParams,
+} from "./types/emails";
 
-export const postSendEmail = ({
-  clientId,
-  subject,
-  content,
-}: PostSendEmailParams) => {
-  return authApiPost(
-    "/emails/send",
-    {
-      subject,
-      content,
-    },
-    {
-      clientId,
-    },
-  );
+export const postSendEmail = ({ subject, content }: PostSendEmailParams) => {
+  return authApiPost("/emails/send", {
+    subject,
+    content,
+  });
 };
 
-export const putEmails = async (clientId: number, data: FormData) => {
-  return authApiPut("/emails", data, { clientId });
+export const putEmails = async ({ data, img }: PutEmailsParams) => {
+  const formData = new FormData();
+
+  formData.append("emailUpdate", JSON.stringify(data));
+
+  if (img) {
+    formData.append("signatureImage", img);
+  }
+
+  return authApiPut("/emails", formData);
 };
 
-export const getEmails = async (clientId: number) => {
-  return authApiGet<GetEmailsResponse>("/emails", { clientId });
+export const getEmails = async () => {
+  return authApiGet<GetEmailsResponse>("/emails");
 };

@@ -1,13 +1,14 @@
 import { putClient } from "@api/clientsAPI";
-import { putClientParams } from "@api/types/clients";
+import { PutClientParams } from "@api/types/clients";
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const usePutClient = () => {
   const toast = useToast();
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: (params: putClientParams) => putClient(params),
+    mutationFn: (params: PutClientParams) => putClient(params),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["clients"] });
       toast({

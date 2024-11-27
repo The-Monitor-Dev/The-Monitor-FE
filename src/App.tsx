@@ -18,7 +18,12 @@ const queryClient = new QueryClient({
 function App() {
   const location = useLocation();
 
-  const paths = [routes.monitoring, routes.report, routes.setting];
+  const paths = [
+    routes.monitoring,
+    routes.report,
+    routes.settingKeyword,
+    routes.settingEmail,
+  ];
   const isPathInPaths = paths.includes(
     location.pathname as (typeof paths)[number],
   );

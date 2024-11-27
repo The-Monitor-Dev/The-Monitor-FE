@@ -7,6 +7,8 @@ export interface ReportResponse {
   updatedAt: string;
 }
 interface ReportArticle {
+  reportArticleId: number;
+  keyword: string;
   publishedDate: string;
   headLine: string;
   url: string;

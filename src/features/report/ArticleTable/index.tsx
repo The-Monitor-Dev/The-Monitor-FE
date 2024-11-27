@@ -19,11 +19,13 @@ import { enToKrCategoryMap } from "@constants/category";
 
 interface Row {
   id: number;
-  date: string;
+  publishedDate: string;
   keyword: string;
   headLine: string;
   media: string;
   reporter: string;
+  url: string;
+  summary: string;
 }
 
 interface ArticleTableProps {
@@ -38,19 +40,23 @@ const ArticleTable: React.FC<ArticleTableProps> = ({
   const [rows, setRows] = useState<Row[]>([
     {
       id: 1,
-      date: "2024.11.01",
+      publishedDate: "2024.11.01",
       keyword: "한솥",
       headLine: "한솥도시락 출시",
       media: "데일리단",
       reporter: "임유정",
+      url: "www.naver.com",
+      summary: "",
     },
     {
       id: 2,
-      date: "2024.11.01",
+      publishedDate: "2024.11.01",
       keyword: "한솥",
       headLine: "새로운 메뉴",
       media: "뉴스미디어",
       reporter: "김철수",
+      url: "www.naver.com",
+      summary: "",
     },
   ]);
   function arrayMove<T>(array: T[], fromIndex: number, toIndex: number): T[] {
@@ -125,7 +131,12 @@ const ArticleTable: React.FC<ArticleTableProps> = ({
               </tr>
               {Object.values(categories).map((category) =>
                 category.reportArticlesResponses.map((article, idx) => (
-                  <SortableItem idx={idx} id={idx} row={article} />
+                  <SortableItem
+                    key={article.reportArticleId}
+                    idx={idx}
+                    id={article.reportArticleId}
+                    row={article}
+                  />
                 )),
               )}
               {/* {rows.map((row, idx) => (

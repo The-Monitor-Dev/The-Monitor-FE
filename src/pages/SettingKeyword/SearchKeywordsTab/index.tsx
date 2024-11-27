@@ -1,5 +1,5 @@
+import KeywordList from "@features/setting/KeywordList";
 import { CategoryTypeEn } from "types/category";
-import KeywordList from "../KeywordList";
 
 interface SearchKeywordsTabProps {
   selfKeywords: string[];

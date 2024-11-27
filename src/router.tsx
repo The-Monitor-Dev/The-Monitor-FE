@@ -12,12 +12,17 @@ import ReportNewPage from "@pages/ReportNew";
 import ReportEditPage from "@pages/ReportEdit";
 import SettingKeywordPage from "@pages/SettingKeyword";
 import SettingEmailPage from "@pages/SettingEmail";
+import LandingPage from "@pages/Landing";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        index: true,
+        element: <LandingPage />,
+      },
       {
         path: routes.signIn,
         element: <SignInPage />,

@@ -1,25 +1,19 @@
-import { useState } from "react";
 import { DefaultImage } from "@assets/images";
 import { AnalyzeIcon, HamburgerIcon, NewsIcon } from "@assets/svgs";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import routes from "@constants/routes";
 import useGetClientInfo from "@api/hooks/clients/useGetClientInfo";
 import { clientId } from "@constants/clientId";
 
 const SideMenu: React.FC = () => {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const { data: clientData } = useGetClientInfo(clientId);
 
-  const [selectedMenu, setSelectedMenu] = useState<string>(
-    location.pathname.slice(1),
-  );
-
-  const handleSelectMenu = (menu: string) => {
-    setSelectedMenu(menu);
-    navigate(`/${menu}`);
-  };
+  const isActive = (paths: string[]) =>
+    paths.some((path) => location.pathname.startsWith(`/${path}`))
+      ? "bg-surface-primary text-neutral-700"
+      : "text-body3";
 
   return (
     <div className="h-full">
@@ -30,6 +24,7 @@ const SideMenu: React.FC = () => {
               <img
                 src={clientData?.logoUrl || DefaultImage}
                 className="h-6 w-6 object-contain"
+                alt="Client Logo"
               />
               <span className="text-xl font-semibold text-title">
                 {clientData?.name}
@@ -42,51 +37,38 @@ const SideMenu: React.FC = () => {
               </span>
             </div>
             <div className="mt-2 flex flex-col gap-1 text-sm font-semibold">
-              <button
-                className={`px-6 py-2 text-left ${
-                  selectedMenu === "monitoring"
-                    ? "bg-surface-primary text-neutral-700"
-                    : "text-body3"
-                } hover:bg-surface-primary`}
-                onClick={() => handleSelectMenu("monitoring")}
+              <Link
+                to={routes.monitoring}
+                className={`px-6 py-2 text-left hover:bg-surface-primary ${isActive(["monitoring"])}`}
               >
                 데일리 모니터링
-              </button>
-              <button
-                className={`px-6 py-2 text-left ${
-                  selectedMenu === "report"
-                    ? "bg-surface-primary text-neutral-700"
-                    : "text-body3"
-                } hover:bg-surface-primary`}
-                onClick={() => handleSelectMenu("report")}
+              </Link>
+              <Link
+                to={routes.report}
+                className={`px-6 py-2 text-left hover:bg-surface-primary ${isActive(["report"])}`}
               >
                 보고서 관리
-              </button>
-              <button
-                className={`px-6 py-2 text-left ${
-                  selectedMenu === "setting"
-                    ? "bg-surface-primary text-neutral-700"
-                    : "text-body3"
-                } hover:bg-surface-primary`}
-                onClick={() => handleSelectMenu("setting")}
+              </Link>
+              <Link
+                to={routes.settingKeyword}
+                className={`px-6 py-2 text-left hover:bg-surface-primary ${isActive(
+                  ["setting/keyword", "setting/email"],
+                )}`}
               >
                 모니터링 설정
-              </button>
+              </Link>
             </div>
             <div className="mt-5 flex items-center gap-1">
               <AnalyzeIcon />
               <span className="text-md font-semibold text-body3">뉴스분석</span>
             </div>
           </div>
-          <button
-            onClick={() => navigate(routes.dashboard)}
-            className="flex items-center gap-1"
-          >
+          <Link to={routes.dashboard} className="flex items-center gap-1">
             <HamburgerIcon />
             <span className="text-md font-medium text-neutral-700">
               고객사 목록으로
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

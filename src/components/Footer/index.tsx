@@ -7,7 +7,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className="flex w-full justify-center bg-neutral-50">
+    <footer className="flex w-full justify-center bg-neutral-50">
       <div className="w-[1280px] pb-16 pl-[107px] pt-[95px]">
         <GrayLogoIcon />
         <div className="mt-5 flex items-center gap-5 py-1">
@@ -62,7 +62,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

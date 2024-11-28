@@ -110,8 +110,6 @@ const MonitoringPage: React.FC = () => {
 
   const articlesToDisplay = selectedCategory ? articles : articlesByKeyword;
 
-  const totalCount = Math.min(articlesToDisplay?.totalCount || 0, 100);
-
   return (
     <div className="flex h-full bg-white">
       <div className="flex h-full w-[232px] flex-col gap-3 border-r border-neutral-200 px-4 py-5">
@@ -140,7 +138,7 @@ const MonitoringPage: React.FC = () => {
             <div className="flex items-center gap-1 border-r-1 border-neutral-200 pr-3 text-sm">
               <div className="font-regular text-body1">검색 결과</div>
               <div className="text-right font-semibold text-primary-800">
-                {totalCount}건
+                {articlesToDisplay?.totalCount}건
               </div>
             </div>
             <DateSelector
@@ -168,7 +166,7 @@ const MonitoringPage: React.FC = () => {
             type="button"
             style="filled"
             onClick={() => navigate(routes.reportNew)}
-            className="flex items-center gap-1 p-2"
+            className="flex items-center gap-1 p-2 pr-3"
           >
             <ReportCheckIcon />
             <span>보고서 편집하기</span>
@@ -188,9 +186,10 @@ const MonitoringPage: React.FC = () => {
           <div className="flex max-h-[calc(100vh-137px)] flex-col overflow-y-auto pb-9">
             <div className="flex flex-col pl-8">
               {articlesToDisplay?.listPageResponse[0].googleArticles.map(
-                (article, idx) => (
+                (article) => (
                   <ArticleBox
-                    key={idx}
+                    key={article.articleId}
+                    articleId={article.articleId}
                     title={article.title}
                     body={article.body}
                     publisherName={article.publisherName}
@@ -198,12 +197,15 @@ const MonitoringPage: React.FC = () => {
                     publishDate={article.publishDate}
                     imageUrl={article.imageUrl}
                     url={article.url}
+                    isScrapped={article.scrapped}
+                    isAdded={article.added}
+                    isRead={article.read}
                   />
                 ),
               )}
             </div>
             <Pagination
-              totalCount={totalCount}
+              totalCount={articlesToDisplay?.totalCount || 0}
               currentPage={page}
               onPageChange={handlePageChange}
             />

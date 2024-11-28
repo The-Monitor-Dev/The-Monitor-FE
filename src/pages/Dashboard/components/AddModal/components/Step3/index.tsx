@@ -3,8 +3,8 @@ import { AttentionIcon, LoadingIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import KeywordInput from "@components/KeywordInput";
 import { useFormContext } from "react-hook-form";
-import KeywordLabel from "../../KeywordLabel";
 import useValidateEmail from "@hooks/useValidateEmail";
+import KeywordLabel from "@pages/Dashboard/components/KeywordLabel";
 
 interface Step3Props {
   isPending: boolean;

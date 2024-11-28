@@ -4,8 +4,8 @@ import KeywordInput from "@components/KeywordInput";
 
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import KeywordLabel from "../../KeywordLabel";
 import { enToKrCategoryMap } from "@constants/category";
+import KeywordLabel from "@pages/Dashboard/components/KeywordLabel";
 
 interface Step2Props {
   handleNext: () => void;

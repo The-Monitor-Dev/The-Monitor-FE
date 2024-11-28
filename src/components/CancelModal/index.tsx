@@ -18,7 +18,7 @@ const CancelModal: React.FC<CancelModalProps> = ({
   cancelButtonText,
 }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-65">
+    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-65">
       <div className="relative flex w-[460px] flex-col items-center rounded bg-white pb-[42px] pt-10">
         <CloseIcon
           type="button"

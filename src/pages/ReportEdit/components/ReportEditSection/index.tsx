@@ -1,21 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DonerIcon } from "@assets/svgs";
 import { useOutsideClick } from "@chakra-ui/react";
-import DonerMenu from "@features/report/DonerMenu";
 import { clientId } from "@constants/clientId";
 import useGetReportDetails from "@api/hooks/reports/useGetReportDetails";
-import LogoUploader from "./LogoUploader";
-import TitleEditor from "./TitleEditor";
-import ColorPicker from "./ColorPicker";
-import ArticleTable from "@features/report/ArticleTable";
+import LogoUploader from "./components/LogoUploader";
+import TitleEditor from "./components/TitleEditor";
+import ColorPicker from "./components/ColorPicker";
 import { CategoryTypeEn } from "types/category";
 import { ReportCategory } from "@api/types/reports";
+import DonerMenu from "./components/DonerMenu";
+import ArticleTable from "./components/ArticleTable";
 
 interface ReportEditSectionProps {
   reportId: number;
+  isMedia: boolean | undefined;
+  isReporter: boolean | undefined;
 }
 
-const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
+const ReportEditSection: React.FC<ReportEditSectionProps> = ({
+  reportId,
+  isMedia,
+  isReporter,
+}) => {
   const { data: reportDetail } = useGetReportDetails({
     reportId,
   });
@@ -65,6 +71,8 @@ const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
           {isDonerOpen && (
             <DonerMenu
               reportId={reportId}
+              isMedia={isMedia}
+              isReporter={isReporter}
               onClose={() => setIsDonerOpen(false)}
             />
           )}
@@ -83,6 +91,8 @@ const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
               reportId={reportId}
               tableCategory={categoryType}
               categories={categories}
+              isMedia={isMedia}
+              isReporter={isReporter}
             />
           ))}
       </div>

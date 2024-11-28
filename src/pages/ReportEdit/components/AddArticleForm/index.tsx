@@ -1,5 +1,4 @@
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
-import useGetReportArticlesOptions from "@api/hooks/reports/useGetReportArticlesOptions";
 import usePostReportArticle from "@api/hooks/reports/usePostReportArticle";
 import Button from "@components/Button";
 import Dropdown from "@components/Dropdown";
@@ -18,9 +17,15 @@ type AddArticleFromData = {
 
 interface AddArticleFormProps {
   reportId: number;
+  isMedia: boolean | undefined;
+  isReporter: boolean | undefined;
 }
 
-const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
+const AddArticleForm: React.FC<AddArticleFormProps> = ({
+  reportId,
+  isMedia,
+  isReporter,
+}) => {
   const { register, handleSubmit, watch, reset } = useForm<AddArticleFromData>({
     defaultValues: {
       headLine: "제목",
@@ -97,14 +102,12 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
     );
   };
 
-  const { data: options } = useGetReportArticlesOptions({ reportId });
-
   const isButtonDisabled =
     !headLine ||
     !url ||
     !publishedDate ||
-    (options?.media ? !media : false) ||
-    (options?.reporter ? !reporter : false);
+    (isMedia ? !media : false) ||
+    (isReporter ? !reporter : false);
 
   return (
     <form
@@ -161,16 +164,16 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({ reportId }) => {
             <div className="flex flex-col gap-2">
               <label>미디어</label>
               <Input
-                disabled={!options?.media}
-                placeholder={`${!options?.media ? "-" : "예) 가나일보"}`}
+                disabled={!isMedia}
+                placeholder={`${!isMedia ? "-" : "예) 가나일보"}`}
                 {...register("media")}
               />
             </div>
             <div className="flex flex-col gap-2">
               <label>기자</label>
               <Input
-                disabled={!options?.reporter}
-                placeholder={`${!options?.reporter ? "-" : "예) 홍길동"}`}
+                disabled={!isReporter}
+                placeholder={`${!isReporter ? "-" : "예) 홍길동"}`}
                 {...register("reporter")}
               />
             </div>

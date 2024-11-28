@@ -26,7 +26,7 @@ const ClientNotFound: React.FC<ClientNotFoundProps> = ({
           onClick={handleAddModalOpen}
         >
           고객사 추가하기
-          <AddCircleFillIcon className="h-5 w-5 fill-white" />
+          <AddCircleFillIcon className="m-1 h-6 w-6 fill-white" />
         </button>
       </div>
       <img src={DashboardImage} className="h-[441.911px] w-[520px]" />

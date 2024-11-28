@@ -1,4 +1,4 @@
-import { authApiGet } from "./apiUtils";
+import { authApiGet, authApiPatch } from "./apiUtils";
 import {
   GetArticlesByKeywordParams,
   GetArticlesParams,
@@ -25,4 +25,8 @@ export const getArticlesByKeyword = async ({
     categoryType,
     page,
   });
+};
+
+export const patchArticleRead = async (articleId: number) => {
+  return authApiPatch("/articles/read", undefined, { articleId });
 };

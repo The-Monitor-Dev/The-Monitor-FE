@@ -70,7 +70,7 @@ const DashboardPage: React.FC = () => {
               onClick={handleAddModalOpen}
             >
               고객사 추가하기
-              <AddCircleFillIcon className="fill-primary-500" />
+              <AddCircleFillIcon className="h-5 w-5 fill-primary-500" />
             </Button>
           </div>
           <div className="flex max-h-[calc(100vh-217px)] w-full justify-center overflow-y-auto">

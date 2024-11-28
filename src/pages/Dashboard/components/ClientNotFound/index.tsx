@@ -22,11 +22,11 @@ const ClientNotFound: React.FC<ClientNotFoundProps> = ({
         </h2>
         <button
           type="button"
-          className="mt-11 flex h-10 gap-1 rounded border-[0.5px] border-primary-200 bg-primary-500 p-2 pl-3 text-md font-semibold text-white"
+          className="mt-11 flex items-center gap-1 rounded-sm border-[0.5px] border-primary-200 bg-primary-500 py-3 pl-3 pr-2 text-xl font-semibold text-white"
           onClick={handleAddModalOpen}
         >
           고객사 추가하기
-          <AddCircleFillIcon className="fill-white" />
+          <AddCircleFillIcon className="h-5 w-5 fill-white" />
         </button>
       </div>
       <img src={DashboardImage} className="h-[441.911px] w-[520px]" />

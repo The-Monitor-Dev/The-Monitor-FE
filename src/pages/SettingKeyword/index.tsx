@@ -13,7 +13,9 @@ const SettingKeywordPage = () => {
 
   const { data: keywordsData } = useGetKeywords();
 
-  const { mutate: mutateKeywords } = usePutKeywords();
+  const { mutate: mutateKeywords, isPending } = usePutKeywords();
+
+  const toast = useToast();
 
   const toast = useToast();
 
@@ -84,7 +86,7 @@ const SettingKeywordPage = () => {
 
   return (
     <div className="h-full bg-white">
-      <TabNavigation onSave={handleSave} />
+      <TabNavigation onSave={handleSave} isPending={isPending} />
       <div className="ml-8 flex h-[662px]">
         <SearchKeywordsTab
           selfKeywords={selfKeywords}

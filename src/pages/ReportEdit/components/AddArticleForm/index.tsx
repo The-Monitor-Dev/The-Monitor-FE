@@ -26,17 +26,14 @@ const AddArticleForm: React.FC<AddArticleFormProps> = ({
   isMedia,
   isReporter,
 }) => {
-  const { register, handleSubmit, watch, reset } = useForm<AddArticleFromData>({
-    defaultValues: {
-      headLine: "제목",
-      url: "www.naver.com",
-      publishedDate: "2024.11.03",
-    },
-  });
+  const { register, handleSubmit, watch, reset } =
+    useForm<AddArticleFromData>();
   const [headLine, url, publishedDate, media, reporter] = watch([
     "headLine",
     "url",
     "publishedDate",
+    "media",
+    "reporter",
     "media",
     "reporter",
   ]);

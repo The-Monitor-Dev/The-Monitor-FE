@@ -12,6 +12,7 @@ import routes from "@constants/routes";
 import useGetKeywords from "@api/hooks/keywords/useGetKeywords";
 import Category from "./components/Category";
 import useGetArticlesByKeyword from "@api/hooks/articles/useGetArticlesByKeyword";
+import useGetArticlesByKeyword from "@api/hooks/articles/useGetArticlesByKeyword";
 import ArticleBox from "./components/ArticleBox";
 import Pagination from "./components/Pagination";
 import useGetArticles from "@api/hooks/articles/useGetArticles";
@@ -96,6 +97,11 @@ const MonitoringPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const { data: articles } = useGetArticles({
     categoryType: selectedCategory,
+    page,
+  });
+  const { data: articlesByKeyword } = useGetArticlesByKeyword({
+    keywordId: selectedKeyword?.keywordId,
+    categoryType: selectedKeyword?.categoryType,
     page,
   });
   const { data: articlesByKeyword } = useGetArticlesByKeyword({

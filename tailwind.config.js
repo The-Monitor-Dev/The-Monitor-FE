@@ -49,7 +49,7 @@ export default {
       },
       fontSize: {
         headingLarge: ["44px", "140%"],
-        heading1: ["60px", "150%"],
+        heading1: ["52px", "150%"],
         heading3: ["36px", "150%"],
         heading4: ["30px", "150%"],
         "4xl": ["28px", "150%"],

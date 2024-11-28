@@ -6,7 +6,7 @@ import { LoadingIcon } from "@assets/svgs";
 
 interface TabNavigationProps {
   onSave: () => void;
-  isPending: boolean;
+  isPending?: boolean;
 }
 
 const TabNavigation: React.FC<TabNavigationProps> = ({ isPending, onSave }) => {

@@ -51,7 +51,7 @@ const DashboardPage: React.FC = () => {
   const displayClientData = searchQuery ? searchData : clientsData;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex h-full flex-col items-center">
       {clientsData?.length === 0 ? (
         <ClientNotFound handleAddModalOpen={handleAddModalOpen} />
       ) : (

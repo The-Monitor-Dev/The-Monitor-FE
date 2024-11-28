@@ -9,7 +9,7 @@ const ClientNotFound: React.FC<ClientNotFoundProps> = ({
   handleAddModalOpen,
 }) => {
   return (
-    <div className="mt-[142px] flex gap-8">
+    <div className="flex h-full items-center justify-center gap-8">
       <div>
         <h1 className="text-headingLarge font-bold">
           더 스마트하게. <br />더 모니터와 함께.

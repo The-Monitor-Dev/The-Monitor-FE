@@ -1,6 +1,9 @@
 export interface PostSendEmailParams {
-  subject: string;
-  content?: string;
+  reportId: number;
+  data: {
+    subject: string;
+    content?: string;
+  };
 }
 
 export interface PutEmailsParams {

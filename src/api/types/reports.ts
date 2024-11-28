@@ -55,6 +55,9 @@ export interface GetReportArticlesOptionsResponse {
   media: boolean;
   reporter: boolean;
 }
+export interface PostReportResponse {
+  reportId: number;
+}
 
 // Params
 export interface ReportParams {
@@ -83,6 +86,8 @@ export interface PostReportParams {
   data: {
     reportTitle: string;
     color: string;
+    media: boolean;
+    reporter: boolean;
     articles: {
       SELF: PostReportCategory[];
       COMPETITOR: PostReportCategory[];

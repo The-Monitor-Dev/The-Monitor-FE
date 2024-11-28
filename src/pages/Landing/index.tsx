@@ -62,7 +62,7 @@ const LandingPage = () => {
           </p>
           <Button
             onClick={handleClick}
-            className="flex items-center py-4 pl-6 pr-3 text-white"
+            className="flex items-center py-3 pl-6 pr-3 text-white"
             style="filled"
           >
             <p className="text-3xl font-semibold text-white">

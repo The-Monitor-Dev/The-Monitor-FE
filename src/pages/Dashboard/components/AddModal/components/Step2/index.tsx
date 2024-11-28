@@ -24,9 +24,12 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
 
   const [selectedButton, setSelectedButton] =
     useState<keyof typeof keywordsByCategory>("SELF");
+  const [resetInput, setResetInput] = useState(false);
 
   const handleButtonClick = (buttonName: keyof typeof keywordsByCategory) => {
     setSelectedButton(buttonName);
+    setResetInput(true);
+    setTimeout(() => setResetInput(false), 0);
   };
 
   const updateKeywords = (action: "add" | "delete", keyword: string) => {
@@ -91,6 +94,7 @@ const Step2: React.FC<Step2Props> = ({ handleNext }) => {
             onAddKeyword={(keyword) => updateKeywords("add", keyword)}
             onDeleteKeyword={(keyword) => updateKeywords("delete", keyword)}
             duplicateErrorMessage="*이미 추가된 키워드입니다."
+            resetInput={resetInput}
           />
         </div>
       </div>

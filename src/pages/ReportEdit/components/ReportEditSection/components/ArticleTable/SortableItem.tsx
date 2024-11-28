@@ -7,11 +7,11 @@ import {
   DashboardIcon,
 } from "@assets/svgs";
 import { useState } from "react";
-import SummarizeModal from "../SummarizeModal";
 import { ReportArticle } from "@api/types/reports";
 import useDeleteReportArticle from "@api/hooks/reports/useDeleteReportArticle";
 import CategorySelectModal from "./CategorySelectModal";
 import { CategoryTypeEn } from "types/category";
+import SummarizeModal from "@features/report/SummarizeModal";
 
 interface SortableItemProps {
   reportId: number;
@@ -72,9 +72,11 @@ const SortableItem: React.FC<SortableItemProps> = ({
           {idx + 1}
         </td>
         <td className="border-r border-neutral-200 p-3">
-          {article.publishedDate}
+          {article.publishedDate.slice(0, 10)}
         </td>
-        <td className="border-r border-neutral-200 p-3">{article.keyword}</td>
+        <td className="max-w-[100px] border-r border-neutral-200 p-3">
+          {article.keyword}
+        </td>
         <td className="border-r border-neutral-200 p-3 text-left">
           <div className="flex flex-col">
             <a

@@ -1,21 +1,15 @@
 import { CloseIcon, ErrorIcon } from "@assets/svgs";
 
-interface CancelModalProps {
+interface ExitModalProps {
   onClose: () => void;
-  handleCancel: () => void;
-  headingText?: string;
-  bodyText?: React.ReactNode;
-  closeButtonText?: string;
-  cancelButtonText?: string;
+  handleSaveExit: () => void;
+  handleDeleteExit: () => void;
 }
 
-const CancelModal: React.FC<CancelModalProps> = ({
+const ExitModal: React.FC<ExitModalProps> = ({
   onClose,
-  handleCancel,
-  headingText,
-  bodyText,
-  closeButtonText,
-  cancelButtonText,
+  handleSaveExit,
+  handleDeleteExit,
 }) => {
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-65">
@@ -27,25 +21,29 @@ const CancelModal: React.FC<CancelModalProps> = ({
         />
         <ErrorIcon className="h-[53px] w-[53px]" />
         <h2 className="mt-5 text-2xl font-semibold text-title">
-          {headingText}
+          임시저장 하시겠어요?
         </h2>
         <p className="mt-2 whitespace-pre-line text-center text-md font-regular text-body3">
-          {bodyText}
+          저장을 하지 않으실 경우
+          <br />
+          작성 중이던 모든 기록은 지워지며
+          <br />
+          이후 복구가 불가능해요.
         </p>
         <div className="mt-[29px] flex justify-center gap-3">
           <button
             type="button"
             className="w-[111px] rounded bg-error-500 py-2 text-lg font-semibold text-white"
-            onClick={onClose}
+            onClick={handleSaveExit}
           >
-            {closeButtonText}
+            임시저장
           </button>
           <button
             type="button"
             className="w-[111px] rounded border border-error-500 py-2 text-lg font-semibold text-error-500"
-            onClick={handleCancel}
+            onClick={handleDeleteExit}
           >
-            {cancelButtonText}
+            삭제하기
           </button>
         </div>
       </div>
@@ -53,4 +51,4 @@ const CancelModal: React.FC<CancelModalProps> = ({
   );
 };
 
-export default CancelModal;
+export default ExitModal;

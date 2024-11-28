@@ -55,6 +55,9 @@ export interface GetReportArticlesOptionsResponse {
   media: boolean;
   reporter: boolean;
 }
+export interface PostReportResponse {
+  reportId: number;
+}
 
 // Params
 export interface ReportParams {

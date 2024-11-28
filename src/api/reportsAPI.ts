@@ -19,6 +19,7 @@ import {
   PostReportArticleCategoryParams,
   PostReportArticleParams,
   PostReportParams,
+  PostReportResponse,
   ReportParams,
   ReportResponse,
 } from "./types/reports";
@@ -63,7 +64,7 @@ export const postReport = ({ data, logo }: PostReportParams) => {
     formData.append("logo", logo);
   }
 
-  return authApiPost("/reports", formData);
+  return authApiPost<PostReportResponse>("/reports", formData);
 };
 
 export const postReportArticle = ({

@@ -1,13 +1,17 @@
+import { usePatchReportRead } from "@api/hooks/articles/usePatchArticleRead";
+import usePostScrap from "@api/hooks/scrap/usePostScrap";
 import { DefaultImage } from "@assets/images";
 import {
+  AddedIcon,
   BookmarkBlankIcon,
   BookmarkFillIcon,
   ClockIcon,
+  PersonCheckIcon,
   PersonIcon,
 } from "@assets/svgs";
-import { useState } from "react";
 
 interface ArticleBoxProps {
+  articleId: number;
   title: string;
   body: string;
   publisherName: string;
@@ -15,9 +19,13 @@ interface ArticleBoxProps {
   publishDate: string;
   imageUrl: string;
   url: string;
+  isScrapped: boolean;
+  isAdded: boolean;
+  isRead: boolean;
 }
 
 const ArticleBox: React.FC<ArticleBoxProps> = ({
+  articleId,
   title,
   body,
   publisherName,
@@ -25,8 +33,16 @@ const ArticleBox: React.FC<ArticleBoxProps> = ({
   publishDate,
   imageUrl,
   url,
+  isScrapped,
+  isAdded,
+  isRead,
 }) => {
-  const [isBookmarkChecked, setIsBookmarkChecked] = useState(false);
+  const { mutate } = usePostScrap();
+  const { mutate: patchReportRead } = usePatchReportRead();
+
+  const handleArticleClick = () => {
+    patchReportRead(articleId);
+  };
 
   return (
     <div className="flex min-h-[132px] w-[658px] gap-4 border-b-1 border-b-neutral-200">
@@ -39,6 +55,7 @@ const ArticleBox: React.FC<ArticleBoxProps> = ({
         href={url}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleArticleClick}
         className="flex w-[466px] flex-col gap-[6px] py-4"
       >
         <div className="flex items-center gap-[6px] text-xs font-regular text-body3">
@@ -54,14 +71,30 @@ const ArticleBox: React.FC<ArticleBoxProps> = ({
         </div>
         <div className="text-md font-semibold text-neutral-700">{title}</div>
         <p className="line-clamp-2 text-sm font-normal text-body3">{body}</p>
+        <div className="flex items-center gap-[10px]">
+          {isAdded && (
+            <div className="flex items-center gap-1 rounded-xl bg-attention-50 px-2 py-[2px]">
+              <AddedIcon />
+              <span className="text-xs font-medium text-neutral-500">
+                이전에 추가됨
+              </span>
+            </div>
+          )}
+          {isRead && (
+            <div className="flex items-center gap-1 rounded-xl bg-success-50 px-2 py-[2px]">
+              <PersonCheckIcon />
+              <span className="text-xs font-medium text-neutral-500">읽음</span>
+            </div>
+          )}
+        </div>
       </a>
       <div className="px-4 pt-[18px]">
         <button
           type="button"
-          onClick={() => setIsBookmarkChecked((prev) => !prev)}
+          onClick={() => mutate({ articleId })}
           className="flex h-8 w-8 items-center justify-center hover:bg-neutral-100"
         >
-          {isBookmarkChecked ? <BookmarkFillIcon /> : <BookmarkBlankIcon />}
+          {isScrapped ? <BookmarkFillIcon /> : <BookmarkBlankIcon />}
         </button>
       </div>
     </div>

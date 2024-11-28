@@ -1,15 +1,22 @@
 import React, { useRef, useState } from "react";
 import { Checkbox, useOutsideClick } from "@chakra-ui/react";
 import Button from "@components/Button";
-import useGetReportArticlesOptions from "@api/hooks/reports/useGetReportArticlesOptions";
+
 import usePatchReportArticlesOptions from "@api/hooks/reports/usePatchReportArticlesOptions";
 
 interface DonerMenuProps {
   reportId: number;
+  isMedia: boolean | undefined;
+  isReporter: boolean | undefined;
   onClose: () => void;
 }
 
-const DonerMenu: React.FC<DonerMenuProps> = ({ reportId, onClose }) => {
+const DonerMenu: React.FC<DonerMenuProps> = ({
+  reportId,
+  isMedia,
+  isReporter,
+  onClose,
+}) => {
   const donerRef = useRef<HTMLDivElement | null>(null);
 
   useOutsideClick({
@@ -17,12 +24,11 @@ const DonerMenu: React.FC<DonerMenuProps> = ({ reportId, onClose }) => {
     handler: onClose,
   });
 
-  const { data } = useGetReportArticlesOptions({ reportId });
   const { mutate: patchOptions } = usePatchReportArticlesOptions();
 
   const [options, setOptions] = useState({
-    media: data?.media || false,
-    reporter: data?.reporter || false,
+    media: isMedia || false,
+    reporter: isReporter || false,
   });
 
   const handleCheckboxChange = (field: keyof typeof options) => {

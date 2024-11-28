@@ -52,3 +52,5 @@ export { default as GrayLogoIcon } from "./grayLogo.svg?react";
 export { default as InstagramIcon } from "./instagram.svg?react";
 export { default as BlogIcon } from "./blog.svg?react";
 export { default as YoutubeIcon } from "./youtube.svg?react";
+export { default as AddedIcon } from "./added.svg?react";
+export { default as PersonCheckIcon } from "./personCheck.svg?react";

@@ -6,16 +6,22 @@ import useGetReportDetails from "@api/hooks/reports/useGetReportDetails";
 import LogoUploader from "./components/LogoUploader";
 import TitleEditor from "./components/TitleEditor";
 import ColorPicker from "./components/ColorPicker";
-import ArticleTable from "@features/report/ArticleTable";
 import { CategoryTypeEn } from "types/category";
 import { ReportCategory } from "@api/types/reports";
 import DonerMenu from "./components/DonerMenu";
+import ArticleTable from "./components/ArticleTable";
 
 interface ReportEditSectionProps {
   reportId: number;
+  isMedia: boolean | undefined;
+  isReporter: boolean | undefined;
 }
 
-const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
+const ReportEditSection: React.FC<ReportEditSectionProps> = ({
+  reportId,
+  isMedia,
+  isReporter,
+}) => {
   const { data: reportDetail } = useGetReportDetails({
     reportId,
   });
@@ -65,6 +71,8 @@ const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
           {isDonerOpen && (
             <DonerMenu
               reportId={reportId}
+              isMedia={isMedia}
+              isReporter={isReporter}
               onClose={() => setIsDonerOpen(false)}
             />
           )}
@@ -83,6 +91,8 @@ const ReportEditSection: React.FC<ReportEditSectionProps> = ({ reportId }) => {
               reportId={reportId}
               tableCategory={categoryType}
               categories={categories}
+              isMedia={isMedia}
+              isReporter={isReporter}
             />
           ))}
       </div>

@@ -1,6 +1,7 @@
 import { CategoryTypeEn } from "types/category";
 
 export interface Article {
+  articleId: number;
   title: string;
   body: string;
   url: string;
@@ -8,6 +9,9 @@ export interface Article {
   publisherName: string;
   publishDate: string;
   reporterName: string;
+  scrapped: boolean;
+  added: boolean;
+  read: boolean;
 }
 
 export interface ListPageResponse {

@@ -20,25 +20,26 @@ import usePostReportArticleCategory from "@api/hooks/reports/usePostReportArticl
 import useDeleteReportArticleCategory from "@api/hooks/reports/useDeleteReportArticleCategory";
 import CategoryAddModal from "./CategoryAddModal";
 import { CategoryTypeEn } from "types/category";
-import useGetReportArticlesOptions from "@api/hooks/reports/useGetReportArticlesOptions";
 
 interface ArticleTableProps {
   reportId: number;
   tableCategory: CategoryTypeEn;
   categories: ReportCategory[];
+  isMedia: boolean | undefined;
+  isReporter: boolean | undefined;
 }
 
 const ArticleTable: React.FC<ArticleTableProps> = ({
   reportId,
   tableCategory,
   categories,
+  isMedia,
+  isReporter,
 }) => {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor),
   );
-
-  const { data: options } = useGetReportArticlesOptions({ reportId });
 
   const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState<string | null>(null);
@@ -114,10 +115,10 @@ const ArticleTable: React.FC<ArticleTableProps> = ({
                 헤드라인
               </th>
               <th className="w-20 border-r border-neutral-200 py-[5px] font-medium">
-                {options?.media && "미디어"}
+                {isMedia && "미디어"}
               </th>
               <th className="w-20 border-r border-neutral-200 py-[5px] font-medium">
-                {options?.reporter && "기자"}
+                {isReporter && "기자"}
               </th>
               <th className="w-[92px] py-[5px]" />
             </tr>
@@ -229,8 +230,8 @@ const ArticleTable: React.FC<ArticleTableProps> = ({
                       categoryType={tableCategory}
                       articleCategoryId={category.reportCategoryId}
                       reportId={reportId}
-                      media={options?.media}
-                      reporter={options?.reporter}
+                      media={isMedia}
+                      reporter={isReporter}
                     />
                   ))}
                 </SortableContext>

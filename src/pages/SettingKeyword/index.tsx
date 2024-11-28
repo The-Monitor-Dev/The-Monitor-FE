@@ -17,6 +17,8 @@ const SettingKeywordPage = () => {
 
   const toast = useToast();
 
+  const toast = useToast();
+
   const updateFunctions = useMemo(
     () => ({
       SELF: setSelfKeywords,

@@ -5,10 +5,9 @@ import {
   PutEmailsParams,
 } from "./types/emails";
 
-export const postSendEmail = ({ subject, content }: PostSendEmailParams) => {
-  return authApiPost("/emails/send", {
-    subject,
-    content,
+export const postSendEmail = ({ reportId, data }: PostSendEmailParams) => {
+  return authApiPost("/emails/send", data, {
+    reportId,
   });
 };
 

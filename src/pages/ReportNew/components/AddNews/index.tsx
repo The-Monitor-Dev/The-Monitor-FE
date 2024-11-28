@@ -34,7 +34,7 @@ const AddNews: React.FC<AddNewsProps> = ({
           기사 추가하기
         </Button>
       </div>
-      <div className="flex flex-col gap-3 px-7">
+      <div className="flex h-[calc(100vh-240px)] flex-col gap-3 overflow-y-auto px-7 pb-3">
         {scrappedArticles &&
           Object.entries(scrappedArticles).map(([categoryType, articles]) => (
             <ScrappedSection

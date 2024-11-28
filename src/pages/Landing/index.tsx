@@ -50,22 +50,24 @@ const LandingPage = () => {
   return (
     <div className="flex w-full flex-col items-center bg-white">
       <div
-        className="flex h-[600px] w-full justify-center overflow-hidden bg-cover bg-center"
+        className="flex h-[580px] w-full justify-center overflow-hidden bg-cover bg-center"
         style={{ backgroundImage: `url(${TestimonialsImage})` }}
       >
         <div className="mt-[114px] w-[1280px] pl-[120px]">
           <h1 className="mb-[9px] text-heading1 font-bold text-white">
             더 스마트하게. <br /> 더모니터와 함께.
           </h1>
-          <p className="mb-[60px] text-heading4 font-regular text-white">
+          <p className="mb-[52px] text-heading4 font-regular text-white">
             뉴스 모니터링의 모든 것
           </p>
           <Button
             onClick={handleClick}
-            className="flex items-center py-4 pl-8 pr-5 text-white"
+            className="flex items-center py-4 pl-6 pr-3 text-white"
             style="filled"
           >
-            <p className="text-heading4 font-bold">무료로 사용해보기</p>
+            <p className="text-3xl font-semibold text-white">
+              무료로 사용해보기
+            </p>
             <ArrowNextFillIcon className="ml-[10px] h-[40px] w-[40px] fill-white" />
           </Button>
         </div>
@@ -151,7 +153,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div
-          className="flex flex-col items-center justify-center bg-gradient pb-[171px]"
+          className="flex flex-col items-center justify-center bg-gradient pb-[159px]"
           data-aos="fade-up"
         >
           <div className="mb-[74px] flex flex-col items-center">

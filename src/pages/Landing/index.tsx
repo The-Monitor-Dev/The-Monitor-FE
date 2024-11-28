@@ -140,7 +140,7 @@ const LandingPage = () => {
           />
           <div>
             <Badge icon={<LightBulbIcon />} label="인사이트" />
-            <h2 className="mb-4 mt-6 text-title">
+            <h2 className="mb-4 mt-6 text-heading3 font-semibold text-title">
               이슈, 트렌드 분석까지
               <br />한 번에 파악해요
             </h2>

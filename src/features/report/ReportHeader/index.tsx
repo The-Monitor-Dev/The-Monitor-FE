@@ -4,24 +4,54 @@ import { UndoIcon, ReportIcon, MailIcon } from "@assets/svgs";
 import { useLocation, useNavigate } from "react-router-dom";
 import routes from "@constants/routes";
 import SendEmailModal from "../SendEmailModal";
+import useGetExcel from "@api/hooks/excel/useGetExcel";
+import usePatchUnScrap from "@api/hooks/scrap/usePatchUnScrap";
+import ExitModal from "./ExitModal";
 
 interface ReportHeaderProps {
+  reportId?: number;
   onSave?: () => void;
+  hasArticles?: boolean;
 }
 
-const ReportHeader: React.FC<ReportHeaderProps> = ({ onSave }) => {
+const ReportHeader: React.FC<ReportHeaderProps> = ({
+  reportId,
+  onSave,
+  hasArticles,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleExit = () => {
-    if (location.pathname.startsWith(routes.reportEdit)) {
-      navigate(routes.report);
-    } else if (location.pathname === routes.reportNew) {
+  const [isExitModalOpen, setIsExitModalOpen] = useState(false);
+  const [isSendEmailModalOpen, setIsSendEmailModalOpen] = useState(false);
+
+  const { mutate: exportExcel } = useGetExcel();
+  const { mutate: patchUnScrap } = usePatchUnScrap();
+
+  const handleExitModalClose = () => {
+    setIsExitModalOpen(false);
+  };
+
+  const handleDeleteExit = () => {
+    patchUnScrap(undefined, {
+      onSuccess: () => {
+        navigate(routes.monitoring);
+      },
+    });
+  };
+
+  const handleSaveExit = () => {
+    navigate(routes.monitoring);
+  };
+
+  const handleOpenExitModal = () => {
+    if (!reportId && hasArticles) {
+      setIsExitModalOpen(true);
+    } else {
       navigate(routes.monitoring);
     }
   };
 
-  const [isSendEmailModalOpen, setIsSendEmailModalOpen] = useState(false);
   const handleSendEmailModalClose = () => {
     setIsSendEmailModalOpen(false);
   };
@@ -31,32 +61,44 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({ onSave }) => {
       <Button
         type="button"
         style="outline-m"
-        onClick={handleExit}
+        onClick={
+          location.pathname === routes.reportNew
+            ? handleOpenExitModal
+            : () => navigate(routes.report)
+        }
         className="flex items-center gap-1 py-2 pl-2 pr-3"
       >
         <UndoIcon />
         <span>나가기</span>
       </Button>
       <div className="flex items-center gap-3">
-        <Button
-          type="button"
-          style="outline-m"
-          className="flex items-center gap-1 py-2 pl-2 pr-3"
-        >
-          <ReportIcon />
-          <span>액셀 내보내기</span>
-        </Button>
-        <Button
-          type="button"
-          style="outline-m"
-          onClick={() => setIsSendEmailModalOpen(true)}
-          className="flex items-center gap-1 py-2 pl-2 pr-3"
-        >
-          <MailIcon />
-          <span>메일 전송하기</span>
-        </Button>
-        {isSendEmailModalOpen && (
-          <SendEmailModal onClose={handleSendEmailModalClose} />
+        {reportId && (
+          <>
+            <Button
+              type="button"
+              style="outline-m"
+              onClick={() => exportExcel({ reportId })}
+              className="flex items-center gap-1 py-2 pl-2 pr-3"
+            >
+              <ReportIcon />
+              <span>엑셀 내보내기</span>
+            </Button>
+            <Button
+              type="button"
+              style="outline-m"
+              onClick={() => setIsSendEmailModalOpen(true)}
+              className="flex items-center gap-1 py-2 pl-2 pr-3"
+            >
+              <MailIcon />
+              <span>메일 전송하기</span>
+            </Button>
+          </>
+        )}
+        {isSendEmailModalOpen && reportId && (
+          <SendEmailModal
+            reportId={reportId}
+            onClose={handleSendEmailModalClose}
+          />
         )}
         {location.pathname === routes.reportNew && (
           <Button
@@ -69,6 +111,13 @@ const ReportHeader: React.FC<ReportHeaderProps> = ({ onSave }) => {
           </Button>
         )}
       </div>
+      {isExitModalOpen && (
+        <ExitModal
+          onClose={handleExitModalClose}
+          handleSaveExit={handleSaveExit}
+          handleDeleteExit={handleDeleteExit}
+        />
+      )}
     </div>
   );
 };

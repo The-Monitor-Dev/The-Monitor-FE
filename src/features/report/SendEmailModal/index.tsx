@@ -1,10 +1,11 @@
 import usePostSendEmail from "@api/hooks/emails/usePostSendEmail";
-import { CloseIcon } from "@assets/svgs";
+import { CloseIcon, LoadingIcon } from "@assets/svgs";
 import Button from "@components/Button";
 import Input from "@components/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface SendEmailModalProps {
+  reportId: number;
   onClose: () => void;
 }
 
@@ -13,14 +14,21 @@ type SendEmailFormData = {
   content: string;
 };
 
-const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
+const SendEmailModal: React.FC<SendEmailModalProps> = ({
+  reportId,
+  onClose,
+}) => {
   const { register, handleSubmit, watch } = useForm<SendEmailFormData>();
   const [subject, content] = watch(["subject", "content"]);
-  const { mutate } = usePostSendEmail();
+  const { mutate, isPending } = usePostSendEmail();
   const onSubmit: SubmitHandler<SendEmailFormData> = ({ subject, content }) => {
     mutate({
-      subject,
-      content,
+      reportId,
+      data: {
+        subject,
+
+        content,
+      },
     });
   };
 
@@ -90,10 +98,14 @@ const SendEmailModal: React.FC<SendEmailModalProps> = ({ onClose }) => {
           <Button
             type="submit"
             style="filled"
-            disabled={!subject}
-            className="w-[360px] py-3 text-md font-semibold"
+            disabled={!subject || isPending}
+            className="flex w-[360px] justify-center py-3 text-md font-semibold"
           >
-            전송하기
+            {isPending ? (
+              <LoadingIcon className="h-6 w-6 animate-spin" />
+            ) : (
+              "전송하기"
+            )}
           </Button>
         </div>
       </form>

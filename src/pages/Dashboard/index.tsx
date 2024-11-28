@@ -66,11 +66,11 @@ const DashboardPage: React.FC = () => {
             />
             <Button
               style="tonal"
-              className="flex h-10 items-center gap-1 p-2 pl-3"
+              className="flex items-center gap-1 py-2 pl-3 pr-2 text-md font-semibold"
               onClick={handleAddModalOpen}
             >
               고객사 추가하기
-              <AddCircleFillIcon className="h-5 w-5 fill-primary-500" />
+              <AddCircleFillIcon className="m-[2px] h-5 w-5 fill-primary-500" />
             </Button>
           </div>
           <div className="flex max-h-[calc(100vh-217px)] w-full justify-center overflow-y-auto">

@@ -2,12 +2,14 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Button from "@components/Button";
 import routes from "@constants/routes";
+import { LoadingIcon } from "@assets/svgs";
 
 interface TabNavigationProps {
   onSave: () => void;
+  isPending: boolean;
 }
 
-const TabNavigation: React.FC<TabNavigationProps> = ({ onSave }) => {
+const TabNavigation: React.FC<TabNavigationProps> = ({ isPending, onSave }) => {
   const location = useLocation();
 
   const isActive = (path: string) =>
@@ -31,8 +33,13 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ onSave }) => {
           메일
         </Link>
       </div>
-      <Button style="filled" className="w-[74px] py-2" onClick={onSave}>
-        저장
+      <Button
+        disabled={isPending}
+        style="filled"
+        className="flex w-[74px] justify-center py-2"
+        onClick={onSave}
+      >
+        {isPending ? <LoadingIcon className="h-6 w-6 animate-spin" /> : "저장"}
       </Button>
     </div>
   );

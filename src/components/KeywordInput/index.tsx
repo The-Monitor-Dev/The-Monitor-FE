@@ -10,6 +10,7 @@ interface KeywordInputProps {
   errorMessage?: string;
   duplicateErrorMessage?: string;
   type?: "default" | "modal";
+  resetInput?: boolean;
 }
 
 const KeywordInput: React.FC<KeywordInputProps> = ({
@@ -21,11 +22,18 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
   errorMessage,
   duplicateErrorMessage,
   type = "default",
+  resetInput = false,
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [errorType, setErrorType] = useState<"invalid" | "duplicate" | null>(
     null,
   );
+
+  React.useEffect(() => {
+    if (resetInput) {
+      setInputValue("");
+    }
+  }, [resetInput]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value.trim());

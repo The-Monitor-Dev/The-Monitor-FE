@@ -3,6 +3,7 @@ import MailTab from "./MailTab";
 import useGetEmails from "@api/hooks/emails/useGetEmails";
 import usePutEmails from "@api/hooks/emails/usePutEmails";
 import TabNavigation from "@features/setting/TabNavigation";
+import { useToast } from "@chakra-ui/react";
 
 const SettingEmailPage = () => {
   const [recipientEmails, setRecipientEmails] = useState<string[]>([]);
@@ -10,6 +11,7 @@ const SettingEmailPage = () => {
   const [signatureImageUrl, setSignatureImageUrl] = useState<string | null>(
     null,
   );
+  const toast = useToast();
 
   const { data: emailsData } = useGetEmails();
 
@@ -51,6 +53,14 @@ const SettingEmailPage = () => {
   };
 
   const handleSave = () => {
+    if (recipientEmails.length === 0) {
+      toast({
+        title: "한 명 이상 받는 사람을 적어주세요.",
+        status: "error",
+        isClosable: false,
+      });
+      return;
+    }
     const emailUpdate = {
       recipients: recipientEmails,
       ccs: ccEmails,

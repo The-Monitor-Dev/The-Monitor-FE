@@ -12,7 +12,7 @@ const usePutEmails = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["emails"] });
       toast({
-        title: "메일이 저장되었습니다.",
+        title: "메일 설정이 저장되었습니다.",
         status: "success",
       });
     },

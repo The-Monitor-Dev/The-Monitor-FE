@@ -43,13 +43,25 @@ const EditModal: React.FC<EditModalProps> = ({
     document.getElementById("fileInput")?.click();
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    let fileToUpload = selectedFile;
+
+    if (uploadingImg && !selectedFile) {
+      try {
+        const response = await fetch(uploadingImg);
+        const blob = await response.blob();
+        fileToUpload = new File([blob], "logo.png", { type: blob.type });
+      } catch (error) {
+        console.error("이미지 변환 실패:", error);
+      }
+    }
+
     const clientData = {
       name: clientName,
       managerName: clientManager,
     };
 
-    mutate({ clientId: clientId, data: clientData, logo: selectedFile });
+    mutate({ clientId, data: clientData, logo: fileToUpload });
 
     onClose();
   };

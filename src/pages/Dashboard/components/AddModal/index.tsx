@@ -3,6 +3,7 @@ import { useState } from "react";
 import Step1 from "./components/Step1";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import usePostClient from "@api/hooks/clients/usePostClient";
+import CancelModal from "@components/CancelModal";
 import Step2 from "./components/Step2";
 import Step3 from "./components/Step3";
 
@@ -26,6 +27,7 @@ interface AddModalProps {
 
 const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
   const [step, setStep] = useState(1);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const methods = useForm<AddModalFormData>({ mode: "onChange" });
   const { mutate, isPending } = usePostClient();
 
@@ -39,6 +41,19 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
     if (step > 1) {
       setStep(step - 1);
     }
+  };
+
+  const handleClose = () => {
+    setIsCancelModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsCancelModalOpen(false);
+    onClose();
+  };
+
+  const handleCancel = () => {
+    setIsCancelModalOpen(false);
   };
 
   const handleSubmit: SubmitHandler<AddModalFormData> = (data) => {
@@ -78,7 +93,7 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
             <CloseIcon
               type="button"
               className="absolute right-[22px] top-[22px] cursor-pointer fill-neutral-700"
-              onClick={onClose}
+              onClick={handleClose}
             />
 
             <div className="relative h-[627px] w-full overflow-hidden">
@@ -114,6 +129,17 @@ const AddModal: React.FC<AddModalProps> = ({ onClose, onSubmit }) => {
             </div>
           </form>
         </FormProvider>
+        {isCancelModalOpen && (
+          <CancelModal
+            onClose={handleModalClose}
+            handleCancel={handleCancel}
+            headingText="정말 중단하시겠어요?"
+            bodyText={`작성하던 모든 기록은 지워지며 이후 복구가 불가능해요. 
+              창을 정말 닫으시겠어요?`}
+            closeButtonText="창 닫기"
+            cancelButtonText="취소"
+          />
+        )}
       </div>
     </div>
   );

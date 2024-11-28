@@ -4,6 +4,7 @@ import usePutKeywords from "@api/hooks/keywords/usePutKeyword";
 import SearchKeywordsTab from "./SearchKeywordsTab";
 
 import TabNavigation from "@features/setting/TabNavigation";
+import { useToast } from "@chakra-ui/react";
 
 const SettingKeywordPage = () => {
   const [selfKeywords, setSelfKeywords] = useState<string[]>([]);
@@ -13,6 +14,8 @@ const SettingKeywordPage = () => {
   const { data: keywordsData } = useGetKeywords();
 
   const { mutate: mutateKeywords } = usePutKeywords();
+
+  const toast = useToast();
 
   const updateFunctions = useMemo(
     () => ({
@@ -57,6 +60,18 @@ const SettingKeywordPage = () => {
   };
 
   const handleSave = () => {
+    if (
+      selfKeywords.length === 0 ||
+      competitorKeywords.length === 0 ||
+      industryKeywords.length === 0
+    ) {
+      toast({
+        title: "자사, 경쟁사, 업계 키워드를 각각 하나씩 입력해주세요.",
+        status: "error",
+        isClosable: false,
+      });
+      return;
+    }
     const data = {
       keywordsByCategory: {
         SELF: selfKeywords,

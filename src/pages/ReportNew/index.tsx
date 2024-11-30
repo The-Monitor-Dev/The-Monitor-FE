@@ -112,7 +112,7 @@ const ReportNewPage: React.FC = () => {
   }, [scrappedArticles]);
 
   return (
-    <div className="flex h-full justify-center">
+    <div className="flex min-h-full justify-center bg-base-bg p-10">
       <div className="flex w-[1280px] flex-col">
         <ReportHeader
           reportId={reportId}

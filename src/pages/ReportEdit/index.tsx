@@ -13,9 +13,9 @@ const ReportEditPage = () => {
   });
 
   return (
-    <div className="flex h-full justify-center">
+    <div className="flex min-h-full justify-center bg-base-bg p-10">
       <div className="flex w-[1280px] flex-col">
-        <ReportHeader />
+        <ReportHeader reportId={numericReportId} />
         <div className="mt-4 flex flex-grow gap-7">
           <ReportEditSection
             reportId={numericReportId}

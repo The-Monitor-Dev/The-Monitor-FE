@@ -58,7 +58,7 @@ const ReportSection: React.FC<ReportSectionProps> = ({
   );
 
   return (
-    <div className="flex w-[852px] flex-col bg-white px-8 pt-5">
+    <div className="flex w-[852px] flex-col bg-white px-8 pb-10 pt-5">
       <div
         className="flex items-center justify-between border-b-1 border-neutral-200 px-4 py-3"
         style={{ backgroundColor: color }}

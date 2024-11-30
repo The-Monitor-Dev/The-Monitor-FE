@@ -11,7 +11,7 @@ const useGetExcel = () => {
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "견적리스트.xlsx");
+      link.setAttribute("download", "11.30 무신사 데일리 모니터링.xlsx");
       document.body.appendChild(link);
       link.click();
       link.remove();
